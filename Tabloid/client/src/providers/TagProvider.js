@@ -54,8 +54,8 @@ export function TagProvider(props) {
     );
 
   return (
-    <QuoteContext.Provider value={{ tags, getTags, addTag, updateTag }}>
+    <TagContext.Provider value={{ tags, getTags, addTag, updateTag }}>
       {props.children}
-    </QuoteContext.Provider>
+    </TagContext.Provider>
   );
 }
