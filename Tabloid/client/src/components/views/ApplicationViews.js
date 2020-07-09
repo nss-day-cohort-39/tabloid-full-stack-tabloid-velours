@@ -1,5 +1,9 @@
 import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { UserProfileContext } from "../providers/UserProfileProvider";
+import LoginRegister from "./LoginRegister";
+import PostList from "./posts/PostList";
+import MyPostList from "./myPosts/MyPostsList";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
@@ -13,21 +17,34 @@ export default function ApplicationViews() {
     <main>
       <Switch>
         <Route path="/" exact>
-          {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
+          {isLoggedIn ? <Hello /> : <Redirect to="/welcome" />}
         </Route>
 
-        <Route path="/login">
-          <Login />
+        <Route path="/posts" exact>
+          {isLoggedIn ? <PostList /> : <Redirect to="/welcome" />}
         </Route>
 
-        <Route path="/register">
-          <Register />
+        <Route path="/myposts" exact>
+          {isLoggedIn ? <MyPostList /> : <Redirect to="/welcome" />}
+        </Route>
+
+        <Route path="/welcome">
+          <LoginRegister/>
+        </Route>
+
+        <Route path="/Login">
+          <Login/>
+        </Route>
+
+        <Route path="/Register">
+          <Register/>
         </Route>
 
         <Route path="/categories">
           <CategoryList />
         </Route>
       </Switch>
+      
     </main>
   );
 };
