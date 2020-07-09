@@ -4,7 +4,6 @@ import { UserProfileProvider } from "./providers/UserProfileProvider";
 import Header from "./components/views/Header";
 import ApplicationViews from "./components/views/ApplicationViews";
 import { CategoryProvider } from './providers/CategoryProvider';
-import Header from "./components/Header";
 import { PostProvider } from './providers/PostProvider';
 
 function App() {

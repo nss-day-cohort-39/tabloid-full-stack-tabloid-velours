@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { UserProfileContext } from "../providers/UserProfileProvider";
-import LoginRegister from "./LoginRegister";
-import PostList from "./posts/PostList";
-import MyPostList from "./myPosts/MyPostsList";
+import LoginRegister from "../auth/LoginRegister";
+import PostList from "../posts/PostList";
+import MyPostList from "../myPosts/MyPostsList";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import Login from "../auth/Login";
 import Register from "../auth/Register";

@@ -1,5 +1,5 @@
 import React from "react";
-import TabloidHomeLogo from "../images/TabloidHomeLogo.png"
+import TabloidHomeLogo from "../../images/TabloidHomeLogo.png";
 
 export default function Hello() {
   return (
