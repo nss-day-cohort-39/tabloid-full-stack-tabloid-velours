@@ -20,16 +20,17 @@ namespace Tabloid.Repositories
         public List<Comment> GetCommentByPostId(int postId)
         {
             return _context.Comment
-                       .Include(c => c.Post)
+                       .Include(c=>c.Post)
+                       .ThenInclude(c=>c.UserProfile)
                        .Where(p => p.Id == postId)
+                       .OrderByDescending(c=> c.CreateDateTime)
                        .ToList();
-
 
         }
 
-        public void Add(UserProfile userProfile)
+        public void Add(Comment comment)
         {
-            _context.Add(userProfile);
+            _context.Add(comment);
             _context.SaveChanges();
         }
     

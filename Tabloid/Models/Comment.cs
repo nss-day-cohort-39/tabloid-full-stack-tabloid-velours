@@ -12,13 +12,17 @@ namespace Tabloid.Models
 
         public int PostId { get; set; }
 
+        public Post Post { get; set; }
 
         public int UserProfileId { get; set; }
 
-        [Required]
+        public  UserProfile UserProfile{ get; set; }
+
+
+        [Required(ErrorMessage = "Enter a Subject")]
         public string Subject { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Enter a comment")]
         public string Content { get; set; }
 
         [Required]
