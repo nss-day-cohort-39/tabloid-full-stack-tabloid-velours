@@ -9,7 +9,7 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
-import { UserProfileContext } from "../../providers/UserProfileProvider";
+import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function Header() {
   const { isLoggedIn, logout } = useContext(UserProfileContext);
@@ -52,22 +52,28 @@ export default function Header() {
             {isLoggedIn &&
               <>
                 <NavItem>
-                  <a aria-current="page" className="nav-link"
-                    style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
+                  <NavLink tag={RRNavLink} to="/welcome">
+                    <a 
+                      aria-current="page" 
+                      className="nav-link"
+                      style={{ cursor: "pointer" }} 
+                      onClick={logout}>Logout
+                    </a>
+                  </NavLink>
                 </NavItem>
               </>
             }
             {!isLoggedIn &&
               <>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/Register">REGISTER</NavLink>
+                  <NavLink tag={RRNavLink} to="/register">Register</NavLink>
                 </NavItem>
               </>
             }
               {!isLoggedIn &&
               <>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/Login">LOGIN</NavLink>
+                  <NavLink tag={RRNavLink} to="/login">Login</NavLink>
                 </NavItem>
               </>
             }

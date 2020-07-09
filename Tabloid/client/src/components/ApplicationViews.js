@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import LoginRegister from "../auth/LoginRegister";
-import PostList from "../posts/PostList";
-import MyPostList from "../myPosts/MyPostsList";
-import { UserProfileContext } from "../../providers/UserProfileProvider";
-import Login from "../auth/Login";
-import Register from "../auth/Register";
-import Hello from "../auth/Hello";
-import CategoryList from "../categories/CategoryList";
+import LoginRegister from "./LoginRegister";
+import PostList from "./posts/PostList";
+import MyPostList from "./myPosts/MyPostsList";
+import { UserProfileContext } from "../providers/UserProfileProvider";
+import Login from "./Login";
+import Register from "./Register";
+import Hello from "./Hello";
+import CategoryList from "./categories/CategoryList";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -31,11 +31,11 @@ export default function ApplicationViews() {
           <LoginRegister/>
         </Route>
 
-        <Route path="/Login">
+        <Route path="/login">
           <Login/>
         </Route>
 
-        <Route path="/Register">
+        <Route path="/register">
           <Register/>
         </Route>
 
