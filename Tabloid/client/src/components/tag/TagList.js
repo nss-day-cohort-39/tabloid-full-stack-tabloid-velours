@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import Tag from "./Tag";
 import { TagContext } from "../../providers/TagProvider";
 
-export default function QuoteList() {
+export default function TagList() {
   const { tags, getTags } = useContext(TagContext);
 
   useEffect(() => {
