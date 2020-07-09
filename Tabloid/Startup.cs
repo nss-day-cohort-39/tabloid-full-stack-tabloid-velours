@@ -25,6 +25,11 @@ namespace Tabloid
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            //services.AddControllers()
+            //        .AddNewtonsoftJson(options =>
+            //            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            //);
+
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
             services
