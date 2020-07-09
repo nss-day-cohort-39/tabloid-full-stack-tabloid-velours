@@ -1,14 +1,20 @@
 import React from "react";
+import TabloidHomeLogo from "../images/TabloidHomeLogo.png"
 
 export default function Hello() {
   return (
-    <span style={{
-      position: "fixed",
-      left: 0,
-      right: 0,
-      top: "50%",
-      marginTop: "-0.5rem",
-      textAlign: "center",
-    }}>hello</span>
-  );
+    <>
+    <header className="masthead bg-primary text-white text-center">
+    <div className="container d-flex align-items-center flex-column">
+        <img className="headerImg" src={TabloidHomeLogo} alt=""/>
+        <div className="divider-custom divider-light">
+            <div className="divider-custom-line"></div>
+            <div className="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div className="divider-custom-line"></div>
+        </div>
+    </div>
+</header>
+</>
+  )
 }
+
