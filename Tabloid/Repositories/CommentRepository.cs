@@ -33,6 +33,19 @@ namespace Tabloid.Repositories
             _context.Add(comment);
             _context.SaveChanges();
         }
-    
-}
+
+        public void Update(Comment comment)
+        {
+            _context.Entry(comment).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+      
+        public void Delete(int id)
+        {
+            _context.Remove(id);
+            _context.SaveChanges();
+        }
+
+    }
 }

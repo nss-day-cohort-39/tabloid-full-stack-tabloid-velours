@@ -2,7 +2,7 @@ import React, {useEffect, useContext} from "react";
 import { Card, CardBody, CardLink } from "reactstrap";
 import { Link } from "react-router-dom";
 import { PostContext } from "../../providers/PostProvider";
-import Comment from "./Comment";
+import { CommentContext } from "./providers/CommentProvider";
 
 
 

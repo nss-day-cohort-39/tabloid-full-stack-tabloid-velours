@@ -36,9 +36,42 @@ export const CommentProvider = (props) => {
                 throw new Error("Unauthorized");
             }));
     };
+
+    const editComment = (comment) => {
+        getToken().then((token) =>
+            fetch(apiUrl + `${comment.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(comment)
+                }).then(resp => {
+                    if (resp.ok) {
+                        return resp.json();
+                    }
+                    throw new Error("Unauthorized");
+                }));
+        };
+    
+    const deleteComment = (id) => {
+        getToken().then((token) =>
+            fetch(apiUrl + `${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+            }).then(resp => {
+                if (resp.ok) {
+                    return ;
+                }
+                throw new Error("Unauthorized");
+            }));
+    };
     
     return (
-    <CommentContext.Provider value={{ comments, getCommentsByPostId, addComment}}>
+    <CommentContext.Provider value={{ comments, getCommentsByPostId, addComment, deleteComment, editComment}}>
         {props.children}
     </CommentContext.Provider>
     );

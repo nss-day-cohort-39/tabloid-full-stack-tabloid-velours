@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { CommentContext } from "../providers/QuoteProvider";
+import { CommentContext } from "./providers/CommentProvider";
 
-export default function QuoteAddForm() {
+export default function CommentForm() {
   const history = useHistory();
   const { addComment } = useContext(CommentContext);
   const [subjectText, setSubjectText] = useState();
