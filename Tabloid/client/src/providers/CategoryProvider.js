@@ -20,24 +20,28 @@ export const CategoryProvider = ( props ) => {
         .then(setCategories))
     }
 
-    //   const addCategory = (category) =>
-    //     getToken().then((token) =>
-    //       fetch(apiUrl, {
-    //         method: "POST",
-    //         headers: {
-    //           Authorization: `Bearer ${token}`,
-    //           "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(category)
-    //       }).then(resp => {
-    //         if (resp.ok) {
-    //           return resp.json();
-    //         }
-    //         throw new Error("Unauthorized");
-    //       }));
+    const addCategory = (category) => {
+        getToken().then((token) =>
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+                },
+                body: JSON.stringify(category)
+            })
+            .then(resp => {
+                debugger 
+                if (resp.ok) {
+                    return resp.json();
+                }
+                throw new Error("Unauthorized");
+            })
+        );
+    }
 
     return (
-        <CategoryContext.Provider value={{ categories, getCategories }}>
+        <CategoryContext.Provider value={{ categories, getCategories, addCategory }}>
             {props.children}
         </CategoryContext.Provider>
     )

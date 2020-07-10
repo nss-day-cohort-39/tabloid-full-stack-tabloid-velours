@@ -9,7 +9,7 @@ export default function Hello() {
         <img className="headerImg" src={TabloidHomeLogo} alt=""/>
         <div className="divider-custom divider-light">
             <div className="divider-custom-line"></div>
-            <div className="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div className="divider-custom-icon"><i className="fas fa-star"></i></div>
             <div className="divider-custom-line"></div>
         </div>
       </div>

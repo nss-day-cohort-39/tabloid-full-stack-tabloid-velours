@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { ListGroup } from 'reactstrap';
 import Category from "../categories/Category";
 import { CategoryContext } from "../../providers/CategoryProvider";
+import CategoryForm from "./CategoryForm"; 
 import "./Category.css";
 
-const CategoryList = () => {
-
+export const CategoryList = () => {
     const { categories, getCategories } = useContext(CategoryContext)
 
     useEffect(() => {
@@ -15,16 +15,13 @@ const CategoryList = () => {
 
     return (
         <>
-        <section className="categoryList">
-            <h3 className="header">Categories</h3>
-            <ListGroup>
+            <section className="categoryList">
+                <ListGroup>
                     {categories.map(cat =>
                         <Category key={cat.id} category={cat}/>
                     )} 
-            </ListGroup>
-        </section>
+                </ListGroup>
+            </section>
         </>
     )
 }
-
-export default CategoryList;
