@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { ListGroup } from 'reactstrap';
 import Category from "../categories/Category";
 import { CategoryContext } from "../../providers/CategoryProvider";
-import CategoryForm from "./CategoryForm"; 
+import { CategoryForm } from "./CategoryForm"; 
 import "./Category.css";
 
 export const CategoryList = () => {
@@ -15,6 +15,9 @@ export const CategoryList = () => {
 
     return (
         <>
+            <section className="categoryForm">
+                <CategoryForm /> 
+            </section>
             <section className="categoryList">
                 <ListGroup>
                     {categories.map(cat =>

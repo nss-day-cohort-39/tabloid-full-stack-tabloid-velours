@@ -1,11 +1,9 @@
 import React, { useRef, useContext } from "react";
-import { useHistory } from "react-router-dom";
 import { Button } from 'reactstrap';
 import { CategoryContext } from "../../providers/CategoryProvider";
 import "./Category.css";
 
 export const CategoryForm = () => {
-  const history = useHistory()
   const name = useRef()
   const { addCategory } = useContext(CategoryContext)
 
@@ -13,9 +11,7 @@ export const CategoryForm = () => {
     const newCategory = {
         Name: name.current.value,     
     } 
-    return addCategory(newCategory).then((p) => {
-        history.push("/");
-    })
+    return addCategory(newCategory)
 } 
 
   return (

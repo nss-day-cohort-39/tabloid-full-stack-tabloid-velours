@@ -7,7 +7,6 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
@@ -25,7 +24,7 @@ namespace Tabloid.Controllers
             return Ok(_categoryRepository.GetAll());
         }
 
-        private UserProfile GetCurrentUserProfile()
+        private UserProfile GetCurrentUser()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
@@ -34,8 +33,8 @@ namespace Tabloid.Controllers
         [HttpPost]
         public IActionResult Post(Category category)
         {
-            var currentUserProfile = GetCurrentUserProfile();
-            if (currentUserProfile.UserType.Name != "admin")
+            var currentUser = GetCurrentUser();
+            if (currentUser.UserType.Name != "Admin")
             {
                 return Unauthorized();
             }

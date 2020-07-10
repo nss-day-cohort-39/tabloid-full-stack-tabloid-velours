@@ -30,14 +30,9 @@ export const CategoryProvider = ( props ) => {
                 },
                 body: JSON.stringify(category)
             })
-            .then(resp => {
-                debugger 
-                if (resp.ok) {
-                    return resp.json();
-                }
-                throw new Error("Unauthorized");
-            })
-        );
+            .then(resp => resp.json())
+            .then(getCategories)
+        )
     }
 
     return (
