@@ -4,7 +4,7 @@ import { UserProfileContext } from "./UserProfileProvider";
 export const TagContext = createContext();
 
 export function TagProvider(props) {
-  const apiUrl = "/api/tag";
+  const apiUrl = "/api/tag/";
   const { getToken } = useContext(UserProfileContext);
 
   const [tags, setTags] = useState([]);
@@ -37,13 +37,14 @@ export function TagProvider(props) {
         throw new Error("Unauthorized");
       })
     );
-  const updateTag = (id) =>
+  const updateTag = (tag) =>
     getToken().then((token) =>
-      fetch(apiUrl / id, {
+      fetch(apiUrl + `${tag.id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
+          body: JSON.stringify(tag)
         },
       }).then((resp) => {
         if (resp.ok) {
@@ -52,9 +53,24 @@ export function TagProvider(props) {
         throw new Error("Unauthorized");
       })
     );
+    const deleteTag = (id) => {
+      getToken().then((token) =>
+          fetch(apiUrl + `${id}`, {
+              method: "DELETE",
+              headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json"
+              },
+          }).then(resp => {
+              if (resp.ok) {
+                  return ;
+              }
+              throw new Error("Unauthorized");
+          }));
+  };
 
   return (
-    <TagContext.Provider value={{ tags, getTags, addTag, updateTag }}>
+    <TagContext.Provider value={{ tags, getTags, addTag, updateTag, deleteTag }}>
       {props.children}
     </TagContext.Provider>
   );
