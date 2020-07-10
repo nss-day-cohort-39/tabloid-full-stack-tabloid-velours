@@ -4,7 +4,7 @@ import { UserProfileContext } from "./UserProfileProvider";
 export const CategoryContext = createContext();
 
 export const CategoryProvider = ( props ) => {
-    const apiUrl = "/api/category";
+    const apiUrl = "/api/category/";
     const { getToken } = useContext(UserProfileContext)
     const [categories, setCategories] = useState([])
     
@@ -35,8 +35,22 @@ export const CategoryProvider = ( props ) => {
         )
     }
 
+    const deleteCategory = (id) => {
+        getToken().then((token) =>
+            fetch(apiUrl + `${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+            })
+            .then(getCategories)
+        )
+    }
+
+
     return (
-        <CategoryContext.Provider value={{ categories, getCategories, addCategory }}>
+        <CategoryContext.Provider value={{ categories, getCategories, addCategory, deleteCategory }}>
             {props.children}
         </CategoryContext.Provider>
     )
