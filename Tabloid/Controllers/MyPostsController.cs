@@ -13,20 +13,21 @@ namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PostController : ControllerBase
+    public class MyPostsController : ControllerBase
     {
         private readonly PostRepository _postRepository;
         private readonly UserProfileRepository _upRepository;
-        public PostController(ApplicationDbContext context)
+        public MyPostsController(ApplicationDbContext context)
         {
             _postRepository = new PostRepository(context);
             _upRepository = new UserProfileRepository(context);
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(int id)
         {
-            return Ok(_postRepository.GetAll());
+            var currentUser = GetCurrentUserProfile();
+            return Ok(_postRepository.GetAllCUPosts(currentUser.Id));
         }
 
         private UserProfile GetCurrentUserProfile()
@@ -34,6 +35,5 @@ namespace Tabloid.Controllers
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return _upRepository.GetByFirebaseUserId(firebaseUserId);
         }
-
     }
 }
