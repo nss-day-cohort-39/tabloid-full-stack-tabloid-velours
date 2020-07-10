@@ -6,9 +6,12 @@ import {
   ListGroupItemText,
 } from "reactstrap";
 import { CommentContext } from "../../providers/CommentProvider"
+import moment from "moment";
+
 
 export const Comment = ({ comment }) => {
   const { deleteComment } = useContext(CommentContext);
+  const formattedDate = moment().format('MM/DD/YYYY', comment.createDateTime)
 
   return (
     <>
@@ -20,12 +23,14 @@ export const Comment = ({ comment }) => {
           </ListGroupItemHeading>
           <ListGroupItemText>
             {comment.content}
-            {comment.createDateTime}
+            <br></br>
+            <i>posted on {formattedDate}</i>
           </ListGroupItemText>
           <i class="fa fa-pencil-square-o" aria-hidden="true" onClick={(e) =>
               this.editComment(e)}>
               Edit
           </i>  
+          <br></br>
           <i class="fa fa-trash-o" aria-hidden="true" onClick={(e) =>
               window.confirm("Are you sure you wish to delete this comment?") &&
               this.deleteComment(e)}>
