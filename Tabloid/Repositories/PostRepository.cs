@@ -37,5 +37,13 @@ namespace Tabloid.Repositories
                            //.Include(p => p.Category)
                            .ToList();
         }
+
+        public Post GetById(int id)
+        {
+            return _context.Post
+                           //.Include(p => p.CommentsOnPost)
+                           .Include(p => p.UserProfile)
+                           .FirstOrDefault(p => p.Id == id);
+        }
     }
 }

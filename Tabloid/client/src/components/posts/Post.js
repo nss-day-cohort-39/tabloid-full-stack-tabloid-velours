@@ -3,6 +3,7 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
   } from 'reactstrap';
+import { Link } from "react-router-dom";
 
 const Post = ({post}) => {
     return (
@@ -13,7 +14,7 @@ const Post = ({post}) => {
                 <CardTitle>{post.title}</CardTitle>
                 <CardSubtitle>Written by: {post.userProfile.displayName}</CardSubtitle>
                 <CardText>category</CardText>
-                <Button>Button</Button>
+                <Button component={Link} to ="/postdetails">Details</Button>
                 </CardBody>
             </Card>
         </>
