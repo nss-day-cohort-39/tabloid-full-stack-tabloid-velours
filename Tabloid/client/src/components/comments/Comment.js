@@ -5,7 +5,7 @@ import {
   ListGroupItemHeading,
   ListGroupItemText,
 } from "reactstrap";
-import { CommentContext } from "../providers/QuoteProvider";
+import { CommentContext } from "../../providers/CommentProvider"
 
 export const Comment = ({ comment }) => {
   const { deleteComment } = useContext(CommentContext);
@@ -16,7 +16,7 @@ export const Comment = ({ comment }) => {
       <ListGroup>
         <ListGroupItem active>
           <ListGroupItemHeading>
-            {comment.subject} posted by {comment.userProfile.fullName}
+            {comment.subject} posted by {comment.post.userProfile.fullName}
           </ListGroupItemHeading>
           <ListGroupItemText>
             {comment.content}

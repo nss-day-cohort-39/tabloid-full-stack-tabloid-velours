@@ -6,10 +6,11 @@ export const CommentContext = React.createContext();
 export const CommentProvider = (props) => {
     const [comments, setComments] = useState([]);
     const { getToken } = useContext(UserProfileContext);
-    const apiUrl = "/api/comment";
+    const apiUrl = "/api/comment/";
 
     
     const getCommentsByPostId = (postId) => {
+        debugger
         getToken().then((token) => 
         fetch(apiUrl + `${postId}`, {
           method: "GET",
