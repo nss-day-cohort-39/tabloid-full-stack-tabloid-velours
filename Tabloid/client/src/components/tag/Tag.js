@@ -1,12 +1,14 @@
 import React from "react";
-import { Card, CardBody } from "reactstrap";
+import { ListGroupItem, Badge } from 'reactstrap';
 
 export default function Tag({ tag }) {
-  return (
-    <Card className="m-4">
-      <CardBody>
-          <strong>{tag.name}</strong>
-      </CardBody>
-    </Card>
-  );
+    return (
+        <ListGroupItem>
+            <div className="row justify-content-between">
+                {tag.name} <Badge pill>2</Badge>
+            </div>
+            
+        </ListGroupItem>       
+    )
 }
+
