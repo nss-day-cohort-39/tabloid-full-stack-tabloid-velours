@@ -46,7 +46,8 @@ export function TagProvider(props) {
           "Content-Type": "application/json",
           body: JSON.stringify(tag)
         },
-      }).then((resp) => {
+      })
+      .then((resp) => {
         if (resp.ok) {
           return resp.json();
         }
@@ -61,12 +62,14 @@ export function TagProvider(props) {
                   Authorization: `Bearer ${token}`,
                   "Content-Type": "application/json"
               },
-          }).then(resp => {
+          })
+          .then(resp => {
               if (resp.ok) {
                   return ;
               }
               throw new Error("Unauthorized");
-          }));
+          })
+          );
   };
 
   return (
