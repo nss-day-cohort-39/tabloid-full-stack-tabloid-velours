@@ -7,7 +7,7 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import CategoryList from "./categories/CategoryList";
+import { CategoryList } from "./categories/CategoryList";
 import PostDetails from "./posts/PostDetails";
 
 export default function ApplicationViews() {
@@ -45,8 +45,9 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path="/categories">
-          <CategoryList />
+          {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
+        
       </Switch>
       
     </main>

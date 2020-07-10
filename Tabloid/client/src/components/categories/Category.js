@@ -2,6 +2,7 @@ import React from "react";
 import { ListGroupItem, Badge } from 'reactstrap';
 
 const Category = ({ category }) => {
+    
     return (
         <ListGroupItem>
             <div className="row justify-content-between">
