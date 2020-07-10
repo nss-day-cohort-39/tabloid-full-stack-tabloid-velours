@@ -6,7 +6,7 @@ export const PostContext = React.createContext();
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([]);
     const [cuPosts, setCUPosts] = useState([]);
-    const [onePost, setOnePost] = useState([]);
+    
     const { getToken } = useContext(UserProfileContext);
     
     const getAllPosts = () => {
@@ -37,12 +37,11 @@ export const PostProvider = (props) => {
           headers: {
             Authorization:  `Bearer ${token}`
           }
-        }).then((res) => res.json())
-          .then(setOnePost))
+        }).then((res) => res.json()))
       )
     
     return (
-    <PostContext.Provider value={{ posts, getAllPosts, getUserPosts, cuPosts, getPostById, onePost}}>
+    <PostContext.Provider value={{ posts, getAllPosts, getUserPosts, cuPosts, getPostById}}>
         {props.children}
     </PostContext.Provider>
     );

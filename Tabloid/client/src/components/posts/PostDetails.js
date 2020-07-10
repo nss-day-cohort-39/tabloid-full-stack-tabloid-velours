@@ -1,16 +1,23 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import {
     Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
+    CardTitle, CardSubtitle
   } from 'reactstrap';
 import { PostContext } from "../../providers/PostProvider";
+import { useParams } from "react-router-dom";
 
-const PostDetails = ({post}) => {
-    const { onePost, getOnePost} = useContext(PostContext);
-
+const PostDetails = () => {
+    const {getPostById} = useContext(PostContext);
+    const [onePost, setOnePost] = useState();
+    const { id } = useParams();
+    
     useEffect(() => {
-        getOnePost();
+        getPostById(id).then(setOnePost)
       }, []);
+
+    if (!onePost) {
+    return null;
+    }
 
     return (
         <>

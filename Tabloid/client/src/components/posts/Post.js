@@ -3,9 +3,13 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
   } from 'reactstrap';
-import { Link } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 const Post = ({post}) => {
+    const history = useHistory();
+    const handleClick = () => {
+        history.push(`/posts/${post.id}`);
+    }
     return (
         <>
             <Card>
@@ -14,7 +18,7 @@ const Post = ({post}) => {
                 <CardTitle>{post.title}</CardTitle>
                 <CardSubtitle>Written by: {post.userProfile.displayName}</CardSubtitle>
                 <CardText>category</CardText>
-                <Button component={Link} to ="/postdetails">Details</Button>
+                <Button onClick={handleClick}>Details</Button>
                 </CardBody>
             </Card>
         </>
