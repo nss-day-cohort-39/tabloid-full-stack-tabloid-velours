@@ -8,7 +8,8 @@ import Login from "./Login";
 import Register from "./Register";
 import TagList from "./tag/TagList";
 import Hello from "./Hello";
-import CategoryList from "./categories/CategoryList";
+import { CategoryList } from "./categories/CategoryList";
+import PostDetails from "./posts/PostDetails";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -31,6 +32,10 @@ export default function ApplicationViews() {
           {isLoggedIn ? <MyPostList /> : <Redirect to="/welcome" />}
         </Route>
 
+        <Route path="/posts/:id" exact>
+          {isLoggedIn ? <PostDetails /> : <Redirect to="/welcome" />}
+        </Route>
+
         <Route path="/welcome">
           <LoginRegister/>
         </Route>
@@ -44,8 +49,9 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path="/categories">
-          <CategoryList />
+          {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
+        
       </Switch>
       
     </main>
