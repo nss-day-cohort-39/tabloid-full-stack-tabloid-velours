@@ -1,14 +1,22 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState, useHistory } from "react"
 import { PostContext } from "../../providers/PostProvider";
 import { useParams } from "react-router-dom";
 import "./PostDetails.css"
 import moment from "moment";
+import { Collapse, Button, CardBody, Card } from 'reactstrap';
+import { CommentList } from "../comments/CommentList";
 
 const PostDetails = () => {
     const {getPostById} = useContext(PostContext);
     const [onePost, setOnePost] = useState();
     const { id } = useParams();
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => setIsOpen(!isOpen);
 
+    // const history = useHistory();
+    // const handleClick = () => {
+    //     history.push(`/posts/comments/${onePost.id}`);
+    // }
     useEffect(() => {
         getPostById(id).then(setOnePost)
     }, []);
@@ -30,7 +38,16 @@ const PostDetails = () => {
                 <div className="authorContainer">Written by: <span className="author">{onePost.userProfile.displayName}</span></div>
                 <div className="contentContainer">{onePost.content}</div>
                 <div className="publishedDate">Published: {formattedDate}</div>
+                <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>View Comments</Button>
+      <Collapse isOpen={isOpen}>
+        <Card>
+          <CardBody>
+            <CommentList postId ={id}/>
+          </CardBody>
+        </Card>
+      </Collapse>
             </div>
+        
         </>
 
     )
