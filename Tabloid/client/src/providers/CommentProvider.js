@@ -10,7 +10,6 @@ export const CommentProvider = (props) => {
 
     
     const getCommentsByPostId = (postId) => {
-        debugger
         getToken().then((token) => 
         fetch(apiUrl + `${postId}`, {
           method: "GET",

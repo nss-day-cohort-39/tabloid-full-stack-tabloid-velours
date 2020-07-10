@@ -10,7 +10,7 @@ import moment from "moment";
 
 
 export const Comment = ({ comment }) => {
-  const { deleteComment } = useContext(CommentContext);
+  const { deleteComment, editComment } = useContext(CommentContext);
   const formattedDate = moment().format('MM/DD/YYYY', comment.createDateTime)
 
   return (
@@ -31,9 +31,9 @@ export const Comment = ({ comment }) => {
               Edit
           </i>  
           <br></br>
-          <i class="fa fa-trash-o" aria-hidden="true" onClick={(e) =>
+          <i class="fa fa-trash-o" aria-hidden="true" onClick={() =>
               window.confirm("Are you sure you wish to delete this comment?") &&
-              this.deleteComment(e)}>
+              deleteComment(comment.id)}>
               Delete
           </i>  
         </ListGroupItem>
