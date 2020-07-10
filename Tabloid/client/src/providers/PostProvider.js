@@ -39,9 +39,21 @@ export const PostProvider = (props) => {
           }
         }).then((res) => res.json()))
       )
+
+      const addPost = (post) => (
+        getToken().then((token) =>
+        fetch("/api/post", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(post),
+        }))
+      );
     
     return (
-    <PostContext.Provider value={{ posts, getAllPosts, getUserPosts, cuPosts, getPostById}}>
+    <PostContext.Provider value={{ posts, getAllPosts, getUserPosts, cuPosts, getPostById, addPost}}>
         {props.children}
     </PostContext.Provider>
     );
