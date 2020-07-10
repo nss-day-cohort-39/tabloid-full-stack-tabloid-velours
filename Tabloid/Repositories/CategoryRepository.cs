@@ -21,5 +21,11 @@ namespace Tabloid.Repositories
                 .OrderBy(c => c.Name)
                 .ToList();
         }
+
+        public void Add(Category category)
+        {
+            _context.Add(category);
+            _context.SaveChanges();
+        }
     }
 }

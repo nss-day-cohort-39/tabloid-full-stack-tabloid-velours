@@ -1,10 +1,21 @@
 .categoryList {
     margin: auto;
-    width: 50%;
+    width: 60%;
 }
 
-.header {
-    margin-bottom: 25px;
-    margin-top: 50px;
-    text-align: center;
+.categoryForm {
+    display: flex;
+    flex: 2;
+    justify-content: space-between;
+    margin: 50px auto;
+    width: 60%;   
+}
+
+.input--addCategory {
+    width: 80%;
+}
+
+#btn--addCategory {
+    background-color: #82e4c3;
+    color: #464343;
 }
