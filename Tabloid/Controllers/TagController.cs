@@ -50,6 +50,13 @@ namespace Tabloid.Controllers
             return CreatedAtAction(nameof(Get), new { id = tag.Id }, tag);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _tagRepository.Delete(id);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

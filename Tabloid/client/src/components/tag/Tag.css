@@ -8,3 +8,20 @@
     margin-top: 50px;
     text-align: center;
 }
+
+.tagForm {
+    display: flex;
+    flex: 2;
+    justify-content: space-between;
+    margin: 50px auto;
+    width: 60%;   
+}
+
+.input--addTag {
+    width: 80%;
+}
+
+.btn--addTag {
+    background-color: #82e4c3;
+    color: #464343;
+}

@@ -14,7 +14,14 @@ export default function Tag({ tag }) {
           aria-hidden="true"
           // onClick={(e) => updateTag(e)}
         ></i>
-        <i class="fa fa-trash-o" aria-hidden="true" onClick={(e) => deleteTag(e.id)}></i>
+        <i
+          class="fa fa-trash-o"
+          aria-hidden="true"
+          onClick={(e) => {
+            e.preventDefault();
+            deleteTag(tag.id);
+          }}
+        ></i>
       </div>
     </ListGroupItem>
   );

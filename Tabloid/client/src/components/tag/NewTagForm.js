@@ -20,7 +20,7 @@ export default function NewTagForm() {
     addTag(tag).then(getTags);
   };
   return (
-    <Container className="m-3">
+    <Container className="tagForm m-3">
       <Input
         type="text"
         id="newTag"
@@ -28,7 +28,7 @@ export default function NewTagForm() {
         onInput={(e) => setTagName(e.target.value)}
       ></Input>
 
-      <Button type="button" onClick={submitTag}>
+      <Button className="btn--addTag ml-2" type="button" onClick={submitTag}>
         {" "}
         +{" "}
       </Button>

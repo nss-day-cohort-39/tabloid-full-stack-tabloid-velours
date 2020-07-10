@@ -21,8 +21,8 @@ export function TagProvider(props) {
         .then(setTags)
     );
 
-  const addTag = (tag) =>
-    getToken().then((token) =>
+  const addTag = (tag) => {
+    return getToken().then((token) =>
       fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -35,45 +35,37 @@ export function TagProvider(props) {
           return resp.json();
         }
         throw new Error("Unauthorized");
-      })
+      }).then(getTags)
     );
-  const updateTag = (tag) =>
-    getToken().then((token) =>
+  };
+  const updateTag = (tag) => {
+    return getToken().then((token) =>
       fetch(apiUrl + `${tag.id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
-          body: JSON.stringify(tag)
+          body: JSON.stringify(tag),
         },
-      })
-      .then((resp) => {
-        if (resp.ok) {
-          return resp.json();
-        }
-        throw new Error("Unauthorized");
-      })
+      }).then(getTags)
     );
-    const deleteTag = (id) => {
-      getToken().then((token) =>
-          fetch(apiUrl + `${id}`, {
-              method: "DELETE",
-              headers: {
-                  Authorization: `Bearer ${token}`,
-                  "Content-Type": "application/json"
-              },
-          })
-          .then(resp => {
-              if (resp.ok) {
-                  return ;
-              }
-              throw new Error("Unauthorized");
-          })
-          );
+  };
+  const deleteTag = (id) => {
+    return getToken().then((token) =>
+      fetch(apiUrl + `${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }).then(getTags)
+    );
   };
 
   return (
-    <TagContext.Provider value={{ tags, getTags, addTag, updateTag, deleteTag }}>
+    <TagContext.Provider
+      value={{ tags, getTags, addTag, updateTag, deleteTag }}
+    >
       {props.children}
     </TagContext.Provider>
   );
