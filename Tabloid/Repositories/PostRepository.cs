@@ -21,6 +21,7 @@ namespace Tabloid.Repositories
             DateTime today = DateTime.Now;
             return _context.Post
                            .Include(p => p.UserProfile)
+                           .Include(p => p.CommentList)
                            .Include(p => p.Category)
                            .Where(p => p.IsApproved == true && p.PublishDateTime <= today)
                            .OrderByDescending(p => p.PublishDateTime)
@@ -32,6 +33,7 @@ namespace Tabloid.Repositories
             DateTime today = DateTime.Now;
             return _context.Post
                            .Include(p => p.UserProfile)
+                           .Include(p => p.CommentList)
                            .Include(p => p.Category)
                            .Where(p => p.IsApproved == true && p.UserProfileId == id)
                            .OrderByDescending(p => p.CreateDateTime)
@@ -41,8 +43,9 @@ namespace Tabloid.Repositories
         public Post GetById(int id)
         {
             return _context.Post
-                           //.Include(p => p.CommentsOnPost)
                            .Include(p => p.UserProfile)
+                           .Include(p => p.CommentList)
+                           .ThenInclude(c => c.UserProfile)
                            .Include(p => p.Category)
                            .FirstOrDefault(p => p.Id == id);
         }

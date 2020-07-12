@@ -1,24 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
 export const CommentContext = React.createContext();
 
 export const CommentProvider = (props) => {
-    const [comments, setComments] = useState([]);
     const { getToken } = useContext(UserProfileContext);
     const apiUrl = "/api/comment/";
-
-    
-    const getCommentsByPostId = (postId) => {
-        getToken().then((token) => 
-        fetch(apiUrl + `${postId}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }).then((res) => res.json())
-          .then(setComments));
-      }
 
       const addComment = (comment) => {
         getToken().then((token) =>
@@ -71,7 +58,7 @@ export const CommentProvider = (props) => {
     };
     
     return (
-    <CommentContext.Provider value={{ comments, getCommentsByPostId, addComment, deleteComment, editComment}}>
+    <CommentContext.Provider value={{ addComment, deleteComment, editComment}}>
         {props.children}
     </CommentContext.Provider>
     );

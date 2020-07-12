@@ -39,7 +39,7 @@ const PostDetails = () => {
       <Collapse isOpen={isOpen}>
         <Card>
           <CardBody>
-            <CommentList postId ={id}/>
+            <CommentList comments ={onePost.commentList}/>
           </CardBody>
         </Card>
       </Collapse>
