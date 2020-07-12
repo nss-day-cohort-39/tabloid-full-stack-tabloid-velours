@@ -27,7 +27,7 @@ const AddPostForm = () => {
             createDateTime: new Date(),
             publishDateTime: pDT.current.value,
             isApproved: true,
-            categoryId: catId
+            categoryId: catId.current.value
         }
         debugger
         addPost(newPostObj).then(() => {
