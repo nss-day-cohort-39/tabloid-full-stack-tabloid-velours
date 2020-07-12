@@ -13,10 +13,7 @@ const PostDetails = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
-    // const history = useHistory();
-    // const handleClick = () => {
-    //     history.push(`/posts/comments/${onePost.id}`);
-    // }
+
     useEffect(() => {
         getPostById(id).then(setOnePost)
     }, []);

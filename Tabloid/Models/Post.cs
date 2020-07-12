@@ -27,10 +27,10 @@ namespace Tabloid.Models
 
         public bool IsApproved { get; set; }
 
-        //[Required]
-        //[DisplayName("Category")]
-        //public int CategoryId { get; set; }
-        //public Category Category { get; set; }
+        [Required]
+        [DisplayName("Category")]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
         [DisplayName("Author")]
         public int UserProfileId { get; set; }

@@ -17,7 +17,7 @@ const AddPostForm = () => {
 
     useEffect(() => {
         getCategories();
-    }, []);
+      }, []);
 
     const constructNewPost = () => {
         const newPostObj = {
@@ -29,8 +29,9 @@ const AddPostForm = () => {
             isApproved: true,
             categoryId: catId
         }
+        debugger
         addPost(newPostObj).then(() => {
-            history.push("/")
+            history.push("/posts")
         })
     }
 
@@ -57,9 +58,10 @@ const AddPostForm = () => {
                             <FormGroup>
                                 <Label for="exampleSelect">Category</Label>
                                 <Input type="select" name="select" id="exampleSelect" innerRef={catId}>
+                                    <option value={0}>Select a category</option>
                                 {
                                     categories.map(category => {
-                                        return `<option>${category.Name}</option>`
+                                        return <option value={category.id}>{category.name}</option>
                                     })
                                 }
                                 </Input>
