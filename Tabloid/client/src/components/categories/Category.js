@@ -1,14 +1,25 @@
-import React from "react";
-import { ListGroupItem, Badge } from 'reactstrap';
+import React, { useContext } from "react";
+import { ListGroupItem, ListGroup, Badge } from 'reactstrap';
+import "./Category.css"
+import { CategoryContext } from "../../providers/CategoryProvider";
 
 const Category = ({ category }) => {
+    const { deleteCategory } = useContext(CategoryContext)
     
     return (
         <ListGroupItem>
-            <div className="row justify-content-between">
-                {category.name} <Badge pill>2</Badge>
-            </div>
-            
+            <ListGroup horizontal className="category">
+                <div className="categoryName">{category.name}</div> 
+                <ListGroup horizontal>
+                        <div className="icon--category"> 
+                            <i className="fa fa-trash-o" aria-hidden="true" 
+                            onClick={(e) => {
+                                e.preventDefault()
+                                deleteCategory(category.id)}}></i>
+                        </div>
+                        <div className="icon--category"><Badge pill>2</Badge></div>
+                </ListGroup>
+            </ListGroup>
         </ListGroupItem>       
     )
 }

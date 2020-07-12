@@ -11,6 +11,16 @@
     width: 60%;   
 }
 
+.category {
+    display: flex;
+    flex: 2;
+    justify-content: space-between;
+}
+
+.categoryName {
+    padding-left: 25px;
+}
+
 .input--addCategory {
     width: 80%;
 }
@@ -18,4 +28,8 @@
 #btn--addCategory {
     background-color: #82e4c3;
     color: #464343;
+}
+
+.icon--category {
+    padding-right: 25px;
 }
