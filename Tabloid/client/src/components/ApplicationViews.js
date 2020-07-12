@@ -9,6 +9,7 @@ import Register from "./Register";
 import Hello from "./Hello";
 import { CategoryList } from "./categories/CategoryList";
 import PostDetails from "./posts/PostDetails";
+import AddPostForm from "./posts/AddPostForm";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -30,6 +31,10 @@ export default function ApplicationViews() {
 
         <Route path="/posts/:id" exact>
           {isLoggedIn ? <PostDetails /> : <Redirect to="/welcome" />}
+        </Route>
+
+        <Route path="/addposts" exact>
+          {isLoggedIn ? <AddPostForm /> : <Redirect to="/welcome" />}
         </Route>
 
         <Route path="/welcome">
