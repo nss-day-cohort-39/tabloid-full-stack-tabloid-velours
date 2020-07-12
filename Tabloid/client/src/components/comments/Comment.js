@@ -19,7 +19,7 @@ export const Comment = ({ comment }) => {
       <ListGroup>
         <ListGroupItem active>
           <ListGroupItemHeading>
-            {comment.subject} posted by {comment.post.userProfile.fullName}
+            {comment.subject} posted by {comment.post.fullName}
           </ListGroupItemHeading>
           <ListGroupItemText>
             {comment.content}

@@ -16,7 +16,7 @@ namespace Tabloid.Models
 
         public int UserProfileId { get; set; }
 
-        public  UserProfile UserProfile{ get; set; }
+        public UserProfile UserProfile { get; set; }
 
 
         [Required(ErrorMessage = "Enter a Subject")]

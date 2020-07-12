@@ -23,6 +23,12 @@ namespace Tabloid.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_commentRepository.GetAllComments());
+        }
+
         [HttpGet("{postId}")]
         public IActionResult GetAllCommentsByPostId(int postId)
         {

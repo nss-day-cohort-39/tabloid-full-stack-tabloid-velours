@@ -1,23 +1,25 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { CommentContext } from "../../providers/CommentProvider"
+import { PostContext } from "../../providers/PostProvider"
 
-export const CommentForm =({postId})=> {
+export const CommentForm =({postId, toggleModal})=> {
   const { addComment } = useContext(CommentContext);
+  // const {getPostById} = useContext(PostContext);
+
   const [subjectText, setSubjectText] = useState();
   const [commentText, setCommentText] = useState();
 
-
-
+  var intPostId = parseInt(postId)
+  // var post = getPostById(intPostId)
   const submitForm = (e) => {
     e.preventDefault();
-    addComment({ subject: subjectText, content: commentText, postId: postId }).catch((err) => alert(`An error ocurred: ${err.message}`));
+    addComment({ subject: subjectText, content: commentText, postId: intPostId }).then(setComments);
   };
 
   return (
-    <Form onSubmit={submitForm}>
-      <FormGroup>
+    <Form onSubmit={submitForm, toggleModal}>
+       <FormGroup>
         <Label for="subjectText">Subject</Label>
         <Input id="subjectText" type="textarea" onChange={e => setSubjectText(e.target.value)} />
       </FormGroup>

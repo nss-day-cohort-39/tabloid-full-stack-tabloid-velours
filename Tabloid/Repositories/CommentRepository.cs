@@ -16,12 +16,20 @@ namespace Tabloid.Repositories
         {
             _context = context;
         }
+        public List<Comment> GetAllComments()
+        {
+            return _context.Comment
+                       .Include(c => c.Post)
+                       .Include(c => c.UserProfile)
+                       .OrderByDescending(c => c.CreateDateTime)
+                       .ToList();
 
+        }
         public List<Comment> GetCommentByPostId(int postId)
         {
             return _context.Comment
-                       .Include(c=>c.Post)
-                       .ThenInclude(c=>c.UserProfile)
+                       .Include(c => c.Post)
+                       .Include(c=>c.UserProfile)
                        .Where(p => p.Id == postId)
                        .OrderByDescending(c=> c.CreateDateTime)
                        .ToList();
