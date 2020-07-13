@@ -47,6 +47,8 @@ namespace Tabloid.Repositories
                            .Include(p => p.CommentList)
                            .ThenInclude(c => c.UserProfile)
                            .Include(p => p.Category)
+                           .Include(p => p.PostTagList)
+                           .ThenInclude(p => p.TagList)
                            .FirstOrDefault(p => p.Id == id);
             return postContext;
         }
