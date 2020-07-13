@@ -48,7 +48,6 @@ namespace Tabloid.Repositories
                            .ThenInclude(c => c.UserProfile)
                            .Include(p => p.Category)
                            .FirstOrDefault(p => p.Id == id);
-            postContext.CommentList.OrderByDescending(comment => comment.CreateDateTime);
             return postContext;
         }
 

@@ -3,7 +3,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { CommentContext } from "../../providers/CommentProvider"
 
 export const CommentForm =({postId, toggle})=> {
-  const { addComment, setComments } = useContext(CommentContext);
+  const { addComment } = useContext(CommentContext);
   const [subjectText, setSubjectText] = useState();
   const [commentText, setCommentText] = useState();
 
