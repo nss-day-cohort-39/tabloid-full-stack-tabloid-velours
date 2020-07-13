@@ -8,7 +8,18 @@ export const CommentProvider = (props) => {
     const { getToken } = useContext(UserProfileContext);
     const apiUrl = "/api/comment/";
 
-    
+    const getAllComments = () => {
+        getToken().then((token) =>
+        fetch(apiUrl, {
+            method: "GET",
+            headers: {
+            Authorization: `Bearer ${token}`
+            }
+        })
+        .then(resp => resp.json())
+        .then(setComments))
+    }
+
     const getCommentsByPostId = (postId) => {
         getToken().then((token) => 
         fetch(apiUrl + `${postId}`, {
@@ -18,6 +29,16 @@ export const CommentProvider = (props) => {
           }
         }).then((res) => res.json())
           .then(setComments));
+      }
+
+      const getCommentById = (id) => {
+        getToken().then((token) => 
+        fetch(apiUrl + `id/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }).then((res) => res.json()))
       }
 
       const addComment = (comment) => {
@@ -34,7 +55,7 @@ export const CommentProvider = (props) => {
                     return resp.json();
                 }
                 throw new Error("Unauthorized");
-            }));
+            }).then(getAllComments));
     };
 
     const editComment = (comment) => {
@@ -67,11 +88,11 @@ export const CommentProvider = (props) => {
                     return ;
                 }
                 throw new Error("Unauthorized");
-            }));
+            })).then(getAllComments);
     };
     
     return (
-    <CommentContext.Provider value={{ comments, getCommentsByPostId, addComment, deleteComment, editComment}}>
+    <CommentContext.Provider value={{comments, getCommentsByPostId, addComment, deleteComment, editComment, setComments, getCommentById}}>
         {props.children}
     </CommentContext.Provider>
     );
