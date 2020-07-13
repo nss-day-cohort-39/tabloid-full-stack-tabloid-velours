@@ -1,11 +1,45 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
 export const CommentContext = React.createContext();
 
 export const CommentProvider = (props) => {
+    const [comments, setComments] = useState([]);
     const { getToken } = useContext(UserProfileContext);
     const apiUrl = "/api/comment/";
+
+    const getAllComments = () => {
+        getToken().then((token) =>
+        fetch(apiUrl, {
+            method: "GET",
+            headers: {
+            Authorization: `Bearer ${token}`
+            }
+        })
+        .then(resp => resp.json())
+        .then(setComments))
+    }
+
+    const getCommentsByPostId = (postId) => {
+        getToken().then((token) => 
+        fetch(apiUrl + `${postId}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }).then((res) => res.json())
+          .then(setComments));
+      }
+
+      const getCommentById = (id) => {
+        getToken().then((token) => 
+        fetch(apiUrl + `id/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }).then((res) => res.json()))
+      }
 
       const addComment = (comment) => {
         getToken().then((token) =>
@@ -21,7 +55,7 @@ export const CommentProvider = (props) => {
                     return resp.json();
                 }
                 throw new Error("Unauthorized");
-            }));
+            }).then(getAllComments));
     };
 
     const editComment = (comment) => {
@@ -54,11 +88,11 @@ export const CommentProvider = (props) => {
                     return ;
                 }
                 throw new Error("Unauthorized");
-            }));
+            })).then(getAllComments);
     };
     
     return (
-    <CommentContext.Provider value={{ addComment, deleteComment, editComment}}>
+    <CommentContext.Provider value={{comments, getCommentsByPostId, addComment, deleteComment, editComment, setComments, getCommentById}}>
         {props.children}
     </CommentContext.Provider>
     );

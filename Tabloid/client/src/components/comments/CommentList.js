@@ -1,9 +1,14 @@
-import React from "react";
-import { Card, CardBody} from "reactstrap";
+import React, {useEffect, useContext} from "react";
+import { Card, CardBody } from "reactstrap";
+import { CommentContext } from "../../providers/CommentProvider"
 import { Comment } from "./Comment"
 
-export const CommentList = ({comments}) => {
-
+export const CommentList = ({postId}) => {
+    const { comments, getCommentsByPostId } = useContext(CommentContext);
+    
+    useEffect(() => {
+        getCommentsByPostId(postId)
+    }, []);
     return (
         <Card className='text-left'>
             <CardBody>
