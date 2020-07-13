@@ -10,6 +10,7 @@ import TagList from "./tag/TagList";
 import Hello from "./Hello";
 import { CategoryList } from "./categories/CategoryList";
 import PostDetails from "./posts/PostDetails";
+import { CommentList } from "./comments/CommentList";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
