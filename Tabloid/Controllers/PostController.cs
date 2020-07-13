@@ -33,6 +33,11 @@ namespace Tabloid.Controllers
         public IActionResult Get(int id)
         {
             var post = _postRepository.GetById(id);
+            var currentUser = GetCurrentUserProfile();
+            if (post.UserProfileId == currentUser.Id)
+            {
+                post.IsCurrentUsers = true;
+            }
             if (post == null)
             {
                 return NotFound();

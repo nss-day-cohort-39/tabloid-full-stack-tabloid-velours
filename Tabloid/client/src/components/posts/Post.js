@@ -10,7 +10,6 @@ const Post = ({post}) => {
     const handleClick = () => {
         history.push(`/posts/${post.id}`);
     }
-    debugger
     return (
         <>
             <Card>
