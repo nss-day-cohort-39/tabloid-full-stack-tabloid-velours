@@ -42,12 +42,14 @@ namespace Tabloid.Repositories
 
         public Post GetById(int id)
         {
-            return _context.Post
+            var postContext = _context.Post
                            .Include(p => p.UserProfile)
                            .Include(p => p.CommentList)
                            .ThenInclude(c => c.UserProfile)
                            .Include(p => p.Category)
                            .FirstOrDefault(p => p.Id == id);
+            postContext.CommentList.OrderByDescending(comment => comment.CreateDateTime);
+            return postContext;
         }
 
         public void Add(Post post)

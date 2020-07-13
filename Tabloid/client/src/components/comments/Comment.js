@@ -11,7 +11,7 @@ import moment from "moment";
 
 export const Comment = ({ comment }) => {
   const { deleteComment, editComment} = useContext(CommentContext);
-  const formattedDate = moment().format('MM/DD/YYYY', comment.createDateTime)
+  const formattedDate = moment(comment.createDateTime).format("MM/DD/YYYY")
   const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
   
       return (
