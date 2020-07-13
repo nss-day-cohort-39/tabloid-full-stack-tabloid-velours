@@ -23,14 +23,17 @@ namespace Tabloid.Repositories
             return _context.PostTag
                 .ToList();
         }
-        public PostTag GetByTagId(int id)
+        public List<PostTag> GetByTagId(int id)
         {
             return _context.PostTag
-               .Where(pt => pt.TagId == id);
-        }public PostTag GetByPostId(int id)
+               .Where(pt => pt.TagId == id)
+               .ToList();
+
+        }public List<PostTag> GetByPostId(int id)
         {
             return _context.PostTag
-               .FirstOrDefault(t => t.Id == id);
+               .Where(pt => pt.PostId == id)
+               .ToList();
         }
 
         //public void Add(Tag tag)
