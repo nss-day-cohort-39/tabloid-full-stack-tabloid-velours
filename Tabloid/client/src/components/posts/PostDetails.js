@@ -14,6 +14,7 @@ const PostDetails = () => {
     const { id } = useParams();
     const [modal, setModal] = useState(false)
     const history = useHistory();
+
     
     const toggleModal = () =>  setModal(!modal)
     
@@ -31,13 +32,20 @@ const PostDetails = () => {
         return null;
     }
     
+    const handleClick = () => {
+        history.push(`/editpost/${onePost}`);
+    }
     //edit and delete post
     const editAndDelete = () => {
         if (onePost.isCurrentUsers === true)
         {
             return (
                 <>
-                <i class="fa fa-pencil-square-o" aria-hidden="true">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"
+                onclick={(e) => {
+                    e.preventDefault()
+                    handleClick()
+                }}>
                     Edit
                 </i>  
                 <br></br>
