@@ -1,20 +1,19 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { CommentContext } from "./providers/CommentProvider";
+import { CommentContext } from "../../providers/CommentProvider";
 
-export const EditComment=({comment})=> {
+export const EditComment=({comment, toggle})=> {
   const history = useHistory();
   const { editComment } = useContext(CommentContext);
   const [editSubjectText, setSubjectText] = useState();
   const [editCommentText, setCommentText] = useState();
-
+  const postId= comment.postId
 
   const submitForm = (e) => {
     e.preventDefault();
-    editComment({ subject: editSubjectText, content: editCommentText })
-      .then(() => history.push("/"))
-      .catch((err) => alert(`An error ocurred: ${err.message}`));
+    editComment({id: comment.id, subject: editSubjectText, content: editCommentText, postId:postId })
+    toggle() ;
   };
 
   return (

@@ -68,11 +68,12 @@ export const CommentProvider = (props) => {
                     },
                     body: JSON.stringify(comment)
                 }).then(resp => {
-                    if (resp.ok) {
+                    if (resp.ok)
+                     {
                         return resp.json();
                     }
                     throw new Error("Unauthorized");
-                }));
+                }).then(getAllComments));
         };
     
     const deleteComment = (id) => {

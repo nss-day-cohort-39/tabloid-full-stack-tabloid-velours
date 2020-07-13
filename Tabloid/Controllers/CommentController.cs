@@ -51,15 +51,14 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = comment.Id }, comment);
         }
 
-        [HttpPut]
+        [HttpPut ("{id}")]
         public IActionResult EditComment(Comment comment)
         {
             var currentUserProfile = GetCurrentUserProfile();
             comment.UserProfileId = currentUserProfile.Id;
             comment.CreateDateTime = DateTime.Now;
-            _commentRepository.Update(comment);
-            return NoContent();
-
+             _commentRepository.Update(comment);
+            return Ok(comment);
         }
 
         [HttpDelete("{id}")]
