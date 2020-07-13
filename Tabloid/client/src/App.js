@@ -1,10 +1,11 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { UserProfileProvider } from "./providers/UserProfileProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
-import { CategoryProvider } from './providers/CategoryProvider';
-import { PostProvider } from './providers/PostProvider';
+import { CategoryProvider } from "./providers/CategoryProvider";
+import { PostProvider } from "./providers/PostProvider";
+import { TagProvider } from "./providers/TagProvider";
 import { CommentProvider } from './providers/CommentProvider';
 
 function App() {
@@ -14,8 +15,10 @@ function App() {
         <PostProvider>
           <CommentProvider>
           <CategoryProvider>
-            <Header />
-            <ApplicationViews />
+            <TagProvider>
+              <Header />
+              <ApplicationViews />
+            </TagProvider>
           </CategoryProvider>
           </CommentProvider>
         </PostProvider>

@@ -6,6 +6,7 @@ import MyPostList from "./myPosts/MyPostsList";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
+import TagList from "./tag/TagList";
 import Hello from "./Hello";
 import { CategoryList } from "./categories/CategoryList";
 import PostDetails from "./posts/PostDetails";
@@ -19,6 +20,9 @@ export default function ApplicationViews() {
       <Switch>
         <Route path="/" exact>
           {isLoggedIn ? <Hello /> : <Redirect to="/welcome" />}
+        </Route>
+        <Route path="/tags">
+          {isLoggedIn ? <TagList /> : <Redirect to="/welcome" />}
         </Route>
 
         <Route path="/posts" exact>

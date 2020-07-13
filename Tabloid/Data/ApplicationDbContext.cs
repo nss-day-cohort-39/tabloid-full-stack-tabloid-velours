@@ -11,6 +11,7 @@ namespace Tabloid.Data
         public DbSet<UserType> UserType { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Post> Post { get; set; }
+        public DbSet<Tag> Tag { get; set; }
         public DbSet<Comment> Comment { get; set; }
     }
 }
