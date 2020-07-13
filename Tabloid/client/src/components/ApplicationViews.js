@@ -42,7 +42,7 @@ export default function ApplicationViews() {
           {isLoggedIn ? <AddPostForm /> : <Redirect to="/welcome" />}
         </Route>
 
-        <Route path="/editpost/:post" exact>
+        <Route path="/editpost/:id" exact>
           {isLoggedIn ? <EditPostForm /> : <Redirect to="/welcome" />}
         </Route>
 

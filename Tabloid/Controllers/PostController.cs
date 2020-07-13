@@ -57,13 +57,10 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
         {
-            if (id != post.Id)
-            {
-                return BadRequest();
-            }
-
+            var currentUser = GetCurrentUserProfile();
+            post.UserProfileId = currentUser.Id;
             _postRepository.Update(post);
-            return NoContent();
+            return Ok(post);
         }
 
         [HttpDelete("{id}")]
