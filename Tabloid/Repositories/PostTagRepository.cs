@@ -26,6 +26,10 @@ namespace Tabloid.Repositories
         public PostTag GetByTagId(int id)
         {
             return _context.PostTag
+               .Where(pt => pt.TagId == id);
+        }public PostTag GetByPostId(int id)
+        {
+            return _context.PostTag
                .FirstOrDefault(t => t.Id == id);
         }
 
