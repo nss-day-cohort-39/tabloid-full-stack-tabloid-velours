@@ -29,7 +29,6 @@ const AddPostForm = () => {
             isApproved: true,
             categoryId: catId.current.value
         }
-        debugger
         addPost(newPostObj).then(() => {
             history.push("/posts")
         })

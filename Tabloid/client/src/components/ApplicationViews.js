@@ -11,9 +11,12 @@ import Hello from "./Hello";
 import { CategoryList } from "./categories/CategoryList";
 import PostDetails from "./posts/PostDetails";
 import AddPostForm from "./posts/AddPostForm";
+import { UserProfileList } from "./userProfiles/UserProfileList";
+
 
 export default function ApplicationViews() {
-  const { isLoggedIn } = useContext(UserProfileContext);
+  const { isLoggedIn, isAdmin } = useContext(UserProfileContext);
+  const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
 
   return (
     <main>
@@ -55,6 +58,10 @@ export default function ApplicationViews() {
 
         <Route path="/categories">
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/userProfiles" exact>
+          {isLoggedIn && isAdmin ? <UserProfileList /> : <Redirect to="/welcome" />}
         </Route>
         
       </Switch>

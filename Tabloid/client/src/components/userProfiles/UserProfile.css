@@ -1,0 +1,28 @@
+.userProfileList {
+    margin: 100px auto;
+    width: 80%;
+}
+
+.userProfile  {
+    display: flex;
+    flex: 2;
+    justify-content: space-between;
+}
+
+.header--userList {
+    display: flex;
+    justify-content: space-around;
+}
+
+.user--info {
+    width: 25%;
+    margin-left: 0px;
+}
+
+.input--addCategory {
+    width: 80%;
+}
+
+.icon--userProfile {
+    padding-right: 25px;
+}
