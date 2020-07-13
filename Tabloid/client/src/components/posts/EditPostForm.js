@@ -1,11 +1,14 @@
-import React, { useContext, useEffect, useRef } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import { CategoryContext } from "../../providers/CategoryProvider";
 import { PostContext } from "../../providers/PostProvider";
+import moment from "moment";
+
 
 const EditPostForm = ({onePost, toggle, refreshPost}) => {
     const {editPost} = useContext(PostContext);
     const { categories, getCategories } = useContext(CategoryContext)
+    const [chosenCat, setChosenCat] = useState()
     const title = useRef()
     const imageLoc = useRef()
     const content = useRef()
@@ -16,6 +19,10 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
         getCategories();
         // eslint-disable-next-line 
       }, []);
+
+    useEffect(()=> {
+        setChosenCat(onePost.category.id)
+    },[])
 
     const editThePost = () => {
         const newPostObj = {
@@ -31,6 +38,11 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
         editPost(newPostObj).then(refreshPost)
         toggle()
     }
+
+    var publishDate = moment(onePost.publishDateTime).format('YYYY-MM-DD')
+    const handleChange = () => {
+        setChosenCat(catId.current.value);
+    }
     
     return (
         <>
@@ -41,7 +53,7 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
                 </FormGroup>
                 <FormGroup>
                     <Label for="datetime">Publish Date</Label>
-                    <Input type="date" name="datetime" id="datetime" placeholder="Date" defaultValue={onePost.publishDateTime} innerRef={pDT} />
+                    <Input type="date" name="datetime" id="datetime" placeholder="Date" defaultValue={publishDate} innerRef={pDT} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="newImage">Image URL</Label>
@@ -49,7 +61,7 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
                 </FormGroup>
                 <FormGroup>
                     <Label for="exampleSelect">Category</Label>
-                    <Input type="select" name="select" id="exampleSelect" defaultValue={onePost.category.id} innerRef={catId}>
+                    <Input type="select" name="select" id="exampleSelect" value={chosenCat} onChange={handleChange} innerRef={catId}>
                         <option value={0}>Select a category</option>
                     {
                         categories.map(category => {

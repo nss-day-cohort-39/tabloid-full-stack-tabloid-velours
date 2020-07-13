@@ -59,8 +59,13 @@ namespace Tabloid.Controllers
         {
             var currentUser = GetCurrentUserProfile();
             post.UserProfileId = currentUser.Id;
+            if (id != post.Id)
+            {
+                return BadRequest();
+            }
+
             _postRepository.Update(post);
-            return Ok(post);
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
