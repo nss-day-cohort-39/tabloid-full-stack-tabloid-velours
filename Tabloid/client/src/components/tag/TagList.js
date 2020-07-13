@@ -15,9 +15,10 @@ export default function TagList() {
 
   return (
     <>
-      <section className="tagList">
-        <h3 className="tagList--header">Tags</h3>
+      <section className="tagForm">
         <NewTagForm />
+      </section>
+      <section className="tagList">
         <ListGroup>
           {tags.map((tag) => (
             <Tag key={tag.id} tag={tag} />

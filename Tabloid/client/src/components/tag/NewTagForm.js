@@ -20,18 +20,21 @@ export default function NewTagForm() {
     addTag(tag).then(getTags);
   };
   return (
-    <Container className="tagForm m-3">
-      <Input
-        type="text"
-        id="newTag"
-        placeholder="New tag name..."
-        onInput={(e) => setTagName(e.target.value)}
-      ></Input>
+    <section className="tagForm">
+      <fieldset className="input--addTag">
+        <input
+          type="text"
+          id="newTag"
+          className="form-control"
+          placeholder="Enter New Tag"
+          onInput={(e) => setTagName(e.target.value)}
+        ></input>
+      </fieldset>
 
-      <Button className="btn--addTag ml-2" type="button" onClick={submitTag}>
+      <Button type="submit" size="md" color="info" onClick={submitTag}>
         {" "}
-        +{" "}
+        Save{" "}
       </Button>
-    </Container>
+    </section>
   );
 }
