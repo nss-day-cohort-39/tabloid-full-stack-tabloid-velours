@@ -1,31 +1,28 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { CommentContext } from "./providers/CommentProvider";
+import { CommentContext } from "../../providers/CommentProvider"
 
-export default function CommentForm() {
-  const history = useHistory();
-  const { addComment } = useContext(CommentContext);
+export const CommentForm =({postId, toggle})=> {
+  const { addComment, setComments } = useContext(CommentContext);
   const [subjectText, setSubjectText] = useState();
   const [commentText, setCommentText] = useState();
 
-
+  var intPostId = parseInt(postId)
   const submitForm = (e) => {
     e.preventDefault();
-    addComment({ subject: subjectText, content: commentText })
-      .then(() => history.push("/"))
-      .catch((err) => alert(`An error ocurred: ${err.message}`));
+    addComment({ subject: subjectText, content: commentText, postId: intPostId })
+    toggle();
   };
 
   return (
     <Form onSubmit={submitForm}>
-      <FormGroup>
+       <FormGroup>
         <Label for="subjectText">Subject</Label>
-        <Input id="subjectText" type="textarea" onChange={e => setSubjectText(e.target.value)} />
+        <Input required id="subjectText" type="textarea" onChange={e => setSubjectText(e.target.value)} />
       </FormGroup>
       <FormGroup>
         <Label for="commentText">Your Comment</Label>
-        <Input id="commentText" type="textarea" onChange={e => setCommentText(e.target.value)} />
+        <Input required id="commentText" type="textarea" onChange={e => setCommentText(e.target.value)} />
       </FormGroup>
       <FormGroup>
         <Button>Save</Button>
