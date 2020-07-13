@@ -10,34 +10,41 @@ import moment from "moment";
 
 
 export const Comment = ({ comment }) => {
-  const { deleteComment, editComment } = useContext(CommentContext);
+  const { deleteComment, editComment} = useContext(CommentContext);
   const formattedDate = moment().format('MM/DD/YYYY', comment.createDateTime)
-
-  return (
-    <>
-      <h1>{comment.post.title}</h1>
-      <ListGroup>
-        <ListGroupItem active>
-          <ListGroupItemHeading>
-            {comment.subject} posted by {comment.post.fullName}
-          </ListGroupItemHeading>
-          <ListGroupItemText>
-            {comment.content}
+  const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
+  
+      return (
+      <>
+      <br></br>
+        <ListGroup>
+          <ListGroupItem active>
+            <ListGroupItemHeading>
+              {comment.subject}
+            </ListGroupItemHeading>
+            <ListGroupItemText>
+              "{comment.content}"
+              <br></br>
+              <i>posted by {comment.userProfile.fullName} on {formattedDate}</i>
+            </ListGroupItemText>
+            {userProfile.id === comment.userProfileId  &&
+            <i className="fa fa-pencil-square-o" aria-hidden="true" onClick={(e) =>
+                editComment(e)}>
+                Edit
+            </i>  
+}
             <br></br>
-            <i>posted on {formattedDate}</i>
-          </ListGroupItemText>
-          <i class="fa fa-pencil-square-o" aria-hidden="true" onClick={(e) =>
-              this.editComment(e)}>
-              Edit
-          </i>  
-          <br></br>
-          <i class="fa fa-trash-o" aria-hidden="true" onClick={() =>
-              window.confirm("Are you sure you wish to delete this comment?") &&
-              deleteComment(comment.id)}>
-              Delete
-          </i>  
-        </ListGroupItem>
-      </ListGroup>
-    </>
-  );
+            {Boolean(userProfile.id === comment.userProfileId | userProfile.userTypeId === 1) &&
+            
+  <i className="fa fa-trash-o" aria-hidden="true" onClick={() =>
+    window.confirm("Are you sure you wish to delete this comment?") && deleteComment(comment.id)}>
+    Delete
+  </i> 
+            }
+            <br></br>
+          </ListGroupItem>
+        </ListGroup>
+      </>
+    );
+ 
 };

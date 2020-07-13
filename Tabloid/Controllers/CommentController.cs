@@ -8,7 +8,7 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase
@@ -35,6 +35,12 @@ namespace Tabloid.Controllers
             return Ok(_commentRepository.GetCommentByPostId(postId));
         }
 
+        [HttpGet("id/{id}")]
+        public IActionResult GetCommentsById(int id)
+        {
+            return Ok(_commentRepository.GetById(id));
+        }
+
         [HttpPost]
         public IActionResult Comment(Comment comment)
         {
@@ -56,7 +62,7 @@ namespace Tabloid.Controllers
 
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Comment(int id)
         {
             _commentRepository.Delete(id);
