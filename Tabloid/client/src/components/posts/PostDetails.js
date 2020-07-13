@@ -67,7 +67,7 @@ const PostDetails = () => {
                     <div className="authorContainer">Written by: <span className="author">{onePost.userProfile.displayName}</span></div>
                     <div className="contentContainer">{onePost.content}</div>
                     <div className="publishedDate">Published: {formattedDate}</div>
-                    {editAndDelete}
+                    {editAndDelete()}
                     <Button color="primary" onClick={toggleModal} style={{ marginBottom: '1rem' }}>Add Comment</Button>
     
                     <Card className='text-left'>
