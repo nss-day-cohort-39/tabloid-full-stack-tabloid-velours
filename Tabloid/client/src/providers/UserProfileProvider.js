@@ -14,8 +14,8 @@ export function UserProfileProvider(props) {
   useEffect(() => {
     if (isLoggedIn && userProfile.userTypeId === 1) {
       setAdmin(true)
-    }
-  })
+    }})
+  
  
   const [userProfiles, setUserProfiles] = useState([])
 
@@ -40,6 +40,7 @@ export function UserProfileProvider(props) {
       .then(() => {
         sessionStorage.clear()
         setIsLoggedIn(false);
+        setAdmin(false);
       });
   };
 
