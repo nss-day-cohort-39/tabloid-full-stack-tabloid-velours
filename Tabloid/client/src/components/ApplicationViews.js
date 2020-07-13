@@ -11,10 +11,12 @@ import Hello from "./Hello";
 import { CategoryList } from "./categories/CategoryList";
 import PostDetails from "./posts/PostDetails";
 import AddPostForm from "./posts/AddPostForm";
-import EditPostForm from "./posts/EditPostForm";
+import { UserProfileList } from "./userProfiles/UserProfileList";
+
 
 export default function ApplicationViews() {
-  const { isLoggedIn } = useContext(UserProfileContext);
+  const { isLoggedIn, isAdmin } = useContext(UserProfileContext);
+  const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
 
   return (
     <main>
@@ -42,10 +44,6 @@ export default function ApplicationViews() {
           {isLoggedIn ? <AddPostForm /> : <Redirect to="/welcome" />}
         </Route>
 
-        <Route path="/editpost/:id" exact>
-          {isLoggedIn ? <EditPostForm /> : <Redirect to="/welcome" />}
-        </Route>
-
         <Route path="/welcome">
           <LoginRegister/>
         </Route>
@@ -60,6 +58,10 @@ export default function ApplicationViews() {
 
         <Route path="/categories">
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/userProfiles" exact>
+          {isLoggedIn && isAdmin ? <UserProfileList /> : <Redirect to="/welcome" />}
         </Route>
         
       </Switch>

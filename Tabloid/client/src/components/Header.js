@@ -12,9 +12,10 @@ import {
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function Header() {
-  const { isLoggedIn, logout } = useContext(UserProfileContext);
+  const { isLoggedIn, logout, isAdmin } = useContext(UserProfileContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+ 
 
   return (
     <div>
@@ -40,8 +41,14 @@ export default function Header() {
               </NavItem>
               <NavItem>
                 <NavLink tag={RRNavLink} to ="/tags">Tags</NavLink>
-              </NavItem>
+              </NavItem> 
+              {isAdmin &&
+                <NavItem>
+                  <NavLink tag={RRNavLink} to ="/userProfiles">Users</NavLink>
+                </NavItem> 
+              }
               </>
+              
             }
             {!isLoggedIn &&
               <>
