@@ -41,6 +41,10 @@ export default function ApplicationViews() {
           {isLoggedIn ? <AddPostForm /> : <Redirect to="/welcome" />}
         </Route>
 
+        <Route path="/userProfiles/:id" exact>
+          {isLoggedIn && isAdmin ? <PostDetails /> : <Redirect to="/welcome" />}
+        </Route>
+
         <Route path="/welcome">
           <LoginRegister/>
         </Route>
