@@ -30,12 +30,14 @@ export function TagProvider(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(tag),
-      }).then((resp) => {
-        if (resp.ok) {
-          return resp.json();
-        }
-        throw new Error("Unauthorized");
-      }).then(getTags)
+      })
+        .then((resp) => {
+          if (resp.ok) {
+            return resp.json();
+          }
+          throw new Error("Unauthorized");
+        })
+        .then(getTags)
     );
   };
   const updateTag = (tag) => {
@@ -45,8 +47,8 @@ export function TagProvider(props) {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
-          body: JSON.stringify(tag),
         },
+        body: JSON.stringify(tag),
       }).then(getTags)
     );
   };
