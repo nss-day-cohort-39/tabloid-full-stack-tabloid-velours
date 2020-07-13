@@ -8,11 +8,11 @@ export const EditComment=({comment, toggle})=> {
   const { editComment } = useContext(CommentContext);
   const [editSubjectText, setSubjectText] = useState();
   const [editCommentText, setCommentText] = useState();
-  const postId= comment.postId
+ 
 
   const submitForm = (e) => {
     e.preventDefault();
-    editComment({id: comment.id, subject: editSubjectText, content: editCommentText, postId:postId })
+    editComment({id: comment.id, subject: editSubjectText? editSubjectText : comment.subject, content: editCommentText? editCommentText : comment.content, postId:comment.postId })
     toggle() ;
   };
 
