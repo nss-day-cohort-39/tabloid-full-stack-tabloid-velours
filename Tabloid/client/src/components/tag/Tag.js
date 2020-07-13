@@ -19,8 +19,8 @@ export default function Tag({ tag }) {
           aria-hidden="true"
           onClick={(e) => {
             e.preventDefault();
-            deleteTag(tag.id);
-          }}
+            deleteTag(tag.id) 
+            }}
         ></i>
       </div>
     </ListGroupItem>
