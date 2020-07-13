@@ -1,46 +1,62 @@
 import React, { useContext, useEffect, useState } from "react"
 import { PostContext } from "../../providers/PostProvider";
-import { CommentContext } from "../../providers/CommentProvider";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import "./PostDetails.css"
 import moment from "moment";
-import { Collapse, Button, CardBody, Card, Modal, ModalHeader, ModalBody} from 'reactstrap';
-import { CommentList } from "../comments/CommentList";
+import { Button, CardBody, Card, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import { CommentForm } from "../comments/CommentForm";
 import { Comment } from "../comments/Comment"
 
+
 const PostDetails = () => {
-    const {getPostById} = useContext(PostContext);
-    const {comments, getCommentsByPostId} = useContext(CommentContext);
+    const {getPostById, deletePost, editPost} = useContext(PostContext);
     const [onePost, setOnePost] = useState();
     const { id } = useParams();
     const [modal, setModal] = useState(false)
-   
-    const toggleModal = () => {
-      
-        setModal(!modal)
-      }
-
+    const history = useHistory();
+    
+    const toggleModal = () =>  setModal(!modal)
+    
+    
     useEffect(() => {
         getPostById(id).then(setOnePost)
     }, []);
-
+    
     useEffect(() => {
-        getCommentsByPostId(id)
-    }, []);
-
-
+        getPostById(id).then(setOnePost)
+    }, [onePost]);
+    
+    
     if (!onePost) {
         return null;
     }
-
-    if (!comments) {
-        return null;
-      }
-
-    const formattedDate = moment().format('MM/DD/YYYY', onePost.publishDateTime)
-
-
+    
+    //edit and delete post
+    const editAndDelete = () => {
+        if (onePost.isCurrentUsers === true)
+        {
+            return (
+                <>
+                <i class="fa fa-pencil-square-o" aria-hidden="true">
+                    Edit
+                </i>  
+                <br></br>
+                <i class="fa fa-trash-o" aria-hidden="true" 
+                onClick={() =>
+                    window.confirm("Are you sure you wish to delete this post?") &&
+                    deletePost(onePost.id).then(history.push("/posts"))}
+                    
+                    >
+                    Delete
+                </i>
+                </> 
+            )
+        }
+    }
+    const formattedDate = moment(onePost.publishDateTime).format("MM/DD/YYYY")
+    const sortedComments = onePost.commentList.sort((a,b) => new Date(b.createDateTime).getTime() - new Date(a.createDateTime).getTime())
+    
+    
         return (
             <>
                 <div className="postDetailsContainer">
@@ -51,6 +67,7 @@ const PostDetails = () => {
                     <div className="authorContainer">Written by: <span className="author">{onePost.userProfile.displayName}</span></div>
                     <div className="contentContainer">{onePost.content}</div>
                     <div className="publishedDate">Published: {formattedDate}</div>
+                    {editAndDelete()}
                     <Button color="primary" onClick={toggleModal} style={{ marginBottom: '1rem' }}>Add Comment</Button>
     
                     <Card className='text-left'>
@@ -58,7 +75,7 @@ const PostDetails = () => {
     
                 <CardBody>
                 {
-                            (comments.length)? comments.map((comment) => (
+                            (sortedComments.length)? sortedComments.map((comment) => (
                                     <Comment key={comment.id} comment={comment} />
     
                                 ))

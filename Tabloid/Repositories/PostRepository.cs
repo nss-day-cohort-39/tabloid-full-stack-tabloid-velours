@@ -21,9 +21,10 @@ namespace Tabloid.Repositories
             DateTime today = DateTime.Now;
             return _context.Post
                            .Include(p => p.UserProfile)
+                           .Include(p => p.CommentList)
+                           .Include(p => p.Category)
                            .Where(p => p.IsApproved == true && p.PublishDateTime <= today)
                            .OrderByDescending(p => p.PublishDateTime)
-                           //.Include(p => p.Category)
                            .ToList();
         }
 
@@ -32,18 +33,41 @@ namespace Tabloid.Repositories
             DateTime today = DateTime.Now;
             return _context.Post
                            .Include(p => p.UserProfile)
+                           .Include(p => p.CommentList)
+                           .Include(p => p.Category)
                            .Where(p => p.IsApproved == true && p.UserProfileId == id)
                            .OrderByDescending(p => p.CreateDateTime)
-                           //.Include(p => p.Category)
                            .ToList();
         }
 
         public Post GetById(int id)
         {
-            return _context.Post
-                           //.Include(p => p.CommentsOnPost)
+            var postContext = _context.Post
                            .Include(p => p.UserProfile)
+                           .Include(p => p.CommentList)
+                           .ThenInclude(c => c.UserProfile)
+                           .Include(p => p.Category)
                            .FirstOrDefault(p => p.Id == id);
+            return postContext;
+        }
+
+        public void Add(Post post)
+        {
+            _context.Add(post);
+            _context.SaveChanges();
+        }
+
+        public void Update(Post post)
+        {
+            _context.Entry(post).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var post = GetById(id);
+            _context.Post.Remove(post);
+            _context.SaveChanges();
         }
     }
 }
