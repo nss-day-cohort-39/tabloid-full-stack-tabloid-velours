@@ -1,18 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   ListGroup,
   ListGroupItem,
   ListGroupItemHeading,
   ListGroupItemText,
+  Modal, ModalHeader, ModalBody
 } from "reactstrap";
 import { CommentContext } from "../../providers/CommentProvider"
 import moment from "moment";
+import { EditComment } from "./EditComment";
 
 
 export const Comment = ({ comment }) => {
   const { deleteComment, editComment} = useContext(CommentContext);
-  const formattedDate = moment().format('MM/DD/YYYY', comment.createDateTime)
+  const formattedDate = moment(comment.createDateTime).format("MM/DD/YYYY")
   const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
+  const [modal, setModal] = useState(false)
+  const toggleModal = () => setModal(!modal) 
   
       return (
       <>
@@ -28,8 +32,7 @@ export const Comment = ({ comment }) => {
               <i>posted by {comment.userProfile.fullName} on {formattedDate}</i>
             </ListGroupItemText>
             {userProfile.id === comment.userProfileId  &&
-            <i className="fa fa-pencil-square-o" aria-hidden="true" onClick={(e) =>
-                editComment(e)}>
+            <i className="fa fa-pencil-square-o" aria-hidden="true" onClick={() => toggleModal() }>
                 Edit
             </i>  
 }
@@ -44,6 +47,15 @@ export const Comment = ({ comment }) => {
             <br></br>
           </ListGroupItem>
         </ListGroup>
+
+
+        <Modal isOpen={modal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+                        toggle={toggleModal} contentClassName="custom-modal-style-product" >
+                        <ModalHeader toggle={toggleModal}>Edit "{comment.subject}"</ModalHeader>
+                        <ModalBody>
+                            <EditComment comment={comment} toggle={toggleModal} />
+                        </ModalBody>
+                    </Modal>
       </>
     );
  

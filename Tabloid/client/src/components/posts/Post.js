@@ -17,7 +17,7 @@ const Post = ({post}) => {
                 <CardBody>
                 <CardTitle>{post.title}</CardTitle>
                 <CardSubtitle>Written by: {post.userProfile.displayName}</CardSubtitle>
-                <CardText>category</CardText>
+                <CardText>{post.category.name}</CardText>
                 <Button onClick={handleClick}>Details</Button>
                 </CardBody>
             </Card>
