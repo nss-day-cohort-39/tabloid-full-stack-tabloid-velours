@@ -33,57 +33,64 @@ export const UserProfile = ({ userProfile }) => {
         createDateTime: userProfile.createDateTime,
         imageLocation: userProfile.imageLocation,
         userTypeId: userProfile.userTypeId,
-        IsActivated: 0,
+        IsActivated: 0
       });
   };
 
-  if (userProfile.IsActivated === true) {
     return (
       <>
-        <ListGroupItem>
-          <ListGroup horizontal className="userProfile">
-            <div className="user--info">{userProfile.fullName}</div>
-            <div className="user--info">{userProfile.displayName}</div>
-            <div className="user--info">{userProfile.userType.name}</div>
-            <ListGroup horizontal>
-              <div className="icon--userProfile">
-                <i
-                  onClick={handleClick}
-                  className="fa fa-info-circle"
-                  aria-hidden="true"
-                ></i>
-              </div>
-              <div className="icon--userProfile">
-                <i
-                  onClick={deActivate}
-                  className="fa fa-window-close-o"
-                  aria-hidden="true"
-                ></i>
-              </div>
-              <div className="icon--userProfile">
-                <i
-                  onClick={() => toggleModal()}
-                  className="fa fa-pencil-square-o"
-                  aria-hidden="true"
-                ></i>
-              </div>
-            </ListGroup>
-          </ListGroup>
-        </ListGroupItem>
+    {(userProfile.IsActivated ===1) && (
+      <>
+      
+      <ListGroupItem>
+      <ListGroup horizontal className="userProfile">
+        <div className="user--info">{userProfile.fullName}</div>
+        <div className="user--info">{userProfile.displayName}</div>
+        <div className="user--info">{userProfile.userType.name}</div>
+        <ListGroup horizontal>
+          <div className="icon--userProfile">
+            <i
+              onClick={handleClick}
+              className="fa fa-info-circle"
+              aria-hidden="true"
+            ></i>
+          </div>
+          <div className="icon--userProfile">
+            <i
+              onClick={deActivate}
+              className="fa fa-window-close-o"
+              aria-hidden="true"
+            ></i>
+          </div>
+          <div className="icon--userProfile">
+            <i
+              onClick={() => toggleModal()}
+              className="fa fa-pencil-square-o"
+              aria-hidden="true"
+            ></i>
+          </div>
+        </ListGroup>
+      </ListGroup>
+    </ListGroupItem>
 
-        <Modal
-          isOpen={modal}
-          modalTransition={{ timeout: 700 }}
-          backdropTransition={{ timeout: 1300 }}
-          toggle={toggleModal}
-          contentClassName="custom-modal-style-product"
-        >
-          <ModalHeader toggle={toggleModal}>Edit User Type</ModalHeader>
-          <ModalBody>
-            <EditUserType userProfile={userProfile} toggle={toggleModal} />
-          </ModalBody>
-        </Modal>
+    <Modal
+      isOpen={modal}
+      modalTransition={{ timeout: 700 }}
+      backdropTransition={{ timeout: 1300 }}
+      toggle={toggleModal}
+      contentClassName="custom-modal-style-product"
+    >
+      <ModalHeader toggle={toggleModal}>Edit User Type</ModalHeader>
+      <ModalBody>
+        <EditUserType userProfile={userProfile} toggle={toggleModal} />
+      </ModalBody>
+    </Modal>
+    </>
+    )
+
+    }
+
       </>
     );
-  }
+  
 };

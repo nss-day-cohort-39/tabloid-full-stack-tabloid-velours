@@ -16,8 +16,6 @@ export const UserProfileList = () => {
     // eslint-disable-next-line
   }, []);
 
-  
-
   return (
     <>
       <section className="userProfileList">
