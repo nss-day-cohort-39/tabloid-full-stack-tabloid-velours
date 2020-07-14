@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { ListGroup, ListGroupItem, Button } from 'reactstrap';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 import { UserProfile } from "../userProfiles/UserProfile";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import "./UserProfile.css";
@@ -30,7 +30,6 @@ export const UserProfileList = () => {
             <UserProfile key={up.id} userProfile={up} />
           ))}
         </ListGroup>
-        <Button onClick={handleLink}>View Deactivated Users</Button>
       </section>
     </>
   );
