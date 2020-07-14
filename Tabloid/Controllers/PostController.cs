@@ -17,10 +17,14 @@ namespace Tabloid.Controllers
     {
         private readonly PostRepository _postRepository;
         private readonly UserProfileRepository _upRepository;
+        private readonly PostTagRepository _ptRepository;
+        private readonly TagRepository _tagRepository;
         public PostController(ApplicationDbContext context)
         {
             _postRepository = new PostRepository(context);
             _upRepository = new UserProfileRepository(context);
+            _ptRepository = new PostTagRepository(context);
+            _tagRepository = new TagRepository(context);
         }
 
         [HttpGet]
@@ -34,6 +38,14 @@ namespace Tabloid.Controllers
         {
             var post = _postRepository.GetById(id);
             var currentUser = GetCurrentUserProfile();
+            var relatedPTs = _ptRepository.GetByPostId(id);
+            var allTags = _tagRepository.GetAll();
+            // for every posttag where post = posttag, search all tags + filter by tag id
+            foreach(PostTag pt in relatedPTs)
+            {
+                post.TagList = allTags.Where(t => t.Id == pt.TagId).ToList();
+            }
+
             if (post.UserProfileId == currentUser.Id)
             {
                 post.IsCurrentUsers = true;

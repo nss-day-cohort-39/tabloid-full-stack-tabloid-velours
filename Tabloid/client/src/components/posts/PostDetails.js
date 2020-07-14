@@ -77,6 +77,9 @@ const PostDetails = () => {
                     <div className="contentContainer">{onePost.content}</div>
                     <div className="publishedDate">Published: {formattedDate}</div>
                     {editAndDelete()}
+                    {
+                        onePost.tagList.map(tag => (<div>{tag.name}</div>))
+                    }
                     <Button color="primary" onClick={toggleModal} style={{ marginBottom: '1rem' }}>Add Comment</Button>
     
                     <Card className='text-left'>
