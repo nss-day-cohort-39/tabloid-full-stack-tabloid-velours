@@ -6,7 +6,7 @@ export default function LoginRegister() {
   return (
     <>
       <main>
-        <header className="masthead bg-primary text-white text-center">
+        <header className="masthead bg text-white text-center">
           <div className="container d-flex align-items-center flex-column">
             <img src={TabloidHomeLogo} alt=""/>
             <div className="divider-custom divider-light">

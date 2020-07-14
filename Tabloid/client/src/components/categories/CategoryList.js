@@ -15,6 +15,10 @@ export const CategoryList = () => {
 
     return (
         <>
+        <section>
+            <div className="categoriesHeader">
+                <h2>Categories</h2>
+            </div>
             <section className="categoryForm">
                 <CategoryForm /> 
             </section>
@@ -24,6 +28,7 @@ export const CategoryList = () => {
                         <Category key={cat.id} category={cat}/>
                     )} 
                 </ListGroup>
+            </section>
             </section>
         </>
     )

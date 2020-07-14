@@ -12,7 +12,11 @@ export const CategoryForm = () => {
         Name: name.current.value,     
     } 
     return addCategory(newCategory)
-} 
+  }
+  
+  const handleInputChange = () => {
+      name.current.value = ""
+  }
 
   return (
     <>
@@ -35,6 +39,7 @@ export const CategoryForm = () => {
                     onClick={evt => {
                         evt.preventDefault()
                         constructNewCategory()
+                        handleInputChange()
                     }}
                     >
                     Save

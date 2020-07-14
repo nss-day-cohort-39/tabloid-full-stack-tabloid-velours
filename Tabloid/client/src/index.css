@@ -16,3 +16,7 @@ p {
 .post p {
     white-space: pre-wrap;
 }
+
+.iconImg {
+  max-width: 35px;
+}

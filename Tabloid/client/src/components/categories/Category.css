@@ -28,3 +28,9 @@
 .icon--category {
     padding-right: 25px;
 }
+
+.categoriesHeader {
+    text-align: center;
+    margin: auto;
+    width: 25%;
+}
