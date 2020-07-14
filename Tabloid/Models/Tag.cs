@@ -13,5 +13,7 @@ namespace Tabloid.Models
         [StringLength(50, MinimumLength = 1)]
         [RegularExpression(@"^[^,]*$", ErrorMessage = "Your tag's name cannot contain any commas!")]
         public string Name { get; set; }
+        
+        public List<PostTag> PostTagList { get; set; }
     }
 }

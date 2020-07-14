@@ -22,6 +22,8 @@ namespace Tabloid.Repositories
         {
             return _context.Tag
                 .OrderBy(t => t.Name)
+                .Include(t =>t.PostTagList)
+                .ThenInclude(pt => pt.Post)
                 .ToList();
         }
         public Tag GetById(int id)

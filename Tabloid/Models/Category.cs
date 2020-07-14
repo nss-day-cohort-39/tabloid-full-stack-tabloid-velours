@@ -9,5 +9,7 @@ namespace Tabloid.Models
 
         [Required]
         public string Name { get; set; }
+
+        public List<Post> PostList { get; set; }
     }
 }

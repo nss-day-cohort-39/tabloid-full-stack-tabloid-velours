@@ -19,6 +19,7 @@ namespace Tabloid.Repositories
         {
             return _context.Category
                 .OrderBy(c => c.Name)
+                .Include(c => c.PostList)
                 .ToList();
         }
 
