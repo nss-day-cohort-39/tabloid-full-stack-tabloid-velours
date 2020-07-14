@@ -78,7 +78,7 @@ const PostDetails = () => {
                     <div className="publishedDate">Published: {formattedDate}</div>
                     {editAndDelete()}
                     {
-                        onePost.tagList.map(tag => (<div>{tag.name}</div>))
+                        onePost.postTagList.map(pT => (<div>{pT.tag.name}</div>))
                     }
                     <Button color="primary" onClick={toggleModal} style={{ marginBottom: '1rem' }}>Add Comment</Button>
     

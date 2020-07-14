@@ -24,11 +24,11 @@ namespace Tabloid.Controllers
            
         }
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(_postTagRepository.GetAll());
-        }
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+        //    return Ok(_postTagRepository.GetAll());
+        //}
 
         [HttpGet("getbypost/{postId}")]
         public IActionResult GetByPostId(int postId)
