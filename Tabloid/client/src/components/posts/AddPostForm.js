@@ -17,6 +17,7 @@ const AddPostForm = () => {
 
     useEffect(() => {
         getCategories();
+        // eslint-disable-next-line 
       }, []);
 
     const constructNewPost = () => {

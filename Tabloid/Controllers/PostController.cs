@@ -57,6 +57,8 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
         {
+            var currentUser = GetCurrentUserProfile();
+            post.UserProfileId = currentUser.Id;
             if (id != post.Id)
             {
                 return BadRequest();
