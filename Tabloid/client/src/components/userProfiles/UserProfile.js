@@ -22,6 +22,7 @@ export const UserProfile = ({ userProfile }) => {
   };
 
   const deActivate = () => {
+    debugger 
     window.confirm("Are you sure you wish to deactivate this user?") &&
       editUserProfile({
         id: userProfile.id,

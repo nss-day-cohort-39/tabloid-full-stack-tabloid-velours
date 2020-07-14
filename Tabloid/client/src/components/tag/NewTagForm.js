@@ -12,13 +12,15 @@ import { TagContext } from "../../providers/TagProvider";
 export default function NewTagForm() {
   const { addTag, getTags } = useContext(TagContext);
   const [tagName, setTagName] = useState("");
+  
   const submitTag = (e) => {
     e.preventDefault();
-
     const tag = { name: tagName };
-
-    addTag(tag).then(getTags);
+    addTag(tag)
+      .then(getTags)
+      .then(setTagName(""))
   };
+
   return (
     <section className="tagForm">
       <fieldset className="input--addTag">

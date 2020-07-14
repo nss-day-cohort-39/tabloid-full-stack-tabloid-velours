@@ -11,6 +11,7 @@ import {
 import { CommentContext } from "../../providers/CommentProvider";
 import moment from "moment";
 import { EditComment } from "./EditComment";
+import "../posts/Post.css"
 
 export const Comment = ({ comment }) => {
   const { deleteComment } = useContext(CommentContext);
