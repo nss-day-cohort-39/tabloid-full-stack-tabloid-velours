@@ -42,15 +42,12 @@ namespace Tabloid.Repositories
 
         public Post GetById(int id)
         {
-            var postContext = _context.Post
+            return _context.Post
                            .Include(p => p.UserProfile)
                            .Include(p => p.CommentList)
                            .ThenInclude(c => c.UserProfile)
                            .Include(p => p.Category)
-                           .Include(p => p.PostTagList)
-                           .ThenInclude(p => p.TagList)
                            .FirstOrDefault(p => p.Id == id);
-            return postContext;
         }
 
         public void Add(Post post)

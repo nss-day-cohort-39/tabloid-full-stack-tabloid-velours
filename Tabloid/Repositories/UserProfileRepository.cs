@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Tabloid.Data;
 using Tabloid.Models;
@@ -20,6 +21,15 @@ namespace Tabloid.Repositories
                        .Include(up => up.UserType) 
                        .FirstOrDefault(up => up.FirebaseUserId == firebaseUserId);
         }
+
+        public List<UserProfile> GetAll()
+        {
+            return _context.UserProfile
+                .Include(up => up.UserType)
+                .OrderBy(up => up.DisplayName)
+                .ToList();
+        }
+
 
         public void Add(UserProfile userProfile)
         {

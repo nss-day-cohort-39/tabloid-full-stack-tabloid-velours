@@ -41,7 +41,7 @@ export const CommentProvider = (props) => {
         }).then((res) => res.json()))
       }
 
-      const addComment = (comment) => {
+      const addComment = (comment) => (
         getToken().then((token) =>
             fetch(apiUrl, {
                 method: "POST",
@@ -55,8 +55,8 @@ export const CommentProvider = (props) => {
                     return resp.json();
                 }
                 throw new Error("Unauthorized");
-            }).then(getAllComments));
-    };
+            }).then(getAllComments))
+      );
 
     const editComment = (comment) => {
         getToken().then((token) =>

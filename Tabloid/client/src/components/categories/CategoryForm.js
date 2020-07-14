@@ -27,7 +27,7 @@ export const CategoryForm = () => {
                 />
             </fieldset>
 
-            <div className="btn--addCategory">
+            <div>
                 <Button 
                     type="submit" 
                     color="info" 

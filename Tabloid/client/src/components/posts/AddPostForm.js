@@ -17,6 +17,7 @@ const AddPostForm = () => {
 
     useEffect(() => {
         getCategories();
+        // eslint-disable-next-line 
       }, []);
 
     const constructNewPost = () => {
@@ -29,7 +30,6 @@ const AddPostForm = () => {
             isApproved: true,
             categoryId: catId.current.value
         }
-        debugger
         addPost(newPostObj).then(() => {
             history.push("/posts")
         })

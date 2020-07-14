@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { CommentContext } from "../../providers/CommentProvider"
 
-export const CommentForm =({postId, toggle})=> {
+export const CommentForm =({postId, toggle, refreshPost})=> {
   const { addComment } = useContext(CommentContext);
   const [subjectText, setSubjectText] = useState();
   const [commentText, setCommentText] = useState();
@@ -10,7 +10,7 @@ export const CommentForm =({postId, toggle})=> {
   var intPostId = parseInt(postId)
   const submitForm = (e) => {
     e.preventDefault();
-    addComment({ subject: subjectText, content: commentText, postId: intPostId })
+    addComment({ subject: subjectText, content: commentText, postId: intPostId }).then(refreshPost)
     toggle();
   };
 
