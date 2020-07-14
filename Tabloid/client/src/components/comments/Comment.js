@@ -12,7 +12,7 @@ import { EditComment } from "./EditComment";
 
 
 export const Comment = ({ comment }) => {
-  const { deleteComment, editComment} = useContext(CommentContext);
+  const { deleteComment} = useContext(CommentContext);
   const formattedDate = moment(comment.createDateTime).format("MM/DD/YYYY")
   const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
   const [modal, setModal] = useState(false)
