@@ -3,6 +3,7 @@ import { PostContext } from "../../providers/PostProvider";
 import Post from "../posts/Post";
 import {CardColumns, Button} from "reactstrap"
 import { useHistory } from "react-router-dom";
+import "../posts/Post.css";
 
 const MyPostList = () => {
     const { cuPosts, getUserPosts} = useContext(PostContext);
@@ -16,7 +17,13 @@ const MyPostList = () => {
     }
     return (
         <>
-            <Button onClick={handleClick}>Add Post</Button>
+        <section>
+        <div className="postsHeader">
+                    <h2>My Posts</h2>
+                </div>
+            <div className="btn--addPost">
+                <Button color="info" size="lg" onClick={handleClick}>Add Post</Button>
+            </div>
             <CardColumns>
                 {
                     cuPosts.map(post => {
@@ -24,6 +31,7 @@ const MyPostList = () => {
                     })
                 }
             </CardColumns>
+            </section>
         </>
     )
 }

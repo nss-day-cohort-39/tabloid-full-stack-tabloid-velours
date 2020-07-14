@@ -1,0 +1,60 @@
+.postDetailsContainer {
+    width: 60%;
+    margin: 50px auto;
+    background: #cefced;
+}
+
+.imgContainer {
+    justify-content: center;
+    margin-bottom: 10px;
+    object-fit: contain;
+}
+
+.img--postDetails {
+    width: 100%;
+    object-fit: contain;
+}
+
+.titleContainer {
+    text-align: center;
+}
+
+.authorContainer {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contentContainer {
+    padding: 10px
+}
+
+.author {
+    font-weight: bold;
+}
+
+.publishedDate {
+    font-style: italic;
+    text-align: end;
+    padding: 10px
+}
+
+.btn--addPost {
+    display: block;
+    margin: 25px 0px;
+    
+}
+
+.postsHeader {
+    text-align: center;
+    margin: auto;
+    width: 100%;
+}
+
+.comment {
+    background-color: lightgray !important;
+}
+
+.icon--comment {
+    margin-right: 5px;
+    padding: 5px;
+}

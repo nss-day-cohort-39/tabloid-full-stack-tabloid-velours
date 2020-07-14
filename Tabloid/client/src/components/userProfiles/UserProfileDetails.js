@@ -1,10 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
-import { Button } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+} from "reactstrap";
 import moment from "moment";
 import "./UserProfile.css";
-
 
 export const UserProfileDetails = () => {
   const { getUserProfileById } = useContext(UserProfileContext);
@@ -39,9 +46,9 @@ export const UserProfileDetails = () => {
 
             <hr />
             <dl className="row">
-              <dt className="col-sm-2">Name</dt>
+              <dt className="col-sm-2">Name :</dt>
               <dd className="col-sm-10">{oneUserProfile.fullName}</dd>
-              <dt className="col-sm-2">Image</dt>
+              <dt className="col-sm-2">Image :</dt>
               <dd className="col-sm-10">
                 {oneUserProfile.imageLocation ? (
                   <img src={oneUserProfile.imageLocation}></img>
@@ -49,9 +56,9 @@ export const UserProfileDetails = () => {
                   <img src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png"></img>
                 )}
               </dd>
-              <dt className="col-sm-2">Display Name </dt>
+              <dt className="col-sm-2">Display Name: </dt>
               <dd className="col-sm-10">{oneUserProfile.displayName}</dd>
-              <dt className="col-sm-2">Email Address</dt>
+              <dt className="col-sm-2">Email Address:</dt>
               <dd className="col-sm-10">{oneUserProfile.email}</dd>
               <dt className="col-sm-2">User Added On :</dt>
               <dd className="col-sm-10">{formattedDate}</dd>
