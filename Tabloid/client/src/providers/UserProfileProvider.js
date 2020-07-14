@@ -19,6 +19,7 @@ export function UserProfileProvider(props) {
  
   const [userProfiles, setUserProfiles] = useState([])
 
+
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
   useEffect(() => {
     firebase.auth().onAuthStateChanged((u) => {
@@ -90,18 +91,17 @@ export function UserProfileProvider(props) {
   };
 
   const getUserProfileById = (id) => {
-    getToken().then((token) => 
-    fetch(apiUrl + `/id/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).then((res) => res.json()));
-  }
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/id/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => resp.json()));
+      };
 
   return (
-    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfileById }}>
-    <UserProfileContext.Provider value={{ isAdmin, isLoggedIn, login, logout, register, getToken, getUserProfiles, userProfiles }}>
+    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfileById, isAdmin, getUserProfiles, userProfiles }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark"/>}
