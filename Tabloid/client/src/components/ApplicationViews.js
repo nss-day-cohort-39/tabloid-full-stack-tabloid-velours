@@ -12,6 +12,7 @@ import { CategoryList } from "./categories/CategoryList";
 import PostDetails from "./posts/PostDetails";
 import AddPostForm from "./posts/AddPostForm";
 import { UserProfileList } from "./userProfiles/UserProfileList";
+import {UserProfileDetails} from "./userProfiles/UserProfileDetails";
 
 
 export default function ApplicationViews() {
@@ -42,6 +43,10 @@ export default function ApplicationViews() {
 
         <Route path="/addposts" exact>
           {isLoggedIn ? <AddPostForm /> : <Redirect to="/welcome" />}
+        </Route>
+
+        <Route path="/userProfiles/:id" exact>
+          {isLoggedIn && isAdmin ? <UserProfileDetails /> : <Redirect to="/welcome" />}
         </Route>
 
         <Route path="/welcome">
