@@ -78,7 +78,7 @@ export default function Tag({ tag }) {
             ></i>
           </div>
           <div className="icon--tag">
-            <Badge pill>2</Badge>
+            <Badge pill>{tag.postTagList.length}</Badge>
           </div>
         </ListGroup>
       </ListGroup>

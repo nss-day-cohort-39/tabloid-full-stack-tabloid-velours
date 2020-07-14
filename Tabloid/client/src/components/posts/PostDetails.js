@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { useParams, useHistory } from "react-router-dom";
 import "./Post.css"
@@ -107,4 +107,4 @@ const PostDetails = () => {
     )
 }
 
-export default PostDetails
+export default PostDetails;

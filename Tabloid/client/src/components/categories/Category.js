@@ -65,7 +65,7 @@ export const Category = ({ category }) => {
                             deleteCategory(category.id)}}>
                         </i>
                     </div>
-                    <div className="icon--category"><Badge pill>2</Badge></div>
+                    <div className="icon--category"><Badge pill>{category.postList.length}</Badge></div>
                 </ListGroup>
             </ListGroup>
         </ListGroupItem>       
