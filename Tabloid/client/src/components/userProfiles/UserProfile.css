@@ -27,3 +27,9 @@
 .icon--userProfile {
     padding-right: 25px;
 }
+
+.usersHeader {
+    text-align: center;
+    margin: auto;
+    width: 25%;
+}

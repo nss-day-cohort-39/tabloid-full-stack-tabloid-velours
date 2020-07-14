@@ -9,6 +9,7 @@ import {
 import { CommentContext } from "../../providers/CommentProvider"
 import moment from "moment";
 import { EditComment } from "./EditComment";
+import "../posts/Post.css"
 
 
 export const Comment = ({ comment }) => {
@@ -22,29 +23,28 @@ export const Comment = ({ comment }) => {
       <>
       <br></br>
         <ListGroup>
-          <ListGroupItem active>
+          <ListGroupItem className="comment">
             <ListGroupItemHeading>
               {comment.subject}
             </ListGroupItemHeading>
             <ListGroupItemText>
               "{comment.content}"
               <br></br>
-              <i>posted by {comment.userProfile.fullName} on {formattedDate}</i>
+              <i>Posted by {comment.userProfile.fullName} on {formattedDate}</i>
             </ListGroupItemText>
-            {userProfile.id === comment.userProfileId  &&
-            <i className="fa fa-pencil-square-o" aria-hidden="true" onClick={() => toggleModal() }>
-                Edit
-            </i>  
-}
-            <br></br>
-            {Boolean(userProfile.id === comment.userProfileId | userProfile.userTypeId === 1) &&
-            
-  <i className="fa fa-trash-o" aria-hidden="true" onClick={() =>
-    window.confirm("Are you sure you wish to delete this comment?") && deleteComment(comment.id)}>
-    Delete
-  </i> 
-            }
-            <br></br>
+            <ListGroup horizontal>
+              {userProfile.id === comment.userProfileId  &&
+                <i className="fa fa-pencil-square-o icon--comment" aria-hidden="true" onClick={() => toggleModal() }>
+                </i>  
+              }
+              <br></br>
+              {Boolean(userProfile.id === comment.userProfileId | userProfile.userTypeId === 1) &&            
+                <i className="fa fa-trash-o icon--comment" aria-hidden="true" onClick={() =>
+                  window.confirm("Are you sure you wish to delete this comment?") && deleteComment(comment.id)}>
+                </i> 
+              }
+              <br></br>
+            </ListGroup>
           </ListGroupItem>
         </ListGroup>
 
