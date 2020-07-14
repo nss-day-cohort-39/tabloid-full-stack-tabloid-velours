@@ -38,13 +38,7 @@ namespace Tabloid.Controllers
         {
             var post = _postRepository.GetById(id);
             var currentUser = GetCurrentUserProfile();
-            //var relatedPTs = _ptRepository.GetByPostId(id);
-            //List<Tag> allTags = _tagRepository.GetAll();
-            //// for every posttag where post = posttag, search all tags + filter by tag id
-            //foreach(PostTag pt in relatedPTs)
-            //{
-            //    post.TagList = allTags.Where(t => t.Id == pt.TagId).ToList();
-            //}
+            post.UserProfileId = currentUser.Id;
 
             if (post.UserProfileId == currentUser.Id)
             {

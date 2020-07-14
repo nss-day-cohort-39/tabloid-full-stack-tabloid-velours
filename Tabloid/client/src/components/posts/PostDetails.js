@@ -7,6 +7,7 @@ import { Button, CardBody, Card, Modal, ModalHeader, ModalBody} from 'reactstrap
 import { CommentForm } from "../comments/CommentForm";
 import { Comment } from "../comments/Comment"
 import EditPostForm from "./EditPostForm";
+import TagManager from "../tag/TagManager";
 
 
 const PostDetails = () => {
@@ -15,11 +16,15 @@ const PostDetails = () => {
     const { id } = useParams();
     const [modal, setModal] = useState(false)
     const [postModal, setPostModal] = useState(false)
+    const [tagModal, setTagModal] = useState(false)
+
     const history = useHistory();
 
     
     const toggleModal = () =>  setModal(!modal)
     const togglePostModal = () => setPostModal(!postModal)
+    const toggleTagModal = () => setTagModal(!tagModal)
+
     
     
     useEffect(() => {
@@ -80,6 +85,7 @@ const PostDetails = () => {
                     {
                         onePost.postTagList.map(pT => (<div>{pT.tag.name}</div>))
                     }
+                    <Button color="primary" onClick={toggleTagModal} style={{ marginBottom: '1rem' }}>Tag Manager</Button>
                     <Button color="primary" onClick={toggleModal} style={{ marginBottom: '1rem' }}>Add Comment</Button>
     
                     <Card className='text-left'>
@@ -112,6 +118,13 @@ const PostDetails = () => {
                         <ModalHeader toggle={togglePostModal}>Edit "{onePost.title}"</ModalHeader>
                         <ModalBody>
                             <EditPostForm refreshPost={refreshPost} onePost={onePost} toggle={togglePostModal} />
+                        </ModalBody>
+                    </Modal>
+                    <Modal isOpen={tagModal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+                        toggle={toggleTagModal} contentClassName="custom-modal-style-product" >
+                        <ModalHeader toggle={toggleTagModal}>Tag Manager</ModalHeader>
+                        <ModalBody>
+                            <TagManager refreshPost={refreshPost} onePost={onePost} toggle={togglePostModal} />
                         </ModalBody>
                     </Modal>
                 </div>
