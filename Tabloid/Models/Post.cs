@@ -39,8 +39,7 @@ namespace Tabloid.Models
         public UserProfile UserProfile { get; set; }
 
         public List<Comment> CommentList { get; set; }
-        public List<Tag> TagList { get; set; }
-
+       
         [NotMapped]
         public bool IsCurrentUsers { get; set; } = false;
     }
