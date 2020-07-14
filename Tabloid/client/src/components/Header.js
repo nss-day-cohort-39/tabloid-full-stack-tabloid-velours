@@ -10,6 +10,9 @@ import {
   NavLink
 } from 'reactstrap';
 import { UserProfileContext } from "../providers/UserProfileProvider";
+import TabloidFlowerBigTransparent from "../images/TabloidFlowerBigTransparent.png";
+import "../index.css"
+
 
 export default function Header() {
   const { isLoggedIn, logout, isAdmin } = useContext(UserProfileContext);
@@ -20,7 +23,9 @@ export default function Header() {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand tag={RRNavLink} to="/">Tabloid</NavbarBrand>
+        <NavbarBrand tag={RRNavLink} to="/">              <img className="iconImg" src={TabloidFlowerBigTransparent}></img>
+Tabloid
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
