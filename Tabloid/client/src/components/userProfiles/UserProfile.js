@@ -22,6 +22,7 @@ export const UserProfile = ({ userProfile }) => {
   };
 
   const deActivate = () => {
+    debugger 
     window.confirm("Are you sure you wish to deactivate this user?") &&
       editUserProfile({
         id: userProfile.id,
@@ -33,12 +34,11 @@ export const UserProfile = ({ userProfile }) => {
         createDateTime: userProfile.createDateTime,
         imageLocation: userProfile.imageLocation,
         userTypeId: userProfile.userTypeId,
-        IsActivated: 0,
-      });
+        IsActivated: 0
+      })
   };
 
-  if (userProfile.IsActivated === true) {
-    return (
+     return (
       <>
         <ListGroupItem>
           <ListGroup horizontal className="userProfile">
@@ -86,4 +86,3 @@ export const UserProfile = ({ userProfile }) => {
       </>
     );
   }
-};
