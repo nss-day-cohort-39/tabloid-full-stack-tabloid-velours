@@ -7,9 +7,18 @@ export const UserProfileContext = createContext();
 
 export function UserProfileProvider(props) {
   const apiUrl = "/api/userprofile";
-
-  const userProfile = sessionStorage.getItem("userProfile");
+  const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
+  const [isAdmin, setAdmin] = useState(false)
+  
+  useEffect(() => {
+    if (isLoggedIn && userProfile.userTypeId === 1) {
+      setAdmin(true)
+    }})
+  
+ 
+  const [userProfiles, setUserProfiles] = useState([])
+
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
   useEffect(() => {
@@ -32,6 +41,7 @@ export function UserProfileProvider(props) {
       .then(() => {
         sessionStorage.clear()
         setIsLoggedIn(false);
+        setAdmin(false);
       });
   };
 
@@ -56,6 +66,18 @@ export function UserProfileProvider(props) {
       }).then(resp => resp.json()));
   };
 
+  const getUserProfiles = () => {
+    getToken().then((token) =>
+    fetch(apiUrl, {
+        method: "GET",
+        headers: {
+        Authorization: `Bearer ${token}`
+        }
+    })
+    .then(resp => resp.json())
+    .then(setUserProfiles))
+}
+
   const saveUser = (userProfile) => {
     return getToken().then((token) =>
       fetch(apiUrl, {
@@ -68,8 +90,18 @@ export function UserProfileProvider(props) {
       }).then(resp => resp.json()));
   };
 
+  const getUserProfileById = (id) => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/id/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => resp.json()));
+      };
+
   return (
-    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken }}>
+    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfileById, isAdmin, getUserProfiles, userProfiles }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark"/>}

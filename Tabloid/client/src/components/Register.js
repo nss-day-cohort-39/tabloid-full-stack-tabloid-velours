@@ -6,7 +6,6 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 export default function Register() {
   const history = useHistory();
   const { register } = useContext(UserProfileContext);
-
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [displayName, setDisplayName] = useState();
@@ -24,7 +23,7 @@ export default function Register() {
       register(userProfile, password)
         .then(() => history.push("/"));
     }
- };
+  };
 
   return (
     <Form onSubmit={registerClick}>
