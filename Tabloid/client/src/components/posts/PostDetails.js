@@ -6,25 +6,30 @@ import moment from "moment";
 import { Button, CardBody, Card, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import { CommentForm } from "../comments/CommentForm";
 import { Comment } from "../comments/Comment"
+import EditPostForm from "./EditPostForm";
 
 
 const PostDetails = () => {
-    const {getPostById, deletePost, editPost} = useContext(PostContext);
+    const {getPostById, deletePost} = useContext(PostContext);
     const [onePost, setOnePost] = useState();
     const { id } = useParams();
     const [modal, setModal] = useState(false)
+    const [postModal, setPostModal] = useState(false)
     const history = useHistory();
+
     
     const toggleModal = () =>  setModal(!modal)
+    const togglePostModal = () => setPostModal(!postModal)
     
     
     useEffect(() => {
         getPostById(id).then(setOnePost)
+        // eslint-disable-next-line 
     }, []);
     
-    useEffect(() => {
+    const refreshPost = () => {
         getPostById(id).then(setOnePost)
-    }, [onePost]);
+    }
     
     
     if (!onePost) {
@@ -37,7 +42,11 @@ const PostDetails = () => {
         {
             return (
                 <>
-                <i class="fa fa-pencil-square-o" aria-hidden="true">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"
+                onClick={(e) => {
+                    e.preventDefault()
+                    togglePostModal()
+                }}>
                     Edit
                 </i>  
                 <br></br>
@@ -92,7 +101,14 @@ const PostDetails = () => {
                         toggle={toggleModal} contentClassName="custom-modal-style-product" >
                         <ModalHeader toggle={toggleModal}>Add a comment to "{onePost.title}"</ModalHeader>
                         <ModalBody>
-                            <CommentForm postId={id} toggle={toggleModal} />
+                            <CommentForm refreshPost={refreshPost} postId={id} toggle={toggleModal} />
+                        </ModalBody>
+                    </Modal>
+                    <Modal isOpen={postModal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+                        toggle={togglePostModal} contentClassName="custom-modal-style-product" >
+                        <ModalHeader toggle={togglePostModal}>Edit "{onePost.title}"</ModalHeader>
+                        <ModalBody>
+                            <EditPostForm refreshPost={refreshPost} onePost={onePost} toggle={togglePostModal} />
                         </ModalBody>
                     </Modal>
                 </div>

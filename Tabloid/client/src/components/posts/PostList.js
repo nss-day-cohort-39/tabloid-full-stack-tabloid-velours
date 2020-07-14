@@ -10,6 +10,7 @@ const PostList = () => {
 
     useEffect(() => {
         getAllPosts();
+        // eslint-disable-next-line 
       }, []);
 
     const handleClick = () => {
