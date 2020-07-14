@@ -1,4 +1,4 @@
-# Tablod - Fullstack
+# Tabloid - Fullstack
 ![](./ReadMe.png)
 ## We have two sprints to implement a production ready Tabloid application.
 
