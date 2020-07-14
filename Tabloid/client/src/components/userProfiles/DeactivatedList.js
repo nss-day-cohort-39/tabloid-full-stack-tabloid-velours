@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { ListGroup,Jumbotron, Container } from 'reactstrap';
 import { UserProfile } from "../userProfiles/UserProfile";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
+import { DeactivatedUserProfile} from "./DeactivatedUserProfile"
 import "./UserProfile.css";
 
 export const DeactivatedList = () => {
@@ -25,7 +26,7 @@ if (deactivatedUsers.length > 0) {
                 </ListGroup>
                 <ListGroup>
                     {deactivatedUsers.map(dUp =>
-                        <UserProfile key={dUp.id} deactivatedUser={dUp}/>
+                        <DeactivatedUserProfile key={dUp.id} userProfile={dUp}/>
                     )} 
                 </ListGroup>
             </section>

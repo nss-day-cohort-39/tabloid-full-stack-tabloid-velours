@@ -113,7 +113,7 @@ export function UserProfileProvider(props) {
 
   const editUserProfile = (userProfile) => {
     getToken().then((token) =>
-      fetch(apiUrl + `${userProfile.id}`, {
+      fetch(apiUrl + `/${userProfile.id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
