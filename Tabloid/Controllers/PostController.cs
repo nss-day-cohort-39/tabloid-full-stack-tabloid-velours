@@ -39,7 +39,7 @@ namespace Tabloid.Controllers
             var post = _postRepository.GetById(id);
             var currentUser = GetCurrentUserProfile();
             var relatedPTs = _ptRepository.GetByPostId(id);
-            var allTags = _tagRepository.GetAll();
+            List<Tag> allTags = _tagRepository.GetAll();
             // for every posttag where post = posttag, search all tags + filter by tag id
             foreach(PostTag pt in relatedPTs)
             {

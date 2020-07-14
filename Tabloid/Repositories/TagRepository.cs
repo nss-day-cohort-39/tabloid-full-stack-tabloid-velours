@@ -24,6 +24,7 @@ namespace Tabloid.Repositories
                 .OrderBy(t => t.Name)
                 .ToList();
         }
+
         public Tag GetById(int id)
         {
             return _context.Tag
