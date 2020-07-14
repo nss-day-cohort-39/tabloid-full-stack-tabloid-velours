@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { ListGroup } from 'reactstrap';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 import { UserProfile } from "../userProfiles/UserProfile";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import "./UserProfile.css";

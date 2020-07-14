@@ -11,6 +11,7 @@ export const UserProfile = ({ userProfile }) => {
     }
 
     return (
+        
         <ListGroupItem>
             <ListGroup horizontal className="userProfile">
                 <div className="user--info">
