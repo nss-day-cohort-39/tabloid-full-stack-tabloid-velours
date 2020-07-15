@@ -1,14 +1,12 @@
-import React, { useEffect, useContext, useState, useRef } from"react"
+import React, { useEffect, useContext, useState } from"react"
 import { TagContext } from "../../providers/TagProvider"
 import { Form, FormGroup, Label, Input, Button } from "reactstrap"
 import { PostTagContext } from "../../providers/PostTagProvider"
 
-const TagManager = ({onePost}) => {
+const TagManager = ({onePost, refreshPost, toggle}) => {
     const {tags, getTags} = useContext(TagContext)
     const {addPostTag, deletePostTag} = useContext(PostTagContext)
-    // const [checkedTags, setCheckedTags] = useState([]);
-    const {checker} = useRef();
-    // const [newTagList, setNewTagList] = useState()
+    const [checkedTags, setCheckedTags] = useState([]);
 
 
     const tagIds = []
@@ -34,44 +32,68 @@ const TagManager = ({onePost}) => {
             newTagList.push(newTagObj)
         }
     });
-    // useEffect(() => {
-    //     setCheckedTags(newTagList)
-    // },[])
+    useEffect(() => {
+        setCheckedTags(newTagList)
+    },[])
+
     const deleteAssPTs = () => {
-        onePost.postTagList.forEach(pT => {
-            deletePostTag(pT.id)
-        });
+        if(onePost.postTagList !== []) {
+            onePost.postTagList.forEach(pT => {
+                deletePostTag(pT.id)
+            });
+        } else {
+            return null
+        }
     }
 
     const addBackPTs = () => {
-
+        const checkedTagsArray = checkedTags.slice()
+        checkedTagsArray.forEach(cT => {
+            if(cT.checked === true) {
+                const newPostTag = {
+                    postId: onePost.id,
+                    tagId: cT.id
+                }
+                addPostTag(newPostTag);
+            }
+        });
     }
 
-    // const handleChange = (e) => {
-    //     // update the checked value for the tag being checked/unchecked in newTagList
-    //     setCheckedTags(checkedTags => checkedTags.set(e.target.id, e.target.name, e.target.checked))
-    // }
+    const handleChange = (e) => {
+        // update the checked value for the tag being checked/unchecked in newTagList
+        const checkedTagsArray = checkedTags.slice()
+        checkedTagsArray.forEach(cT=> {
+            if(cT.name === e.target.name) {
+                cT.checked = !cT.checked
+            }
+
+        });
+        setCheckedTags(checkedTagsArray)
+    }
 
     useEffect(() => {
         getTags()
     },[])
-    debugger
+
     return (
         <>
             <Form>
-                {newTagList.map(tag => {
+                {checkedTags.map(tag => {
                     return (
                     <FormGroup check>
                         <Label check>
-                            <Input id={tag.id} type="checkbox" checked={tag.checked} innerRef={checker}  />{tag.name}
+                            <Input id={tag.id} type="checkbox" checked={tag.checked} name={tag.name} onChange={handleChange}  />{tag.name}
                         </Label>
                     </FormGroup>
                     )
                 })}
                 
-                <Button type="submit" onClick={(e) => {
+                <Button onClick={(e) => {
                     e.preventDefault()
-                    deleteAssPTs().then(addBackPTs)
+                    deleteAssPTs()
+                    addBackPTs()
+                    toggle()
+                    refreshPost()
                 }}>Save Changes</Button>
             </Form>
         </>
