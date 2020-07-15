@@ -69,33 +69,26 @@ const PostDetails = () => {
     return (
         <>
             <section className="postDetailsContainer">
-                <div className="imgContainer">
-                    <img className="img--postDetails" src={onePost.imageLocation} alt="" />
+                {/* <Card className="text-left">
+                    <Button outline color="secondary" onClick={toggleModal} style={{ marginBottom: "50px" }}>Add Comment</Button> */}
+                <div className="mt-10">
+                    <h3 className="postsHeader">Comments</h3>
                 </div>
                 <div className="titleContainer"><h1>{onePost.title}</h1></div>
                 <div className="authorContainer">Written by: <span className="author">{onePost.userProfile.displayName}</span></div>
                 <div className="contentContainer">{onePost.content}</div>
                 <div className="publishedDate">Published: {formattedDate}</div>
                 {editAndDelete()}
-
+                {
+                    onePost.postTagList.map(pT => (<div>{pT.tag.name}</div>))
+                }
+                <Button outline color="seconday" onClick={toggleTagModal} style={{ marginBottom: '1rem' }}>Tag Manager</Button>
+    
                 <Card className="text-left">
                     <Button outline color="secondary" onClick={toggleModal} style={{ marginBottom: "50px" }}>Add Comment</Button>
                     <div className="mt-10">
                         <h3 className="postsHeader">Comments</h3>
                     </div>
-                    <div className="titleContainer"><h1>{onePost.title}</h1></div>
-                    <div className="authorContainer">Written by: <span className="author">{onePost.userProfile.displayName}</span></div>
-                    <div className="contentContainer">{onePost.content}</div>
-                    <div className="publishedDate">Published: {formattedDate}</div>
-                    {editAndDelete()}
-                    {
-                        onePost.postTagList.map(pT => (<div>{pT.tag.name}</div>))
-                    }
-                    <Button color="primary" onClick={toggleTagModal} style={{ marginBottom: '1rem' }}>Tag Manager</Button>
-                    <Button color="primary" onClick={toggleModal} style={{ marginBottom: '1rem' }}>Add Comment</Button>
-    
-                    <Card className='text-left'>
-                    <h3> Comments</h3>
                     <CardBody>
                         {
                             (sortedComments.length) ? sortedComments.map((comment) => (
@@ -104,33 +97,29 @@ const PostDetails = () => {
                                 : <div className="alert alert-secondary mt-1" role="alert"> No comments were found.</div>
                         }
                         <br />
-    
-                </CardBody>
-            </Card>
-    
-    
-          <Modal isOpen={modal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
-                        toggle={toggleModal} contentClassName="custom-modal-style-product" >
-                        <ModalHeader toggle={toggleModal}>Add a comment to "{onePost.title}"</ModalHeader>
-                        <ModalBody>
-                            <CommentForm refreshPost={refreshPost} postId={id} toggle={toggleModal} />
-                        </ModalBody>
-                    </Modal>
-                    <Modal isOpen={postModal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
-                        toggle={togglePostModal} contentClassName="custom-modal-style-product" >
-                        <ModalHeader toggle={togglePostModal}>Edit "{onePost.title}"</ModalHeader>
-                        <ModalBody>
-                            <EditPostForm refreshPost={refreshPost} onePost={onePost} toggle={togglePostModal} />
-                        </ModalBody>
-                    </Modal>
-                    <Modal isOpen={tagModal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
-                        toggle={toggleTagModal} contentClassName="custom-modal-style-product" >
-                        <ModalHeader toggle={toggleTagModal}>Tag Manager</ModalHeader>
-                        <ModalBody>
-                            <TagManager refreshPost={refreshPost} onePost={onePost} toggle={togglePostModal} />
-                        </ModalBody>
-                    </Modal>
-                </div>
+                    </CardBody>
+                </Card>
+                <Modal isOpen={modal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+                    toggle={toggleModal} contentClassName="custom-modal-style-product" >
+                    <ModalHeader toggle={toggleModal}>Add a comment to "{onePost.title}"</ModalHeader>
+                    <ModalBody>
+                        <CommentForm refreshPost={refreshPost} postId={id} toggle={toggleModal} />
+                    </ModalBody>
+                </Modal>
+                <Modal isOpen={postModal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+                    toggle={togglePostModal} contentClassName="custom-modal-style-product" >
+                    <ModalHeader toggle={togglePostModal}>Edit "{onePost.title}"</ModalHeader>
+                    <ModalBody>
+                        <EditPostForm refreshPost={refreshPost} onePost={onePost} toggle={togglePostModal} />
+                    </ModalBody>
+                </Modal>
+                <Modal isOpen={tagModal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+                    toggle={toggleTagModal} contentClassName="custom-modal-style-product" >
+                    <ModalHeader toggle={toggleTagModal}>Tag Manager</ModalHeader>
+                    <ModalBody>
+                        <TagManager refreshPost={refreshPost} onePost={onePost} toggle={toggleTagModal} />
+                    </ModalBody>
+                </Modal>
             </section>
         </>
     )
