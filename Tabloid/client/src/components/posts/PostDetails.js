@@ -69,10 +69,8 @@ const PostDetails = () => {
     return (
         <>
             <section className="postDetailsContainer">
-                {/* <Card className="text-left">
-                    <Button outline color="secondary" onClick={toggleModal} style={{ marginBottom: "50px" }}>Add Comment</Button> */}
-                <div className="mt-10">
-                    <h3 className="postsHeader">Comments</h3>
+                <div className="imgContainer">
+                    <img className="img--postDetails" src={onePost.imageLocation} alt="" />
                 </div>
                 <div className="titleContainer"><h1>{onePost.title}</h1></div>
                 <div className="authorContainer">Written by: <span className="author">{onePost.userProfile.displayName}</span></div>
