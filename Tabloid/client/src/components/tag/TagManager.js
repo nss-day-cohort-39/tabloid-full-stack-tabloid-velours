@@ -6,7 +6,7 @@ import { PostTagContext } from "../../providers/PostTagProvider"
 const TagManager = ({onePost}) => {
     const {tags, getTags} = useContext(TagContext)
     const {addPostTag, deletePostTag} = useContext(PostTagContext)
-    const [checkedTagsState, setCheckedTagsState] = useState();
+    // const [checkedTags, setCheckedTags] = useState([]);
     const {checker} = useRef();
     // const [newTagList, setNewTagList] = useState()
 
@@ -34,9 +34,9 @@ const TagManager = ({onePost}) => {
             newTagList.push(newTagObj)
         }
     });
-    useEffect(() => {
-
-    })
+    // useEffect(() => {
+    //     setCheckedTags(newTagList)
+    // },[])
     const deleteAssPTs = () => {
         onePost.postTagList.forEach(pT => {
             deletePostTag(pT.id)
@@ -47,14 +47,15 @@ const TagManager = ({onePost}) => {
 
     }
 
-    const handleChange = () => {
-        // update the checked value for the tag being checked/unchecked in newTagList
-    }
+    // const handleChange = (e) => {
+    //     // update the checked value for the tag being checked/unchecked in newTagList
+    //     setCheckedTags(checkedTags => checkedTags.set(e.target.id, e.target.name, e.target.checked))
+    // }
 
     useEffect(() => {
         getTags()
     },[])
-
+    debugger
     return (
         <>
             <Form>
@@ -62,7 +63,7 @@ const TagManager = ({onePost}) => {
                     return (
                     <FormGroup check>
                         <Label check>
-                            <Input id={tag.id} type="checkbox" checked={tag.checked} innerRef={checker} onChange={handleChange()} />{tag.name}
+                            <Input id={tag.id} type="checkbox" checked={tag.checked} innerRef={checker}  />{tag.name}
                         </Label>
                     </FormGroup>
                     )
