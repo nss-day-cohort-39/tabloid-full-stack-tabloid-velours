@@ -23,11 +23,6 @@ namespace Tabloid.Repositories
                 .ToList();
         }
 
-        public Category GetById(int id)
-        {
-            return _context.Category.FirstOrDefault(c => c.Id == id);
-        }
-
         public void Add(Category category)
         {
             _context.Add(category);
@@ -37,14 +32,6 @@ namespace Tabloid.Repositories
         public void Update(Category category)
         {
             _context.Entry(category).State = EntityState.Modified;
-            _context.SaveChanges();
-        }
-
-
-        public void Delete(int id)
-        {
-            var category = GetById(id);
-            _context.Category.Remove(category);
             _context.SaveChanges();
         }
     }

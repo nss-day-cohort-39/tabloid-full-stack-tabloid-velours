@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useContext, useHistory } from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { CommentContext } from "../../providers/CommentProvider";
 
@@ -9,7 +8,6 @@ export const EditComment=({comment, toggle, refreshPost})=> {
   const [editSubjectText, setSubjectText] = useState();
   const [editCommentText, setCommentText] = useState();
  
-
   const submitForm = (e) => {
     e.preventDefault();
     editComment({id: comment.id, subject: editSubjectText? editSubjectText : comment.subject, content: editCommentText? editCommentText : comment.content, postId:comment.postId })

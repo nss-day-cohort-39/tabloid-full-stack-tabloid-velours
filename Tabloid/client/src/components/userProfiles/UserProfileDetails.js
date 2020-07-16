@@ -1,15 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
-import {
-  Button,
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-} from "reactstrap";
+import { Button } from "reactstrap";
 import moment from "moment";
 import "./UserProfile.css";
 
@@ -51,9 +43,9 @@ export const UserProfileDetails = () => {
               <dt className="col-sm-2">Image :</dt>
               <dd className="col-sm-10">
                 {oneUserProfile.imageLocation ? (
-                  <img src={oneUserProfile.imageLocation}></img>
+                  <img alt=""src={oneUserProfile.imageLocation}></img>
                 ) : (
-                  <img src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png"></img>
+                  <img alt="" src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png"></img>
                 )}
               </dd>
               <dt className="col-sm-2">Display Name: </dt>

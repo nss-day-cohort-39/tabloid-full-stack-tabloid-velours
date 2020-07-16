@@ -12,6 +12,7 @@ const MyPostList = () => {
 
     useEffect(() => {
         getUserPosts();
+        // eslint-disable-next-line
       }, []);
     const handleClick = () => {
         history.push(`/addposts`);
