@@ -1,12 +1,16 @@
 import React, { useContext, useEffect } from 'react';
-import { ListGroup,Jumbotron, Container } from 'reactstrap';
+import { ListGroup,Jumbotron, Container, Button } from 'reactstrap';
 import { UserProfile } from "../userProfiles/UserProfile";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { DeactivatedUserProfile} from "./DeactivatedUserProfile"
 import "./UserProfile.css";
+import { useHistory } from "react-router-dom";
+
 
 export const DeactivatedList = () => {
     const { userProfiles, getUserProfiles } = useContext(UserProfileContext)
+    const history = useHistory();
+    const handleLink = () => {history.push(`/userProfiles`);};
 
     useEffect(() => {
         getUserProfiles();
@@ -29,6 +33,8 @@ if (deactivatedUsers.length > 0) {
                         <DeactivatedUserProfile key={dUp.id} userProfile={dUp}/>
                     )} 
                 </ListGroup>
+                <Button onClick={handleLink}>Back to Activated Users</Button>
+
             </section>
         </>
     )
@@ -42,6 +48,8 @@ if (deactivatedUsers.length > 0) {
               <p className="lead">Get to deactivating those Slytherins &amp; trolls; use &amp; abuse your superpowers!</p>
             </Container>
           </Jumbotron>
+          <Button onClick={handleLink}>Back to Activated Users</Button>
+
         </div>
         </>
       );

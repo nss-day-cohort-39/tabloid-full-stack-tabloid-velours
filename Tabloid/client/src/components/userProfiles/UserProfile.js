@@ -40,7 +40,7 @@ export const UserProfile = ({ userProfile }) => {
 
     return (
       <>
-    {(userProfile.isActivated === true) && (
+    {(userProfile.isActivated) && (
       <>
       
       <ListGroupItem>
