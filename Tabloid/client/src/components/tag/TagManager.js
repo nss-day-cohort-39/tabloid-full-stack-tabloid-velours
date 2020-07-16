@@ -35,14 +35,10 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
     
     // on save delete all postTags associated and add back postTags that are checked
     const deleteAssPTs = () => {
-        if(onePost.postTagList.length !== 0) {
-            let promiseArray = onePost.postTagList.map(pT => {
-                return deletePostTag(pT.id)
-            });
-            return Promise.all(promiseArray)
-        } else {
-            return null
-        }
+        let promiseArray = onePost.postTagList.map(pT => {
+            return deletePostTag(pT.id)
+        });
+        return Promise.all(promiseArray)
     }
     
     const addBackPTs = () => {
@@ -66,6 +62,18 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
 
         });
         setCheckedTags(checkedTagsArray)
+    }
+
+    const handleSave = () => {
+        if (onePost.postTagList.length !== 0) {
+            deleteAssPTs().then(addBackPTs)
+            .then(refreshPost)
+            .then(toggle)
+        } else {
+            addBackPTs()
+            .then(refreshPost)
+            .then(toggle)
+        }
     }
 
     //page render 
@@ -92,10 +100,7 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
                 
                 <Button onClick={(e) => {
                     e.preventDefault()
-                    deleteAssPTs().then(addBackPTs)
-                                  .then(refreshPost)
-                                  .then(toggle)
-
+                    handleSave()
                 }}>Save Changes</Button>
             </Form>
         </>
