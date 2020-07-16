@@ -3,6 +3,7 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 import { UserProfile } from "../userProfiles/UserProfile";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import "./UserProfile.css";
+import UsersTitle from "../../images/TabloidUsers.png"
 
 export const UserProfileList = () => {
     const { userProfiles, getUserProfiles } = useContext(UserProfileContext)
@@ -16,7 +17,7 @@ export const UserProfileList = () => {
         <>
             <section>
                 <div className="usersHeader">
-                    <h2>User Profiles</h2>
+                <img style={{height: "130px"}} src={UsersTitle} alt="" />
                 </div>
                 <section className="userProfileList">
                     <ListGroup horizontal className="header--userList">

@@ -44,14 +44,14 @@ const PostDetails = () => {
             return (
                 <>
                 <ListGroup horizontal>
-                    <i class="fa fa-pencil-square-o icon--comment" aria-hidden="true"
+                    <i class="fa fa-pencil-square-o icon--comment" aria-hidden="true" style={{cursor:'pointer'}}
                         onClick={(e) => {
                             e.preventDefault()
                             togglePostModal()
                         }}>
                     </i>
                     <br></br>
-                    <i class="fa fa-trash-o icon--comment" aria-hidden="true"
+                    <i class="fa fa-trash-o icon--comment" aria-hidden="true" style={{cursor:'pointer'}}
                         onClick={() =>
                             window.confirm("Are you sure you wish to delete this post?") &&
                             deletePost(onePost.id).then(history.push("/posts"))}
@@ -77,10 +77,15 @@ const PostDetails = () => {
                 <div className="contentContainer">{onePost.content}</div>
                 <div className="publishedDate">Published: {formattedDate}</div>
                 {editAndDelete()}
-                {
-                    onePost.postTagList.map(pT => (<div>{pT.tag.name}</div>))
-                }
-                <Button outline color="seconday" onClick={toggleTagModal} style={{ marginBottom: '1rem' }}>Tag Manager</Button>
+                    <div className="tagMngBtnContainer">
+                    <Button outline color="info" onClick={toggleTagModal} style={{ marginBottom: '1rem', width: "100%" }}>Tag Manager</Button>
+
+                    </div>
+                <div className="tagContainer">
+                    {
+                        onePost.postTagList.map(pT => (<div className="tagBox">{pT.tag.name}</div>))
+                    }
+                </div>
     
                 <Card className="text-left">
                     <Button outline color="secondary" onClick={toggleModal} style={{ marginBottom: "50px" }}>Add Comment</Button>

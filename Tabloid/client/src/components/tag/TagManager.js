@@ -32,10 +32,7 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
             newTagList.push(newTagObj)
         }
     });
-    useEffect(() => {
-        setCheckedTags(newTagList)
-    },[])
-
+    
     const deleteAssPTs = () => {
         if(onePost.postTagList !== []) {
             onePost.postTagList.forEach(pT => {
@@ -45,7 +42,7 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
             return null
         }
     }
-
+    
     const addBackPTs = () => {
         const checkedTagsArray = checkedTags.slice()
         checkedTagsArray.forEach(cT => {
@@ -58,7 +55,7 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
             }
         });
     }
-
+    
     const handleChange = (e) => {
         // update the checked value for the tag being checked/unchecked in newTagList
         const checkedTagsArray = checkedTags.slice()
@@ -74,7 +71,11 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
     useEffect(() => {
         getTags()
     },[])
-
+    
+    useEffect(() => {
+        setCheckedTags(newTagList)
+    },[tags])
+    
     return (
         <>
             <Form>
