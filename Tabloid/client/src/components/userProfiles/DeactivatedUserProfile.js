@@ -12,7 +12,7 @@ import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { EditUserType } from "./EditUserType";
 import { UserProfileList } from "./UserProfileList";
 
-export const UserProfile = ({ userProfile }) => {
+export const DeactivatedUserProfile = ({ userProfile }) => {
   const { editUserProfile } = useContext(UserProfileContext);
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
@@ -21,26 +21,26 @@ export const UserProfile = ({ userProfile }) => {
     history.push(`/userprofiles/${userProfile.id}`);
   };
 
-  const deActivate = () => {
+//   const deActivate = () => {
  
-    window.confirm("Are you sure you wish to deactivate this user?") &&
-      editUserProfile({
-        id: userProfile.id,
-        firebaseUserId: userProfile.firebaseUserId,
-        displayName: userProfile.displayName,
-        firstName: userProfile.firstName,
-        lastName: userProfile.lastName,
-        email: userProfile.email,
-        createDateTime: userProfile.createDateTime,
-        imageLocation: userProfile.imageLocation,
-        userTypeId: userProfile.userTypeId,
-        IsActivated: 0
-      });
-  };
+//     window.confirm("Are you sure you wish to deactivate this user?") &&
+//       editUserProfile({
+//         id: userProfile.id,
+//         firebaseUserId: userProfile.firebaseUserId,
+//         displayName: userProfile.displayName,
+//         firstName: userProfile.firstName,
+//         lastName: userProfile.lastName,
+//         email: userProfile.email,
+//         createDateTime: userProfile.createDateTime,
+//         imageLocation: userProfile.imageLocation,
+//         userTypeId: userProfile.userTypeId,
+//         IsActivated: 0
+//       });
+//   };
 
     return (
       <>
-    {(userProfile.isActivated === true) && (
+    {(userProfile.IsActivated === 0) && (
       <>
       
       <ListGroupItem>
@@ -56,13 +56,13 @@ export const UserProfile = ({ userProfile }) => {
               aria-hidden="true"
             ></i>
           </div>
-          <div className="icon--userProfile">
+          {/* <div className="icon--userProfile">
             <i
               onClick={deActivate}
               className="fa fa-window-close-o"
               aria-hidden="true"
             ></i>
-          </div>
+          </div> */}
           <div className="icon--userProfile">
             <i
               onClick={() => toggleModal()}

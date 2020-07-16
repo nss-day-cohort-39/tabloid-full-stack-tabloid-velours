@@ -3,15 +3,22 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 import { UserProfile } from "../userProfiles/UserProfile";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import "./UserProfile.css";
+<<<<<<< HEAD
 import UsersTitle from "../../images/TabloidUsers.png"
+=======
+import { useHistory } from "react-router-dom";
+
+>>>>>>> master
 
 export const UserProfileList = () => {
-    const { userProfiles, getUserProfiles } = useContext(UserProfileContext)
+  const { userProfiles, getUserProfiles } = useContext(UserProfileContext);
+  const history = useHistory();
+  const handleLink = () => {history.push(`/userProfiles/list/deactivated`);};
 
-    useEffect(() => {
-        getUserProfiles();
-        // eslint-disable-next-line 
-      }, []);
+  useEffect(() => {
+    getUserProfiles();
+    // eslint-disable-next-line
+  }, []);
 
     return (
         <>
