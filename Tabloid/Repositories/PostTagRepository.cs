@@ -20,38 +20,26 @@ namespace Tabloid.Repositories
 
         public List<PostTag> GetAll()
         {
-            return _context.PostTag
-                .ToList();
-        }
-        public List<PostTag> GetByTagId(int id)
-        {
-            return _context.PostTag
-               .Where(pt => pt.TagId == id)
-               .ToList();
-
-        }public List<PostTag> GetByPostId(int id)
-        {
-            return _context.PostTag
-               .Where(pt => pt.PostId == id)
-               .ToList();
+            return _context.PostTag.ToList();
         }
 
-        //public void Add(Tag tag)
-        //{
-        //    _context.Add(tag);
-        //    _context.SaveChanges();
-        //}
+        public PostTag GetByPostTagId(int id)
+        {
+            return _context.PostTag
+               .FirstOrDefault(pt => pt.Id == id);
+        }
 
-        //public void Delete(int id)
-        //{
-        //    var tag = GetById(id);
-        //    _context.Tag.Remove(tag);
-        //    _context.SaveChanges();
-        //}
-        //public void Update(Tag tag)
-        //{
-        //    _context.Entry(tag).State = EntityState.Modified;
-        //    _context.SaveChanges();
-        //}
+        public void Add(PostTag pt)
+        {
+            _context.Add(pt);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var pt = GetByPostTagId(id);
+            _context.PostTag.Remove(pt);
+            _context.SaveChanges();
+        }
     }
 }

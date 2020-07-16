@@ -4,6 +4,7 @@ import { Category } from "../categories/Category";
 import { CategoryContext } from "../../providers/CategoryProvider";
 import { CategoryForm } from "./CategoryForm"; 
 import "./Category.css";
+import CategoryTitle from "../../images/TabloidCategories.png"
 
 export const CategoryList = () => {
     const { categories, getCategories } = useContext(CategoryContext)
@@ -17,7 +18,7 @@ export const CategoryList = () => {
         <>
         <section>
             <div className="categoriesHeader">
-                <h2>Categories</h2>
+            <img style={{height: "130px"}} src={CategoryTitle} alt="" />
             </div>
             <section className="categoryForm">
                 <CategoryForm /> 

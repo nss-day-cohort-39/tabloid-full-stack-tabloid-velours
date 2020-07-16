@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
-import { ListGroup, ListGroupItem, Button } from 'reactstrap';
+import { ListGroup, Button } from 'reactstrap';
 import { UserProfile } from "../userProfiles/UserProfile";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import "./UserProfile.css";
+import UsersTitle from "../../images/TabloidUsers.png"
 import { useHistory } from "react-router-dom";
 
 
@@ -18,6 +19,9 @@ export const UserProfileList = () => {
 
   return (
     <>
+        <div className="usersHeader">
+            <img style={{height: "130px"}} src={UsersTitle} alt="" />
+        </div>
       <section className="userProfileList">
         <ListGroup horizontal className="header--userList">
           <h5 className="user-info">Full Name</h5>

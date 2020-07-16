@@ -58,3 +58,23 @@
     margin-right: 5px;
     padding: 5px;
 }
+
+.tagContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    font-size: 1.5em;
+}
+
+.tagBox {
+    background-color: rgb(131, 218, 218);
+    border-radius: 5px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    padding:5px
+}
+
+.tagMngBtnContainer {
+    text-align: center;
+    width:100%
+}

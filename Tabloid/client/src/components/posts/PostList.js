@@ -4,6 +4,7 @@ import Post from "./Post";
 import {CardColumns, Button} from "reactstrap"
 import { useHistory } from "react-router-dom";
 import "./Post.css"
+import PostTitle from "../../images/TabloidPosts.png";
 
 const PostList = () => {
     const { posts, getAllPosts} = useContext(PostContext);
@@ -22,7 +23,7 @@ const PostList = () => {
         <>
             <section>
                 <div className="postsHeader">
-                    <h2>Posts</h2>
+                    <img style={{height: "130px"}} src={PostTitle} alt="" />
                 </div>
                 <div className="btn--addPost">
                     <Button color="info" size="lg" onClick={handleClick}>Add Post</Button>

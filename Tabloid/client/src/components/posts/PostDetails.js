@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react"
 import { PostContext } from "../../providers/PostProvider";
 import { useParams, useHistory } from "react-router-dom";
 import "./Post.css"
@@ -7,6 +7,7 @@ import { Button, CardBody, Card, Modal, ModalHeader, ModalBody, ListGroup } from
 import { CommentForm } from "../comments/CommentForm";
 import { Comment } from "../comments/Comment"
 import EditPostForm from "./EditPostForm";
+import TagManager from "../tag/TagManager";
 
 
 const PostDetails = () => {
@@ -15,10 +16,15 @@ const PostDetails = () => {
     const { id } = useParams();
     const [modal, setModal] = useState(false)
     const [postModal, setPostModal] = useState(false)
+    const [tagModal, setTagModal] = useState(false)
+
     const history = useHistory();
     const toggleModal = () => setModal(!modal)
     const togglePostModal = () => setPostModal(!postModal)
+    const toggleTagModal = () => setTagModal(!tagModal)
 
+    
+    
     useEffect(() => {
         getPostById(id).then(setOnePost)
         // eslint-disable-next-line 
@@ -38,14 +44,14 @@ const PostDetails = () => {
             return (
                 <>
                 <ListGroup horizontal>
-                    <i class="fa fa-pencil-square-o icon--comment" aria-hidden="true"
+                    <i className="fa fa-pencil-square-o icon--comment" aria-hidden="true" style={{cursor:'pointer'}}
                         onClick={(e) => {
                             e.preventDefault()
                             togglePostModal()
                         }}>
                     </i>
                     <br></br>
-                    <i class="fa fa-trash-o icon--comment" aria-hidden="true"
+                    <i className="fa fa-trash-o icon--comment" aria-hidden="true" style={{cursor:'pointer'}}
                         onClick={() =>
                             window.confirm("Are you sure you wish to delete this post?") &&
                             deletePost(onePost.id).then(history.push("/posts"))}
@@ -71,7 +77,16 @@ const PostDetails = () => {
                 <div className="contentContainer">{onePost.content}</div>
                 <div className="publishedDate">Published: {formattedDate}</div>
                 {editAndDelete()}
+                    <div className="tagMngBtnContainer">
+                    <Button outline color="info" onClick={toggleTagModal} style={{ marginBottom: '1rem', width: "100%" }}>Tag Manager</Button>
 
+                    </div>
+                <div className="tagContainer">
+                    {
+                        onePost.postTagList.map(pT => (<div className="tagBox">{pT.tag.name}</div>))
+                    }
+                </div>
+    
                 <Card className="text-left">
                     <Button outline color="secondary" onClick={toggleModal} style={{ marginBottom: "50px" }}>Add Comment</Button>
                     <div className="mt-10">
@@ -80,14 +95,13 @@ const PostDetails = () => {
                     <CardBody>
                         {
                             (sortedComments.length) ? sortedComments.map((comment) => (
-                                <Comment key={comment.id} comment={comment} />
+                                <Comment refreshPost={refreshPost} key={comment.id} comment={comment} />
                             ))
                                 : <div className="alert alert-secondary mt-1" role="alert"> No comments were found.</div>
                         }
                         <br />
                     </CardBody>
                 </Card>
-
                 <Modal isOpen={modal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
                     toggle={toggleModal} contentClassName="custom-modal-style-product" >
                     <ModalHeader toggle={toggleModal}>Add a comment to "{onePost.title}"</ModalHeader>
@@ -102,9 +116,16 @@ const PostDetails = () => {
                         <EditPostForm refreshPost={refreshPost} onePost={onePost} toggle={togglePostModal} />
                     </ModalBody>
                 </Modal>
+                <Modal isOpen={tagModal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+                    toggle={toggleTagModal} contentClassName="custom-modal-style-product" >
+                    <ModalHeader toggle={toggleTagModal}>Tag Manager</ModalHeader>
+                    <ModalBody>
+                        <TagManager refreshPost={refreshPost} onePost={onePost} toggle={toggleTagModal} />
+                    </ModalBody>
+                </Modal>
             </section>
         </>
     )
 }
 
-export default PostDetails;
+export default PostDetails
