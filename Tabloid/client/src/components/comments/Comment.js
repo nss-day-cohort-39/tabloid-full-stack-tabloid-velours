@@ -24,7 +24,7 @@ export const Comment = ({ comment }) => {
     <>
       <br></br>
       <ListGroup>
-        <ListGroupItem active>
+        <ListGroupItem>
           <ListGroupItemHeading>{comment.subject}</ListGroupItemHeading>
           <ListGroupItemText>
             "{comment.content}"<br></br>
