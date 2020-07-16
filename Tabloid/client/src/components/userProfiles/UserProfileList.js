@@ -3,12 +3,9 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 import { UserProfile } from "../userProfiles/UserProfile";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import "./UserProfile.css";
-<<<<<<< HEAD
 import UsersTitle from "../../images/TabloidUsers.png"
-=======
 import { useHistory } from "react-router-dom";
 
->>>>>>> master
 
 export const UserProfileList = () => {
   const { userProfiles, getUserProfiles } = useContext(UserProfileContext);
