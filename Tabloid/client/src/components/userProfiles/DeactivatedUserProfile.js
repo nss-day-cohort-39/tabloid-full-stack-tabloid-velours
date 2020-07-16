@@ -21,26 +21,26 @@ export const DeactivatedUserProfile = ({ userProfile }) => {
     history.push(`/userprofiles/${userProfile.id}`);
   };
 
-//   const deActivate = () => {
+  const reActivate = () => {
  
-//     window.confirm("Are you sure you wish to deactivate this user?") &&
-//       editUserProfile({
-//         id: userProfile.id,
-//         firebaseUserId: userProfile.firebaseUserId,
-//         displayName: userProfile.displayName,
-//         firstName: userProfile.firstName,
-//         lastName: userProfile.lastName,
-//         email: userProfile.email,
-//         createDateTime: userProfile.createDateTime,
-//         imageLocation: userProfile.imageLocation,
-//         userTypeId: userProfile.userTypeId,
-//         IsActivated: 0
-//       });
-//   };
+    window.confirm("Are you sure you wish to reactivate this user?") &&
+      editUserProfile({
+        id: userProfile.id,
+        firebaseUserId: userProfile.firebaseUserId,
+        displayName: userProfile.displayName,
+        firstName: userProfile.firstName,
+        lastName: userProfile.lastName,
+        email: userProfile.email,
+        createDateTime: userProfile.createDateTime,
+        imageLocation: userProfile.imageLocation,
+        userTypeId: userProfile.userTypeId,
+        IsActivated: 1
+      });
+  };
 
     return (
       <>
-    {(userProfile.IsActivated === 0) && (
+    {(!userProfile.IsActivated) && (
       <>
       
       <ListGroupItem>
@@ -56,13 +56,13 @@ export const DeactivatedUserProfile = ({ userProfile }) => {
               aria-hidden="true"
             ></i>
           </div>
-          {/* <div className="icon--userProfile">
+          <div className="icon--userProfile">
             <i
-              onClick={deActivate}
-              className="fa fa-window-close-o"
+              onClick={reActivate}
+              className="fa fa-plus-circle"
               aria-hidden="true"
             ></i>
-          </div> */}
+          </div>
           <div className="icon--userProfile">
             <i
               onClick={() => toggleModal()}
