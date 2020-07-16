@@ -44,14 +44,14 @@ const PostDetails = () => {
             return (
                 <>
                 <ListGroup horizontal>
-                    <i class="fa fa-pencil-square-o icon--comment" aria-hidden="true" style={{cursor:'pointer'}}
+                    <i className="fa fa-pencil-square-o icon--comment" aria-hidden="true" style={{cursor:'pointer'}}
                         onClick={(e) => {
                             e.preventDefault()
                             togglePostModal()
                         }}>
                     </i>
                     <br></br>
-                    <i class="fa fa-trash-o icon--comment" aria-hidden="true" style={{cursor:'pointer'}}
+                    <i className="fa fa-trash-o icon--comment" aria-hidden="true" style={{cursor:'pointer'}}
                         onClick={() =>
                             window.confirm("Are you sure you wish to delete this post?") &&
                             deletePost(onePost.id).then(history.push("/posts"))}
