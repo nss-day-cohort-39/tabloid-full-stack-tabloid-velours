@@ -19,6 +19,9 @@ export const UserProfileList = () => {
 
   return (
     <>
+        <div className="usersHeader">
+            <img style={{height: "130px"}} src={UsersTitle} alt="" />
+        </div>
       <section className="userProfileList">
         <ListGroup horizontal className="header--userList">
           <h5 className="user-info">Full Name</h5>
