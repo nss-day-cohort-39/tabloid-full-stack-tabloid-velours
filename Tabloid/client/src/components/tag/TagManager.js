@@ -8,7 +8,7 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
     const {addPostTag, deletePostTag} = useContext(PostTagContext)
     const [checkedTags, setCheckedTags] = useState([]);
 
-
+    // on page load get new list of tags, see if they're associated then set the state to that new list
     const tagIds = []
     onePost.postTagList.map(pt => {
         return tagIds.push(pt.tagId)
@@ -33,6 +33,7 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
         }
     });
     
+    // on save delete all postTags associated and add back postTags that are checked
     const deleteAssPTs = () => {
         if(onePost.postTagList !== []) {
             onePost.postTagList.forEach(pT => {
@@ -68,6 +69,7 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
         setCheckedTags(checkedTagsArray)
     }
 
+    //page render 
     useEffect(() => {
         getTags()
     },[])
