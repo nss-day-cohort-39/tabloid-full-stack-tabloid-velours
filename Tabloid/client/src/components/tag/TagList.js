@@ -4,6 +4,7 @@ import "./Tag.css";
 import { TagContext } from "../../providers/TagProvider";
 import Tag from "./Tag";
 import NewTagForm from "./NewTagForm";
+import TagsTitle from "../../images/TabloidTags.png"
 
 export default function TagList() {
   const { tags, getTags } = useContext(TagContext);
@@ -17,7 +18,7 @@ export default function TagList() {
     <>
       <section>
         <div className="tagsHeader">
-          <h2>Tags</h2>
+        <img style={{height: "130px"}} src={TagsTitle} alt="" />
         </div>
         <section className="tagForm">
           <NewTagForm />

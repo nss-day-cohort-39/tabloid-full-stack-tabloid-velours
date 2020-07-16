@@ -26,6 +26,7 @@ namespace Tabloid.Repositories
                 .ThenInclude(pt => pt.Post)
                 .ToList();
         }
+
         public Tag GetById(int id)
         {
             return _context.Tag

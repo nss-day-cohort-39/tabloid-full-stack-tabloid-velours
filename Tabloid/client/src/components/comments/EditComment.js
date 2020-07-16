@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { CommentContext } from "../../providers/CommentProvider";
 
-export const EditComment=({comment, toggle})=> {
+export const EditComment=({comment, toggle, refreshPost})=> {
+  const history = useHistory();
   const { editComment } = useContext(CommentContext);
   const [editSubjectText, setSubjectText] = useState();
   const [editCommentText, setCommentText] = useState();
@@ -10,7 +11,8 @@ export const EditComment=({comment, toggle})=> {
   const submitForm = (e) => {
     e.preventDefault();
     editComment({id: comment.id, subject: editSubjectText? editSubjectText : comment.subject, content: editCommentText? editCommentText : comment.content, postId:comment.postId })
-    toggle() ;
+    refreshPost()
+    toggle()
   };
 
   return (

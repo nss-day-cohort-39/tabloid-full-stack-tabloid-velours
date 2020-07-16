@@ -13,7 +13,7 @@ import moment from "moment";
 import { EditComment } from "./EditComment";
 import "../posts/Post.css"
 
-export const Comment = ({ comment }) => {
+export const Comment = ({ comment, refreshPost }) => {
   const { deleteComment } = useContext(CommentContext);
   const formattedDate = moment(comment.createDateTime).format("MM/DD/YYYY");
   const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
@@ -24,7 +24,7 @@ export const Comment = ({ comment }) => {
     <>
       <br></br>
       <ListGroup>
-        <ListGroupItem active>
+        <ListGroupItem className="comment">
           <ListGroupItemHeading>{comment.subject}</ListGroupItemHeading>
           <ListGroupItemText>
             "{comment.content}"<br></br>
@@ -52,7 +52,7 @@ export const Comment = ({ comment }) => {
               onClick={() =>
                 window.confirm(
                   "Are you sure you wish to delete this comment?"
-                ) && deleteComment(comment.id)
+                ) && deleteComment(comment.id).then(refreshPost)
               }
             >
               Delete
@@ -71,7 +71,7 @@ export const Comment = ({ comment }) => {
       >
         <ModalHeader toggle={toggleModal}>Edit "{comment.subject}"</ModalHeader>
         <ModalBody>
-          <EditComment comment={comment} toggle={toggleModal} />
+          <EditComment refreshPost={refreshPost} comment={comment} toggle={toggleModal} />
         </ModalBody>
       </Modal>
     </>

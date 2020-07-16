@@ -17,7 +17,8 @@ import { DeactivatedList } from "./userProfiles/DeactivatedList";
 
 
 export default function ApplicationViews() {
-  const { isLoggedIn, isAdmin } = useContext(UserProfileContext);
+  const { isLoggedIn, isAdmin, isActivated } = useContext(UserProfileContext);
+  const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
 
   return (
     <main>
@@ -26,7 +27,7 @@ export default function ApplicationViews() {
           {isLoggedIn ? <Hello /> : <Redirect to="/welcome" />}
         </Route>
         <Route path="/tags">
-          {isLoggedIn ? <TagList /> : <Redirect to="/welcome" />}
+          {isLoggedIn ?  <TagList /> : <Redirect to="/welcome" />}
         </Route>
 
         <Route path="/posts" exact>

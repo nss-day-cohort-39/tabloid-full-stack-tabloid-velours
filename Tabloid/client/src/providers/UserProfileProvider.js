@@ -10,6 +10,15 @@ export function UserProfileProvider(props) {
   const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
   const [isAdmin, setAdmin] = useState(false);
+  const [isActivated, setIsActivated] = useState(false);
+
+
+  // useEffect(() => {
+  //   if (userProfile.isActivated === 0) {
+  //     setIsLoggedIn(false)
+  //     alert("You've been deactivated");
+  //   }
+  // });
 
   useEffect(() => {
     if (isLoggedIn && userProfile.userTypeId === 1) {
@@ -33,7 +42,13 @@ export function UserProfileProvider(props) {
       .then((signInResponse) => getUserProfile(signInResponse.user.uid))
       .then((userProfile) => {
         sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
-        setIsLoggedIn(true);
+        if (userProfile.isActivated) {
+          setIsLoggedIn(true);
+        }else {
+          setIsLoggedIn(false)
+          alert("You've been deactivated. You're dead to us");
+
+        }
       });
   };
 
