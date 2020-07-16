@@ -22,7 +22,7 @@ namespace Tabloid.Repositories
         {
             return _context.Tag
                 .OrderBy(t => t.Name)
-                .Include(t =>t.PostTagList)
+                .Include(t => t.PostTagList)
                 .ThenInclude(pt => pt.Post)
                 .ToList();
         }
@@ -41,6 +41,12 @@ namespace Tabloid.Repositories
         public void Delete(int id)
         {
             var tag = GetById(id);
+            foreach (var postTag in _context.PostTag
+                .Where(pt => pt.TagId == tag.Id))
+            {
+                _context.PostTag.Remove(postTag);
+            }
+
             _context.Tag.Remove(tag);
             _context.SaveChanges();
         }
