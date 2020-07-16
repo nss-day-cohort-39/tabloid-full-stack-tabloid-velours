@@ -10,7 +10,7 @@ import "./UserProfile.css";
 import { useHistory } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { EditUserType } from "./EditUserType";
-import { UserProfileList } from "./UserProfileList";
+
 
 export const UserProfile = ({ userProfile }) => {
   const { editUserProfile } = useContext(UserProfileContext);

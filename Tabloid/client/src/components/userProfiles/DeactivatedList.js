@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import { ListGroup,Jumbotron, Container } from 'reactstrap';
-import { UserProfile } from "../userProfiles/UserProfile";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { DeactivatedUserProfile} from "./DeactivatedUserProfile"
 import "./UserProfile.css";

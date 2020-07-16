@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { ListGroup, Button, Collapse } from "reactstrap";
+import React, { useContext, useEffect } from "react";
+import { ListGroup } from "reactstrap";
 import "./Tag.css";
 import { TagContext } from "../../providers/TagProvider";
 import Tag from "./Tag";

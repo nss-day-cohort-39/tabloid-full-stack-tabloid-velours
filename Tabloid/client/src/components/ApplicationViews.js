@@ -18,7 +18,6 @@ import { DeactivatedList } from "./userProfiles/DeactivatedList";
 
 export default function ApplicationViews() {
   const { isLoggedIn, isAdmin } = useContext(UserProfileContext);
-  const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
 
   return (
     <main>

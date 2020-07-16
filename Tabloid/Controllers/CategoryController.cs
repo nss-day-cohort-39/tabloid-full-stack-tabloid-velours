@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Data;
 using Tabloid.Models;
@@ -53,12 +52,5 @@ namespace Tabloid.Controllers
             _categoryRepository.Update(category);
             return NoContent();
         }
-
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //    _categoryRepository.Delete(id);
-        //    return NoContent();
-        //}
     }
 }

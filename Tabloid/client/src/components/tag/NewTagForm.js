@@ -1,12 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  Form,
-  Button,
-  Container,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-} from "reactstrap";
+import { Button } from "reactstrap";
 import { TagContext } from "../../providers/TagProvider";
 
 export default function NewTagForm() {

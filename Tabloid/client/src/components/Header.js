@@ -23,8 +23,9 @@ export default function Header() {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand tag={RRNavLink} to="/">              <img className="iconImg" src={TabloidFlowerBigTransparent}></img>
-Tabloid
+        <NavbarBrand tag={RRNavLink} to="/">              
+          <img className="iconImg" alt="" src={TabloidFlowerBigTransparent}></img>
+          Tabloid
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
