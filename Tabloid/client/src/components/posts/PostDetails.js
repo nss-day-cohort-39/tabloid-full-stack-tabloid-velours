@@ -95,7 +95,7 @@ const PostDetails = () => {
                     <CardBody>
                         {
                             (sortedComments.length) ? sortedComments.map((comment) => (
-                                <Comment key={comment.id} comment={comment} />
+                                <Comment refreshPost={refreshPost} key={comment.id} comment={comment} />
                             ))
                                 : <div className="alert alert-secondary mt-1" role="alert"> No comments were found.</div>
                         }
