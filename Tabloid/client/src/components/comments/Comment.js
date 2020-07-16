@@ -52,7 +52,7 @@ export const Comment = ({ comment, refreshPost }) => {
               onClick={() =>
                 window.confirm(
                   "Are you sure you wish to delete this comment?"
-                ) && deleteComment(comment.id)
+                ) && deleteComment(comment.id).then(refreshPost)
               }
             >
               Delete
@@ -71,7 +71,7 @@ export const Comment = ({ comment, refreshPost }) => {
       >
         <ModalHeader toggle={toggleModal}>Edit "{comment.subject}"</ModalHeader>
         <ModalBody>
-          <EditComment comment={comment} toggle={toggleModal} />
+          <EditComment refreshPost={refreshPost} comment={comment} toggle={toggleModal} />
         </ModalBody>
       </Modal>
     </>
