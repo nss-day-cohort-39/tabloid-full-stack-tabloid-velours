@@ -95,8 +95,8 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
                     e.preventDefault()
                     deleteAssPTs()
                     addBackPTs()
-                    toggle()
                     refreshPost()
+                    toggle()
                 }}>Save Changes</Button>
             </Form>
         </>
