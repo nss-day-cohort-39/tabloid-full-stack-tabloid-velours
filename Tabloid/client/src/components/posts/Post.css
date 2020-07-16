@@ -61,6 +61,7 @@
 
 .tagContainer {
     display: flex;
+    flex-wrap: wrap;
     margin-left: 10px;
     font-size: 1.5em;
 }
