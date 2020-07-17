@@ -10,6 +10,7 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
     const { categories, getCategories } = useContext(CategoryContext)
     const nonDeletedCategories = categories.filter(cat => cat.isDeleted === false)
     const [chosenCat, setChosenCat] = useState()
+    const [categoryValue, setCategoryValue] = useState()
     const title = useRef()
     const imageLoc = useRef()
     const content = useRef()
@@ -25,7 +26,16 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
         setChosenCat(onePost.category.id)
     },[])
 
+    useEffect(() => {
+        if (onePost.category.isDeleted === false) {
+            setCategoryValue(catId.current.value)
+        } else {
+            setCategoryValue(0)
+        }
+    })
+
     const editThePost = () => {
+        
         const newPostObj = {
             id: onePost.id,
             title: title.current.value,
@@ -34,7 +44,7 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
             createDateTime: onePost.createDateTime,
             publishDateTime: pDT.current.value,
             isApproved: true,
-            categoryId: catId.current.value
+            categoryId: categoryValue
         }
         editPost(newPostObj).then(refreshPost)
         toggle()
