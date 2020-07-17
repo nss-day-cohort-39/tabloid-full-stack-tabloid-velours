@@ -61,7 +61,7 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
                 </FormGroup>
                 <FormGroup>
                     <Label for="exampleSelect">Category</Label>
-                    <Input type="select" name="select" id="exampleSelect" value={chosenCat} onChange={handleChange} innerRef={catId}>
+                    <Input required type="select" name="select" id="exampleSelect" value={chosenCat} onChange={handleChange} innerRef={catId}>
                         <option value={0}>Select a category</option>
                     {
                         categories.map(category => {

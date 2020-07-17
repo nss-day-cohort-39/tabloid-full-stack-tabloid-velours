@@ -17,7 +17,8 @@ export const EditUserType=({userProfile, toggle})=> {
       <FormGroup>
         <Label for="userTypeId">User Type Id</Label>
         <Input id="userTypeId" type="textarea" defaultValue={userProfile.userType.Name}
-onChange={e => setUserTypeId(e.target.value)}  />
+          onChange={e => setUserTypeId(e.target.value)}  
+        />
       </FormGroup>
       <FormGroup>
         <Button>Save</Button>
