@@ -17,7 +17,9 @@ const Post = ({post}) => {
                 <CardBody>
                     <CardTitle><h4>{post.title}</h4></CardTitle>
                     <CardSubtitle>Author: {post.userProfile.displayName}</CardSubtitle>
+                    {(post.category.isDeleted === false) && 
                     <CardText>Category: {post.category.name}</CardText>
+                    }
                     <Button outline size="sm" onClick={handleClick}>Details</Button>
                 </CardBody>
             </Card>
