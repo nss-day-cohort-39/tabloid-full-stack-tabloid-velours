@@ -1,4 +1,4 @@
-import React, {useRef, useContext, useEffect} from 'react';
+import React, {useRef, useContext, useEffect, useState} from 'react';
 import { PostContext } from '../../providers/PostProvider';
 import { Button, Form, FormGroup, Label, Input, Card, CardBody} from 'reactstrap';
 import { useHistory } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { CategoryContext } from '../../providers/CategoryProvider';
 const AddPostForm = () => {
     const {addPost} = useContext(PostContext)
     const { categories, getCategories } = useContext(CategoryContext)
+    const [selectedFile, setSelectedFile] = useState(null)
     const nonDeletedCategories = categories.filter(cat => cat.isDeleted === false)
     const title = useRef()
     const imageLoc = useRef()
@@ -15,6 +16,13 @@ const AddPostForm = () => {
     const catId = useRef()
 
     const history = useHistory();
+
+    //image uploading methods
+    const onFileChange = (e) => {
+        setSelectedFile(e.target.files[0])
+    }
+
+    const onFileUpload = ()
 
     useEffect(() => {
         getCategories();
@@ -53,8 +61,8 @@ const AddPostForm = () => {
                                 <Input type="date" name="datetime" id="datetime" placeholder="Date" innerRef={pDT} />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="newImage">Image URL</Label>
-                                <Input type="file" name="Image" id="newImage" placeholder="image url" innerRef={imageLoc} />
+                                <Label for="newImage">Upload Your Image</Label>
+                                <Input type="file" name="Image" id="newImage" placeholder="image" onChange={onFileChange} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleSelect">Category</Label>
@@ -73,6 +81,7 @@ const AddPostForm = () => {
                             </FormGroup>
                             <Button onClick={(e) => {
                                 e.preventDefault()
+                                onFileUpload()
                                 constructNewPost()
                             }}>Submit</Button>
                         </Form>
