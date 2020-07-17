@@ -12,14 +12,6 @@ export function UserProfileProvider(props) {
   const [isAdmin, setAdmin] = useState(false);
   const [isActivated, setIsActivated] = useState(false);
 
-
-  // useEffect(() => {
-  //   if (userProfile.isActivated === 0) {
-  //     setIsLoggedIn(false)
-  //     alert("You've been deactivated");
-  //   }
-  // });
-
   useEffect(() => {
     if (isLoggedIn && userProfile.userTypeId === 1) {
       setAdmin(true);
@@ -136,13 +128,7 @@ export function UserProfileProvider(props) {
         },
         body: JSON.stringify(userProfile),
       })
-        .then((resp) => {
-          if (resp.ok) {
-            return resp.json();
-          }
-          throw new Error("Unauthorized");
-        })
-        .then(getUserProfiles)
+      .then(getUserProfiles)
     );
   };
 

@@ -9,7 +9,6 @@ import {
 import "./UserProfile.css";
 import { useHistory } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
-import { EditUserType } from "./EditUserType";
 import { UserProfileList } from "./UserProfileList";
 
 export const DeactivatedUserProfile = ({ userProfile }) => {
@@ -63,13 +62,6 @@ export const DeactivatedUserProfile = ({ userProfile }) => {
               aria-hidden="true"
             ></i>
           </div>
-          <div className="icon--userProfile">
-            <i
-              onClick={() => toggleModal()}
-              className="fa fa-pencil-square-o"
-              aria-hidden="true"
-            ></i>
-          </div>
         </ListGroup>
       </ListGroup>
     </ListGroupItem>
@@ -81,10 +73,6 @@ export const DeactivatedUserProfile = ({ userProfile }) => {
       toggle={toggleModal}
       contentClassName="custom-modal-style-product"
     >
-      <ModalHeader toggle={toggleModal}>Edit User Type</ModalHeader>
-      <ModalBody>
-        <EditUserType userProfile={userProfile} toggle={toggleModal} />
-      </ModalBody>
     </Modal>
     </>
     )
