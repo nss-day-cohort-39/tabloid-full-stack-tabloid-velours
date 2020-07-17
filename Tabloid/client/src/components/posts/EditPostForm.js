@@ -8,6 +8,7 @@ import moment from "moment";
 const EditPostForm = ({onePost, toggle, refreshPost}) => {
     const {editPost} = useContext(PostContext);
     const { categories, getCategories } = useContext(CategoryContext)
+    const nonDeletedCategories = categories.filter(cat => cat.isDeleted === false)
     const [chosenCat, setChosenCat] = useState()
     const title = useRef()
     const imageLoc = useRef()
@@ -64,7 +65,7 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
                     <Input type="select" name="select" id="exampleSelect" value={chosenCat} onChange={handleChange} innerRef={catId}>
                         <option value={0}>Select a category</option>
                     {
-                        categories.map(category => {
+                        nonDeletedCategories.map(category => {
                             return <option value={category.id}>{category.name}</option>
                         })
                     }
