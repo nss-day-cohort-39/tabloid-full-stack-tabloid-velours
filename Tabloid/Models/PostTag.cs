@@ -14,5 +14,6 @@ namespace Tabloid.Models
         public Post Post { get; set; }
         
         public Tag Tag { get; set; }
+
     }
 }
