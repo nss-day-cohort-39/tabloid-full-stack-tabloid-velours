@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Data;
 using Tabloid.Models;
@@ -17,10 +12,14 @@ namespace Tabloid.Controllers
     {
         private readonly PostRepository _postRepository;
         private readonly UserProfileRepository _upRepository;
+        private readonly PostTagRepository _ptRepository;
+        private readonly TagRepository _tagRepository;
         public PostController(ApplicationDbContext context)
         {
             _postRepository = new PostRepository(context);
             _upRepository = new UserProfileRepository(context);
+            _ptRepository = new PostTagRepository(context);
+            _tagRepository = new TagRepository(context);
         }
 
         [HttpGet]
@@ -34,6 +33,8 @@ namespace Tabloid.Controllers
         {
             var post = _postRepository.GetById(id);
             var currentUser = GetCurrentUserProfile();
+            post.UserProfileId = currentUser.Id;
+
             if (post.UserProfileId == currentUser.Id)
             {
                 post.IsCurrentUsers = true;

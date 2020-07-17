@@ -4,6 +4,7 @@ import Post from "../posts/Post";
 import {CardColumns, Button} from "reactstrap"
 import { useHistory } from "react-router-dom";
 import "../posts/Post.css";
+import MyPostTitle from "../../images/TabloidMyPosts.png"
 
 const MyPostList = () => {
     const { cuPosts, getUserPosts} = useContext(PostContext);
@@ -11,6 +12,7 @@ const MyPostList = () => {
 
     useEffect(() => {
         getUserPosts();
+        // eslint-disable-next-line
       }, []);
     const handleClick = () => {
         history.push(`/addposts`);
@@ -19,7 +21,7 @@ const MyPostList = () => {
         <>
         <section>
         <div className="postsHeader">
-                    <h2>My Posts</h2>
+            <img style={{height: "130px"}} src={MyPostTitle} alt="" />
                 </div>
             <div className="btn--addPost">
                 <Button color="info" size="lg" onClick={handleClick}>Add Post</Button>

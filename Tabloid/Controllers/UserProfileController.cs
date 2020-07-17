@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System;
 using Tabloid.Data;
 using Tabloid.Models;
@@ -45,6 +44,13 @@ namespace Tabloid.Controllers
                 nameof(GetUserProfile),
                 new { firebaseUserId = userProfile.FirebaseUserId },
                 userProfile);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Edit(UserProfile userProfile)
+        {
+            _userProfileRepository.Update(userProfile);
+            return Ok(userProfile);
         }
     }
 }

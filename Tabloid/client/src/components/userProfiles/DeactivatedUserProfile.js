@@ -10,9 +10,9 @@ import "./UserProfile.css";
 import { useHistory } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { EditUserType } from "./EditUserType";
+import { UserProfileList } from "./UserProfileList";
 
-
-export const UserProfile = ({ userProfile }) => {
+export const DeactivatedUserProfile = ({ userProfile }) => {
   const { editUserProfile } = useContext(UserProfileContext);
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
@@ -21,9 +21,9 @@ export const UserProfile = ({ userProfile }) => {
     history.push(`/userprofiles/${userProfile.id}`);
   };
 
-  const deActivate = () => {
+  const reActivate = () => {
  
-    window.confirm("Are you sure you wish to deactivate this user?") &&
+    window.confirm("Are you sure you wish to reactivate this user?") &&
       editUserProfile({
         id: userProfile.id,
         firebaseUserId: userProfile.firebaseUserId,
@@ -34,13 +34,13 @@ export const UserProfile = ({ userProfile }) => {
         createDateTime: userProfile.createDateTime,
         imageLocation: userProfile.imageLocation,
         userTypeId: userProfile.userTypeId,
-        IsActivated: 0
+        IsActivated: 1
       });
   };
 
     return (
       <>
-    {(userProfile.isActivated) && (
+    {(!userProfile.IsActivated) && (
       <>
       
       <ListGroupItem>
@@ -58,8 +58,8 @@ export const UserProfile = ({ userProfile }) => {
           </div>
           <div className="icon--userProfile">
             <i
-              onClick={deActivate}
-              className="fa fa-window-close-o"
+              onClick={reActivate}
+              className="fa fa-plus-circle"
               aria-hidden="true"
             ></i>
           </div>

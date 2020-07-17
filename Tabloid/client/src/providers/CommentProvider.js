@@ -55,10 +55,10 @@ export const CommentProvider = (props) => {
                     return resp.json();
                 }
                 throw new Error("Unauthorized");
-            }).then(getAllComments))
+            }))
       );
 
-    const editComment = (comment) => {
+    const editComment = (comment) => (
         getToken().then((token) =>
             fetch(apiUrl + `${comment.id}`, {
                 method: "PUT",
@@ -73,10 +73,10 @@ export const CommentProvider = (props) => {
                         return resp.json();
                     }
                     throw new Error("Unauthorized");
-                }).then(getAllComments));
-        };
+                }))
+        )
     
-    const deleteComment = (id) => {
+    const deleteComment = (id) => (
         getToken().then((token) =>
             fetch(apiUrl + `${id}`, {
                 method: "DELETE",
@@ -89,8 +89,8 @@ export const CommentProvider = (props) => {
                     return ;
                 }
                 throw new Error("Unauthorized");
-            })).then(getAllComments);
-    };
+            }))
+    )
     
     return (
     <CommentContext.Provider value={{comments, getCommentsByPostId, addComment, deleteComment, editComment, setComments, getCommentById}}>

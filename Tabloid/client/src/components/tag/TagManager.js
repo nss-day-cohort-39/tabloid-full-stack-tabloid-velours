@@ -35,30 +35,24 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
     
     // on save delete all postTags associated and add back postTags that are checked
     const deleteAssPTs = () => {
-        if(onePost.postTagList !== []) {
-            onePost.postTagList.forEach(pT => {
-                deletePostTag(pT.id)
-            });
-        } else {
-            return null
-        }
+        let promiseArray = onePost.postTagList.map(pT => {
+            return deletePostTag(pT.id)
+        });
+        return Promise.all(promiseArray)
     }
     
     const addBackPTs = () => {
-        const checkedTagsArray = checkedTags.slice()
-        checkedTagsArray.forEach(cT => {
-            if(cT.checked === true) {
-                const newPostTag = {
-                    postId: onePost.id,
-                    tagId: cT.id
-                }
-                addPostTag(newPostTag);
+        let promiseArray = checkedTags.filter(cT => cT.checked === true).map(checkedTag => {
+            const newPostTag = {
+                postId: onePost.id,
+                tagId: checkedTag.id
             }
-        });
+            return addPostTag(newPostTag);
+        })
+        return Promise.all(promiseArray)
     }
     
     const handleChange = (e) => {
-        
         // update the checked value for the tag being checked/unchecked in newTagList
         const checkedTagsArray = checkedTags.slice()
         checkedTagsArray.forEach(cT=> {
@@ -68,6 +62,18 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
 
         });
         setCheckedTags(checkedTagsArray)
+    }
+
+    const handleSave = () => {
+        if (onePost.postTagList.length !== 0) {
+            deleteAssPTs().then(addBackPTs)
+            .then(refreshPost)
+            .then(toggle)
+        } else {
+            addBackPTs()
+            .then(refreshPost)
+            .then(toggle)
+        }
     }
 
     //page render 
@@ -94,10 +100,7 @@ const TagManager = ({onePost, refreshPost, toggle}) => {
                 
                 <Button onClick={(e) => {
                     e.preventDefault()
-                    deleteAssPTs()
-                    addBackPTs()
-                    toggle()
-                    refreshPost()
+                    handleSave()
                 }}>Save Changes</Button>
             </Form>
         </>

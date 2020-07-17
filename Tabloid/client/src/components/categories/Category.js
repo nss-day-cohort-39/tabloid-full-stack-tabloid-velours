@@ -4,7 +4,7 @@ import { CategoryContext } from "../../providers/CategoryProvider";
 import "./Category.css"
 
 export const Category = ({ category }) => {
-    const { deleteCategory, updateCategory } = useContext(CategoryContext)
+    const { updateCategory } = useContext(CategoryContext)
     const name = useRef()
     const [editModal, setEditModal] = useState(false)
     const toggleEdit = () => setEditModal(!editModal)
@@ -12,12 +12,26 @@ export const Category = ({ category }) => {
     const editCategory = () => {
         updateCategory({
             id: category.id,
-            name: name.current.value
+            name: name.current.value,
+            isDeleted: category.isDeleted
         })
         toggleEdit()
     }
+
+    const deleteCategory = () => {
+        updateCategory({
+            id: category.id,
+            name: category.name,
+            isDeleted: true
+        })
+    }
     
     return (
+
+        <>
+        {(category.isDeleted === false) && (
+        <>
+
         <ListGroupItem>
             <ListGroup horizontal className="category">
                 <div className="categoryName">
@@ -62,12 +76,16 @@ export const Category = ({ category }) => {
                         <i className="fa fa-trash-o" aria-hidden="true" 
                             onClick={(e) => {
                             e.preventDefault()
-                            deleteCategory(category.id)}}>
+                            deleteCategory(category)}}>
                         </i>
                     </div>
                     <div className="icon--category"><Badge pill>{category.postList.length}</Badge></div>
                 </ListGroup>
             </ListGroup>
-        </ListGroupItem>       
+        </ListGroupItem>   
+        </>    
+    )}
+    </>
     )
 }
+    

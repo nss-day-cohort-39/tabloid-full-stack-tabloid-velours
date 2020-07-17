@@ -13,10 +13,11 @@ import PostDetails from "./posts/PostDetails";
 import AddPostForm from "./posts/AddPostForm";
 import { UserProfileList } from "./userProfiles/UserProfileList";
 import {UserProfileDetails} from "./userProfiles/UserProfileDetails";
+import { DeactivatedList } from "./userProfiles/DeactivatedList";
 
 
 export default function ApplicationViews() {
-  const { isLoggedIn, isAdmin } = useContext(UserProfileContext);
+  const { isLoggedIn, isAdmin, isActivated } = useContext(UserProfileContext);
   const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
 
   return (
@@ -26,7 +27,7 @@ export default function ApplicationViews() {
           {isLoggedIn ? <Hello /> : <Redirect to="/welcome" />}
         </Route>
         <Route path="/tags">
-          {isLoggedIn ? <TagList /> : <Redirect to="/welcome" />}
+          {isLoggedIn ?  <TagList /> : <Redirect to="/welcome" />}
         </Route>
 
         <Route path="/posts" exact>
@@ -67,6 +68,10 @@ export default function ApplicationViews() {
 
         <Route path="/userProfiles" exact>
           {isLoggedIn && isAdmin ? <UserProfileList /> : <Redirect to="/welcome" />}
+        </Route>
+
+        <Route path="/userProfiles/list/deactivated" exact>
+          {isLoggedIn && isAdmin ? <DeactivatedList/> : <Redirect to="/welcome" />}
         </Route>
         
       </Switch>
