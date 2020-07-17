@@ -10,7 +10,7 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
     const { categories, getCategories } = useContext(CategoryContext)
     const nonDeletedCategories = categories.filter(cat => cat.isDeleted === false)
     const [chosenCat, setChosenCat] = useState()
-    const [categoryValue, setCategoryValue] = useState()
+    const [categoryValue, setCategoryValue] = useState(0)
     const title = useRef()
     const imageLoc = useRef()
     const content = useRef()
@@ -28,14 +28,13 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
 
     useEffect(() => {
         if (onePost.category.isDeleted === false) {
-            setCategoryValue(catId.current.value)
+            setCategoryValue(chosenCat)
         } else {
             setCategoryValue(0)
         }
-    })
+    }, [])
 
     const editThePost = () => {
-        
         const newPostObj = {
             id: onePost.id,
             title: title.current.value,
@@ -44,7 +43,12 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
             createDateTime: onePost.createDateTime,
             publishDateTime: pDT.current.value,
             isApproved: true,
-            categoryId: categoryValue
+        }
+
+        if (categoryValue === 0 && catId.current.value === "0") {
+            newPostObj.categoryId = onePost.categoryId
+        } else {
+            newPostObj.categoryId = parseInt(catId.current.value)
         }
         editPost(newPostObj).then(refreshPost)
         toggle()
@@ -72,7 +76,14 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
                 </FormGroup>
                 <FormGroup>
                     <Label for="exampleSelect">Category</Label>
-                    <Input type="select" name="select" id="exampleSelect" value={chosenCat} onChange={handleChange} innerRef={catId}>
+                    <Input 
+                        required 
+                        type="select" 
+                        name="select" 
+                        id="exampleSelect" 
+                        value={chosenCat} 
+                        onChange={handleChange} 
+                        innerRef={catId}>
                         <option value={0}>Select a category</option>
                     {
                         nonDeletedCategories.map(category => {

@@ -58,7 +58,7 @@ const AddPostForm = () => {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleSelect">Category</Label>
-                                <Input type="select" name="select" id="exampleSelect" innerRef={catId}>
+                                <Input required type="select" name="select" id="exampleSelect" innerRef={catId}>
                                     <option value={0}>Select a category</option>
                                 {
                                     nonDeletedCategories.map(category => {
