@@ -7,6 +7,7 @@ import { CategoryContext } from '../../providers/CategoryProvider';
 const AddPostForm = () => {
     const {addPost} = useContext(PostContext)
     const { categories, getCategories } = useContext(CategoryContext)
+    const nonDeletedCategories = categories.filter(cat => cat.isDeleted === false)
     const title = useRef()
     const imageLoc = useRef()
     const content = useRef()
@@ -60,8 +61,8 @@ const AddPostForm = () => {
                                 <Input required type="select" name="select" id="exampleSelect" innerRef={catId}>
                                     <option value={0}>Select a category</option>
                                 {
-                                    categories.map(category => {
-                                        return <option value={category.id}>{category.name}</option>
+                                    nonDeletedCategories.map(category => {
+                                        return <option value={category.id}>{category.name}</option>                                       
                                     })
                                 }
                                 </Input>
