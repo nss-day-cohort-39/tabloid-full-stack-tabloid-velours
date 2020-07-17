@@ -38,6 +38,7 @@ namespace Tabloid.Controllers
         public IActionResult Post(UserProfile userProfile)
         {
             userProfile.CreateDateTime = DateTime.Now;
+            //userProfile.IsActivated = true;
             userProfile.UserTypeId = UserType.AUTHOR_ID;
             _userProfileRepository.Add(userProfile);
             return CreatedAtAction(
