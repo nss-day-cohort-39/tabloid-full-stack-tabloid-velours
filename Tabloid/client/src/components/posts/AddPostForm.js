@@ -54,7 +54,7 @@ const AddPostForm = () => {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="newImage">Image URL</Label>
-                                <Input type="text" name="Image" id="newImage" placeholder="image url" innerRef={imageLoc} />
+                                <Input type="file" name="Image" id="newImage" placeholder="image url" innerRef={imageLoc} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleSelect">Category</Label>
