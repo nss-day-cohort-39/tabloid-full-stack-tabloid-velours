@@ -1,13 +1,15 @@
-import React, { useContext, useEffect } from "react";
-import { ListGroup } from "reactstrap";
-import "./Tag.css";
-import Tag from "./Tag";
-import NewTagForm from "./NewTagForm";
+import React, { useContext, useEffect, useState } from "react";
+import { ListGroup, Button, Modal,ModalHeader, ModalBody } from "reactstrap";
 import TagsTitle from "../../images/TabloidTags.png"
+import AddReactionForm from "./AddReactionForm"
+import Reaction from "./Reaction"
 import { ReactionContext } from "../../providers/ReactionProvider";
 
-export default ReactionList =()=> {
+export const ReactionList = () => {
+const [modal, setModal] = useState(false)
   const { reactions, getReactions } = useContext(ReactionContext);
+  const toggleModal = () => setModal(!modal)
+
 
   useEffect(() => {
     getReactions();
@@ -29,6 +31,14 @@ export default ReactionList =()=> {
               <Reaction key={react.id} react={react} />
             ))}
           </ListGroup>
+          <Button outline color="secondary" onClick={toggleModal} style={{ marginBottom: "50px" }}>Add Reaction Option</Button>
+          <Modal isOpen={modal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+                    toggle={toggleModal} contentClassName="custom-modal-style-product" >
+                    <ModalHeader toggle={toggleModal}>Add a comment to ""</ModalHeader>
+                    <ModalBody>
+                        <AddReactionForm toggle={toggleModal} />
+                    </ModalBody>
+                </Modal>
         </section>
       </section>
     </>

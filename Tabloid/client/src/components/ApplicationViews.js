@@ -14,6 +14,7 @@ import AddPostForm from "./posts/AddPostForm";
 import { UserProfileList } from "./userProfiles/UserProfileList";
 import {UserProfileDetails} from "./userProfiles/UserProfileDetails";
 import { DeactivatedList } from "./userProfiles/DeactivatedList";
+import { ReactionList} from "./reactions/ReactionList"
 
 
 export default function ApplicationViews() {
@@ -72,6 +73,10 @@ export default function ApplicationViews() {
 
         <Route path="/userProfiles/list/deactivated" exact>
           {isLoggedIn && isAdmin ? <DeactivatedList/> : <Redirect to="/welcome" />}
+        </Route>
+
+        <Route path="/reactions" exact>
+          {isLoggedIn && isAdmin ? <ReactionList/> : <Redirect to="/welcome" />}
         </Route>
         
       </Switch>

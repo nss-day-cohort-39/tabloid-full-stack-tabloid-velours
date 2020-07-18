@@ -3,12 +3,12 @@ import { UserProfileContext } from "./UserProfileProvider";
 
 export const ReactionContext = createContext();
 
-export function TagProvider(props) {
+export function ReactionProvider(props) {
   const apiUrl = "/api/reaction/";
   const { getToken } = useContext(UserProfileContext);
-
   const [reactions, setReactions] = useState([]);
-
+  const [emojis, setEmojis] = useState([]);
+debugger 
   const getReactions = () =>
     getToken().then((token) =>
       fetch(apiUrl, {
@@ -19,6 +19,18 @@ export function TagProvider(props) {
       })
         .then((resp) => resp.json())
         .then(setReactions)
+    );
+
+  const getEmojis = () =>
+    getToken().then((token) =>
+      fetch("/api/reaction/emojis", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((resp) => resp.json())
+        .then(setEmojis)
     );
 
   const addReaction = (reaction) => {
@@ -66,7 +78,15 @@ export function TagProvider(props) {
 
   return (
     <ReactionContext.Provider
-      value={{ reactions, getReactions, addReaction, updateReaction, deleteReaction }}
+      value={{
+        reactions,
+        getReactions,
+        addReaction,
+        updateReaction,
+        deleteReaction,
+        emojis,
+        getEmojis,
+      }}
     >
       {props.children}
     </ReactionContext.Provider>

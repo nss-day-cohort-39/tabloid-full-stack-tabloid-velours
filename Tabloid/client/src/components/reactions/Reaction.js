@@ -3,7 +3,6 @@ import {
   ListGroupItem,
   ListGroup
 } from "reactstrap";
-import "./Tag.css";
 import { ReactionContext } from "../../providers/ReactionProvider";
 
 export default function Reaction({ react }) {

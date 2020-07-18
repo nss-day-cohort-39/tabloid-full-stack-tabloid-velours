@@ -25,6 +25,12 @@ namespace Tabloid.Repositories
                 .ToList();
         }
 
+        public List<Emoji> GetAllEmojis()
+        {
+            return _context.Emoji
+                .ToList();
+        }
+
         public Reaction GetById(int id)
         {
             return _context.Reaction

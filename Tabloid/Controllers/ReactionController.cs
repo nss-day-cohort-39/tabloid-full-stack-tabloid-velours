@@ -26,6 +26,13 @@ namespace Tabloid.Controllers
         {
             return Ok(_reactionRepository.GetAll());
         }
+
+        [HttpGet("emojis")]
+        public IActionResult GetEmojis()
+        {
+            return Ok(_reactionRepository.GetAllEmojis());
+        }
+
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {

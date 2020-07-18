@@ -8,6 +8,7 @@ import { PostProvider } from "./providers/PostProvider";
 import { TagProvider } from "./providers/TagProvider";
 import { CommentProvider } from "./providers/CommentProvider";
 import { PostTagProvider } from "./providers/PostTagProvider";
+import {ReactionProvider} from "./providers/ReactionProvider";
 
 function App() {
   return (
@@ -18,8 +19,10 @@ function App() {
             <CategoryProvider>
               <PostTagProvider>
                 <TagProvider>
+                  <ReactionProvider>
                   <Header />
                   <ApplicationViews />
+                  </ReactionProvider>
                 </TagProvider>
               </PostTagProvider>
             </CategoryProvider>

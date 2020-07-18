@@ -1,34 +1,56 @@
-import React, { useState, useContext } from "react";
+import React, {useContext, useRef, useEffect} from "react";
 import { Button } from "reactstrap";
-import { TagContext } from "../../providers/TagProvider";
+import { ReactionContext } from "../../providers/ReactionProvider";
 
-export default function NewTagForm() {
-  const { addTag, getTags } = useContext(TagContext);
-  const [tagName, setTagName] = useState("");
-  
-  const submitTag = (e) => {
-    e.preventDefault();
-    const tag = { name: tagName };
-    addTag(tag)
-      .then(getTags)
-      .then(setTagName(""))
-  };
+export default function AddReactionForm({toggle}) {
+  const { addReaction, emojis, getEmojis } = useContext(ReactionContext);
+  const emoji = useRef()
+  useEffect(() => {
+    getEmojis();
+    // eslint-disable-next-line
+  }, []);
+
+  const newReaction = () => {
+    const emojiId = parseInt(emoji.current.value)
+
+
+    if (emojiId === 0) {
+        window.alert("Please select an emoji")
+    } else {
+        addReaction({
+            emojiId: emojiId
+        })
+        .then(toggle)
+    }}
+
 
   return (
-    <section className="tagForm">
-      <fieldset className="input--addTag">
-        <input
-          type="text"
-          id="newTag"
+    <section className="emojiForm">
+      <fieldset className="input--addEmoji">
+        <select
+          defaultValue=""
+          ref={emoji}
+          name="emoji"
+          id="emoji"
           className="form-control"
-          placeholder="Enter New Tag"
-          onInput={(e) => setTagName(e.target.value)}
-        ></input>
+        >
+          <option value="0">Select an emoji</option>
+          {emojis.map((emoji) => (
+            <option key={emoji.id} value={emoji.id}>
+              {emoji.name}
+            </option>
+          ))} 
+        </select>
       </fieldset>
 
-      <Button type="submit" size="md" color="info" onClick={submitTag}>
-        {" "}
-        Save{" "}
+      <Button
+        type="submit"
+        onClick={(evt) => {
+          evt.preventDefault(); // Prevent browser from submitting the form
+          newReaction();
+        }}
+      >
+        Add Emoji
       </Button>
     </section>
   );
