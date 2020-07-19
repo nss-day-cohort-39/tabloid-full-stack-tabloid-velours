@@ -3,14 +3,15 @@ import { PostContext } from '../../providers/PostProvider';
 import { Button, Form, FormGroup, Label, Input, Card, CardBody} from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import { CategoryContext } from '../../providers/CategoryProvider';
+import { UploadImgContext } from '../../providers/UploadImgProvider';
 
 const AddPostForm = () => {
     const {addPost} = useContext(PostContext)
     const { categories, getCategories } = useContext(CategoryContext)
+    const {addImg} = useContext(UploadImgContext)
     const [selectedFile, setSelectedFile] = useState(null)
     const nonDeletedCategories = categories.filter(cat => cat.isDeleted === false)
     const title = useRef()
-    const imageLoc = useRef()
     const content = useRef()
     const pDT = useRef()
     const catId = useRef()
@@ -22,8 +23,6 @@ const AddPostForm = () => {
         setSelectedFile(e.target.files[0])
     }
 
-    const onFileUpload = ()
-
     useEffect(() => {
         getCategories();
         // eslint-disable-next-line 
@@ -33,7 +32,7 @@ const AddPostForm = () => {
         const newPostObj = {
             title: title.current.value,
             content: content.current.value,
-            imageLocation: imageLoc.current.value,
+            imageLocation: selectedFile.name,
             createDateTime: new Date(),
             publishDateTime: pDT.current.value,
             isApproved: true,
@@ -42,6 +41,7 @@ const AddPostForm = () => {
         addPost(newPostObj).then(() => {
             history.push("/posts")
         })
+        addImg(selectedFile)
     }
 
     return (
@@ -81,7 +81,6 @@ const AddPostForm = () => {
                             </FormGroup>
                             <Button onClick={(e) => {
                                 e.preventDefault()
-                                onFileUpload()
                                 constructNewPost()
                             }}>Submit</Button>
                         </Form>

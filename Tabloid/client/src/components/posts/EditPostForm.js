@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import { CategoryContext } from "../../providers/CategoryProvider";
 import { PostContext } from "../../providers/PostProvider";
 import moment from "moment";
+import { UploadImgContext } from "../../providers/UploadImgProvider";
 
 
 const EditPostForm = ({onePost, toggle, refreshPost}) => {
@@ -10,7 +11,9 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
     const { categories, getCategories } = useContext(CategoryContext)
     const nonDeletedCategories = categories.filter(cat => cat.isDeleted === false)
     const [chosenCat, setChosenCat] = useState()
+    const {addImg} = useContext(UploadImgContext)
     const [categoryValue, setCategoryValue] = useState(0)
+    const [selectedFile, setSelectedFile] = useState(null)
     const title = useRef()
     const imageLoc = useRef()
     const content = useRef()
@@ -35,11 +38,15 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
     }, [])
 
     const editThePost = () => {
+        let imgEdit = onePost.imageLocation
+        if(onePost.imageLocation !== selectedFile) {
+            imgEdit = selectedFile.name
+        }
         const newPostObj = {
             id: onePost.id,
             title: title.current.value,
             content: content.current.value,
-            imageLocation: imageLoc.current.value,
+            imageLocation: imgEdit,
             createDateTime: onePost.createDateTime,
             publishDateTime: pDT.current.value,
             isApproved: true,
@@ -50,6 +57,10 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
         } else {
             newPostObj.categoryId = parseInt(catId.current.value)
         }
+        if(onePost.imageLocation !== selectedFile && selectedFile !== null)
+        {
+            addImg(selectedFile)
+        }
         editPost(newPostObj).then(refreshPost)
         toggle()
     }
@@ -57,6 +68,10 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
     var publishDate = moment(onePost.publishDateTime).format('YYYY-MM-DD')
     const handleChange = () => {
         setChosenCat(catId.current.value);
+    }
+
+    const onFileChange = (e) => {
+        setSelectedFile(e.target.files[0])
     }
     
     return (
@@ -72,7 +87,7 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
                 </FormGroup>
                 <FormGroup>
                     <Label for="newImage">Image URL</Label>
-                    <Input type="text" name="Image" id="newImage" placeholder="image url" defaultValue={onePost.imageLocation} innerRef={imageLoc} />
+                    <Input type="file" name="Image" id="newImage" placeholder="image url" onChange={onFileChange}  />
                 </FormGroup>
                 <FormGroup>
                     <Label for="exampleSelect">Category</Label>
