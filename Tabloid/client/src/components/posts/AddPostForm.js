@@ -30,19 +30,25 @@ const AddPostForm = () => {
 
     const constructNewPost = (e) => {
         e.preventDefault()
-        const newPostObj = {
-            title: title.current.value,
-            content: content.current.value,
-            imageLocation: selectedFile.name,
-            createDateTime: new Date(),
-            publishDateTime: pDT.current.value,
-            isApproved: true,
-            categoryId: catId.current.value
+        if (catId.current.value.Length > 0)
+        {
+            const newPostObj = {
+                title: title.current.value,
+                content: content.current.value,
+                imageLocation: selectedFile.name,
+                createDateTime: new Date(),
+                publishDateTime: pDT.current.value,
+                isApproved: true,
+                categoryId: catId.current.value
+            }
+            addPost(newPostObj).then(() => {
+                history.push("/posts")
+            })
+            addImg(selectedFile)
         }
-        addPost(newPostObj).then(() => {
-            history.push("/posts")
-        })
-        addImg(selectedFile)
+        else {
+            alert("Please select a category")
+        }
     }
 
     return (
