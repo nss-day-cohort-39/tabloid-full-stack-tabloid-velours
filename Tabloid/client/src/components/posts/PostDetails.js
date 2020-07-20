@@ -9,6 +9,7 @@ import { Comment } from "../comments/Comment"
 import EditPostForm from "./EditPostForm";
 import TagManager from "../tag/TagManager";
 import { UploadImgContext } from "../../providers/UploadImgProvider";
+import { ReactionContext } from "../../providers/ReactionProvider";
 
 
 const PostDetails = () => {
@@ -25,6 +26,7 @@ const PostDetails = () => {
     const toggleModal = () => setModal(!modal)
     const togglePostModal = () => setPostModal(!postModal)
     const toggleTagModal = () => setTagModal(!tagModal)
+    const {reactions} = useContext(ReactionContext)
     
     
     
@@ -91,7 +93,11 @@ const PostDetails = () => {
                         onePost.postTagList.map(pT => (<div className="tagBox">{pT.tag.name}</div>))
                     }
                 </div>
-    
+                <div className="reactionContainer">
+                    {
+                        reactions.map(react=> (<div className="reactionBubble">{react.name}</div>))
+                    }
+                </div>
                 <Card className="text-left">
                     <Button outline color="secondary" onClick={toggleModal} style={{ marginBottom: "50px" }}>Add Comment</Button>
                     <div className="mt-10">
