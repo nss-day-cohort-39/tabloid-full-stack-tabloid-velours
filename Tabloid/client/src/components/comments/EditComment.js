@@ -1,9 +1,8 @@
-import React, { useState, useContext, useHistory } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { CommentContext } from "../../providers/CommentProvider";
 
 export const EditComment=({comment, toggle, refreshPost})=> {
-  const history = useHistory();
   const { editComment } = useContext(CommentContext);
   const [editSubjectText, setSubjectText] = useState();
   const [editCommentText, setCommentText] = useState();
