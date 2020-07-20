@@ -9,7 +9,11 @@ export default function AddReactionForm({toggle, reactions}) {
     getEmojis();
     // eslint-disable-next-line
   }, []);
+
+//  const freeEmojis=emojis.filter(emoji=>(!reactions.find(react=>emoji.id === react.emojiId)))
+
  const freeEmojis=emojis.filter(emoji=>(reactions.filter(react=>emoji.id !== react.emojiId)))
+
  
  const newReaction = () => {
     const emojiId = parseInt(emoji.current.value)
