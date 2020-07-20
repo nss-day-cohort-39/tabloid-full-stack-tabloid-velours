@@ -5,7 +5,8 @@ import {
   Modal,
   Button,
   ModalBody,
-  Input
+  Input,
+  Label
 } from "reactstrap";
 import "./UserProfile.css";
 import { useHistory } from "react-router-dom";
@@ -20,6 +21,8 @@ export const UserProfile = ({ userProfile }) => {
   const toggleModal = () => setModal(!modal);
   const [editModal, setEditModal] = useState(false)
   const toggleEdit = () => setEditModal(!editModal)
+  const [deactivateModal, setDeactivateModal] = useState(false)
+  const toggleDeactivate = () => setDeactivateModal(!deactivateModal)
   const currentUser = JSON.parse(sessionStorage.getItem("userProfile"));
   const numberAdmins = userProfiles.filter(up => up.userTypeId === 1 && up.isActivated === true).length
   console.log(numberAdmins)
@@ -29,7 +32,7 @@ export const UserProfile = ({ userProfile }) => {
   };
 
   const deActivate = () => {
-    window.confirm("Are you sure you wish to deactivate this user?") &&
+    // window.confirm("Are you sure you wish to deactivate this user?") &&
       editUserProfile({
         id: userProfile.id,
         firebaseUserId: userProfile.firebaseUserId,
@@ -64,13 +67,25 @@ export const UserProfile = ({ userProfile }) => {
     numberAdmins < 3 && userProfileType.current.value === "2" ?
       window.confirm("At least 1 additional admin required. Please declare an alternate admin before deactiving this user.") :
       editUserProfileType(userProfile)
-    }
+  }
 
   const userCheck = () => {
       currentUser.id === userProfile.id ?
-      window.confirm("You cannot adjust your own privileges. Please have another admin perform this task.") :
+      window.confirm("You cannot adjust your own profile. Please have another admin perform this task.") :
       toggleEdit()
-    }
+  }
+
+  const adminCheckDeactivate = () => {
+    numberAdmins < 3 && userProfile.userTypeId === 1 ?        
+    window.confirm("At least 1 additional admin required. Please declare an alternate admin before deactiving this user.") :
+    deActivate(userProfile)
+  }
+
+  const userCheckDeactivate = () => {
+    currentUser.id === userProfile.id ?
+    window.confirm("You cannot adjust your own profile. Please have another admin perform this task.") :
+    toggleDeactivate()
+  }
 
   return (
     <>
@@ -90,13 +105,53 @@ export const UserProfile = ({ userProfile }) => {
                     aria-hidden="true">
                   </i>
                 </div>
+
                 <div className="icon--userProfile">
                   <i
-                    onClick={deActivate}
+                    onClick={() => userCheckDeactivate()}
                     className="fa fa-window-close-o"
                     aria-hidden="true">
                   </i>
+
+                  <div>
+                      <Modal isOpen={deactivateModal} toggle={toggleDeactivate}>
+                        <ModalBody >
+                          <div className="form-group">
+                            <div>
+                              <Label>Are you sure you want to deactivate this user?</Label>
+                            </div>
+                            <div>
+                              <Button
+                                type="submit"
+                                size="sm"
+                                color="danger"
+                                onClick={
+                                  evt => {
+                                    evt.preventDefault()
+                                    adminCheckDeactivate()
+                                  }}
+                                className="btn mt-4 mr-2">
+                                Deactivate
+                                </Button>
+                                <Button
+                                type="submit"
+                                size="sm"
+                                color="secondary"
+                                onClick={
+                                  evt => {
+                                    evt.preventDefault()
+                                    toggleDeactivate()
+                                  }}
+                                className="btn mt-4">
+                                Cancel
+                                </Button>
+                            </div>
+                          </div>
+                        </ModalBody>
+                      </Modal>
+                    </div>
                 </div>
+            
                 <div className="icon--userProfile">
                   <i
                     onClick={() => userCheck()}
@@ -128,7 +183,6 @@ export const UserProfile = ({ userProfile }) => {
                                   evt => {
                                     evt.preventDefault()
                                     adminCheck()
-                                    userCheck()
                                   }}
                                 className="btn mt-4">
                                 Save
