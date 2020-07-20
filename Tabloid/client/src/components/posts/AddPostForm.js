@@ -30,25 +30,19 @@ const AddPostForm = () => {
 
     const constructNewPost = (e) => {
         e.preventDefault()
-        if (catId.current.value.Length > 0)
-        {
-            const newPostObj = {
-                title: title.current.value,
-                content: content.current.value,
-                imageLocation: selectedFile.name,
-                createDateTime: new Date(),
-                publishDateTime: pDT.current.value,
-                isApproved: true,
-                categoryId: catId.current.value
-            }
-            addPost(newPostObj).then(() => {
-                history.push("/posts")
-            })
-            addImg(selectedFile)
+        const newPostObj = {
+            title: title.current.value,
+            content: content.current.value,
+            imageLocation: selectedFile.name,
+            createDateTime: new Date(),
+            publishDateTime: pDT.current.value,
+            isApproved: true,
+            categoryId: catId.current.value
         }
-        else {
-            alert("Please select a category")
-        }
+        addPost(newPostObj).then(() => {
+            history.push("/posts")
+        })
+        addImg(selectedFile)
     }
 
     return (
@@ -73,8 +67,8 @@ const AddPostForm = () => {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleSelect">Category</Label>
-                                <Input required type="select" name="select" id="exampleSelect" innerRef={catId}>
-                                    <option value={0}>Select a category</option>
+                                <Input required defaultValue="" type="select" name="select" id="exampleSelect" innerRef={catId}>
+                                    <option value="" disabled>Select a category</option>
                                 {
                                     nonDeletedCategories.map(category => {
                                         return <option value={category.id}>{category.name}</option>                                       
