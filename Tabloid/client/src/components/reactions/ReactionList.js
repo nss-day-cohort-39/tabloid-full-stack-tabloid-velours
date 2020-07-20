@@ -34,9 +34,9 @@ const [modal, setModal] = useState(false)
           <Button outline color="secondary" onClick={toggleModal} style={{ marginBottom: "50px" }}>Add Reaction Option</Button>
           <Modal isOpen={modal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
                     toggle={toggleModal} contentClassName="custom-modal-style-product" >
-                    <ModalHeader toggle={toggleModal}>Add a comment to ""</ModalHeader>
+                    <ModalHeader toggle={toggleModal}>Add reaction option for users</ModalHeader>
                     <ModalBody>
-                        <AddReactionForm toggle={toggleModal} />
+                        <AddReactionForm toggle={toggleModal} reactions={reactions} />
                     </ModalBody>
                 </Modal>
         </section>

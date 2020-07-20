@@ -53,6 +53,11 @@ export default function Header() {
                   <NavLink tag={RRNavLink} to ="/userProfiles">Users</NavLink>
                 </NavItem>          
               }
+              {isAdmin &&
+                <NavItem>
+                  <NavLink tag={RRNavLink} to ="/reactions">Reactions</NavLink>
+                </NavItem>          
+              }
               </>
               
             }

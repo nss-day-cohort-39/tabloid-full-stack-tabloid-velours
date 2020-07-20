@@ -2,17 +2,17 @@ import React, {useContext, useRef, useEffect} from "react";
 import { Button } from "reactstrap";
 import { ReactionContext } from "../../providers/ReactionProvider";
 
-export default function AddReactionForm({toggle}) {
+export default function AddReactionForm({toggle, reactions}) {
   const { addReaction, emojis, getEmojis } = useContext(ReactionContext);
   const emoji = useRef()
   useEffect(() => {
     getEmojis();
     // eslint-disable-next-line
   }, []);
-
-  const newReaction = () => {
+ const freeEmojis=emojis.filter(emoji=>(reactions.filter(react=>emoji.id !== react.emojiId)))
+ 
+ const newReaction = () => {
     const emojiId = parseInt(emoji.current.value)
-
 
     if (emojiId === 0) {
         window.alert("Please select an emoji")
@@ -23,6 +23,7 @@ export default function AddReactionForm({toggle}) {
         .then(toggle)
     }}
 
+  
 
   return (
     <section className="emojiForm">
@@ -35,7 +36,7 @@ export default function AddReactionForm({toggle}) {
           className="form-control"
         >
           <option value="0">Select an emoji</option>
-          {emojis.map((emoji) => (
+          {freeEmojis.map ((emoji) => (
             <option key={emoji.id} value={emoji.id}>
               {emoji.name}
             </option>

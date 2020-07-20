@@ -8,7 +8,7 @@ export function ReactionProvider(props) {
   const { getToken } = useContext(UserProfileContext);
   const [reactions, setReactions] = useState([]);
   const [emojis, setEmojis] = useState([]);
-debugger 
+
   const getReactions = () =>
     getToken().then((token) =>
       fetch(apiUrl, {

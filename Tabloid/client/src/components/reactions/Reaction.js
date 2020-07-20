@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, deleteReaction } from "react";
 import {
   ListGroupItem,
   ListGroup
@@ -14,16 +14,16 @@ export default function Reaction({ react }) {
       <ListGroup horizontal className="tag">
         <div className="tagName">{react.emoji.name}</div>
         <ListGroup horizontal>
-          {/* <div className="icon--tag">
+          <div className="icon--tag">
             <i
               className="fa fa-trash-o"
               aria-hidden="true"
               onClick={(e) => {
                 e.preventDefault();
-                deleteTag(tag.id);
+                deleteReaction(react.id);
               }}
             ></i>
-          </div> */}
+          </div>
           {/* <div className="icon--tag">
             <Badge pill>{tag.postTagList.length}</Badge>
           </div> */}
