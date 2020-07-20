@@ -2,14 +2,11 @@ import React, { useContext, useState } from "react";
 import {
   ListGroupItem,
   ListGroup,
-  Modal,
-  ModalHeader,
-  ModalBody,
+  Modal
 } from "reactstrap";
 import "./UserProfile.css";
 import { useHistory } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
-import { EditUserType } from "./EditUserType";
 import { UserProfileList } from "./UserProfileList";
 
 export const DeactivatedUserProfile = ({ userProfile }) => {
@@ -38,12 +35,12 @@ export const DeactivatedUserProfile = ({ userProfile }) => {
       });
   };
 
-    return (
-      <>
+  return (
+    <>
     {(!userProfile.IsActivated) && (
-      <>
+    <>
       
-      <ListGroupItem>
+    <ListGroupItem>
       <ListGroup horizontal className="userProfile">
         <div className="user--info">{userProfile.fullName}</div>
         <div className="user--info">{userProfile.displayName}</div>
@@ -63,13 +60,6 @@ export const DeactivatedUserProfile = ({ userProfile }) => {
               aria-hidden="true"
             ></i>
           </div>
-          <div className="icon--userProfile">
-            <i
-              onClick={() => toggleModal()}
-              className="fa fa-pencil-square-o"
-              aria-hidden="true"
-            ></i>
-          </div>
         </ListGroup>
       </ListGroup>
     </ListGroupItem>
@@ -79,19 +69,11 @@ export const DeactivatedUserProfile = ({ userProfile }) => {
       modalTransition={{ timeout: 700 }}
       backdropTransition={{ timeout: 1300 }}
       toggle={toggleModal}
-      contentClassName="custom-modal-style-product"
-    >
-      <ModalHeader toggle={toggleModal}>Edit User Type</ModalHeader>
-      <ModalBody>
-        <EditUserType userProfile={userProfile} toggle={toggleModal} />
-      </ModalBody>
+      contentClassName="custom-modal-style-product">
     </Modal>
+
     </>
-    )
-
-    }
-
-      </>
-    );
-  
+    )}
+    </>
+  );  
 };
