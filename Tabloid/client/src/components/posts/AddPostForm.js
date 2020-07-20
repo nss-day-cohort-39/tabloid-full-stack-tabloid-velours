@@ -1,6 +1,6 @@
 import React, {useRef, useContext, useEffect, useState} from 'react';
 import { PostContext } from '../../providers/PostProvider';
-import { Button, Form, FormGroup, Label, Input, Card, CardBody} from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Card, CardBody, Alert} from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import { CategoryContext } from '../../providers/CategoryProvider';
 import { UploadImgContext } from '../../providers/UploadImgProvider';
@@ -28,7 +28,8 @@ const AddPostForm = () => {
         // eslint-disable-next-line 
       }, []);
 
-    const constructNewPost = () => {
+    const constructNewPost = (e) => {
+        e.preventDefault()
         const newPostObj = {
             title: title.current.value,
             content: content.current.value,
@@ -51,18 +52,18 @@ const AddPostForm = () => {
                 <Card className="col-sm-12 col-lg-6">
                     <CardBody>
                         <h1>New Post</h1>
-                        <Form>
+                        <Form onSubmit={constructNewPost}>
                             <FormGroup>
                                 <Label for="newTitle">Title</Label>
-                                <Input type="text" name="Title" id="newTitle" placeholder="title" innerRef={title} />
+                                <Input required type="text" name="Title" id="newTitle" placeholder="title" innerRef={title} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="datetime">Publish Date</Label>
-                                <Input type="date" name="datetime" id="datetime" placeholder="Date" innerRef={pDT} />
+                                <Input required type="date" name="datetime" id="datetime" placeholder="Date" innerRef={pDT} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="newImage">Upload Your Image</Label>
-                                <Input type="file" name="Image" id="newImage" placeholder="image" onChange={onFileChange} />
+                                <Input required type="file" name="Image" id="newImage" placeholder="image" onChange={onFileChange} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleSelect">Category</Label>
@@ -77,12 +78,9 @@ const AddPostForm = () => {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="newContent">Content</Label>
-                                <Input type="textarea" name="Content" id="newContent" innerRef={content} />
+                                <Input required type="textarea" name="Content" id="newContent" innerRef={content} />
                             </FormGroup>
-                            <Button onClick={(e) => {
-                                e.preventDefault()
-                                constructNewPost()
-                            }}>Submit</Button>
+                            <Button>Submit</Button>
                         </Form>
                     </CardBody>
                 </Card>
