@@ -18,10 +18,13 @@ namespace Tabloid.Repositories
         public List<Category> GetAll()
         {
             return _context.Category
+                .Where(c => c.IsDeleted == false)
                 .OrderBy(c => c.Name)
                 .Include(c => c.PostList)
                 .ToList();
         }
+
+    
 
         public void Add(Category category)
         {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace TabloidFullStack.Tests
+namespace Tabloid.Tests
 {
 
     public class TestDbContext : ApplicationDbContext
