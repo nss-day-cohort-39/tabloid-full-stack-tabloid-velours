@@ -27,15 +27,13 @@ namespace Tabloid.Repositories
                .FirstOrDefault(s => s.Id == id);
         }
 
-        public Subscription GetBySubscriberProfileId(int id)
+        public List<Subscription> GetBySubscriberProfileId(int id)
         {
             return _context.Subscription
-               .FirstOrDefault(s => s.SubscriberUserProfileId == id);
-        }
-        public Subscription GetByProviderProfileId(int id)
-        {
-            return _context.Subscription
-               .FirstOrDefault(s => s.ProviderUserProfileId == id);
+                .Include(s => s.ProviderUserProfile)
+                .ThenInclude(up => up.UserPosts)
+               .Where(s => s.SubscriberUserProfileId == id && s.EndDateTime == null)
+               .ToList();
         }
 
         public void Add(Subscription subscription)

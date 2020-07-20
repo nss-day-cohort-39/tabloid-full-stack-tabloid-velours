@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -39,6 +40,8 @@ namespace Tabloid.Models
         public int UserTypeId { get; set; }
         public UserType UserType { get; set; }
         public Boolean IsActivated { get; set; } 
+        public List<Post> UserPosts { get; set; } 
+
         public string FullName
         {
             get

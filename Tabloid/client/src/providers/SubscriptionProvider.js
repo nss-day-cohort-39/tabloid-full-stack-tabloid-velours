@@ -8,6 +8,24 @@ export function SubscriptionProvider(props) {
 
   const apiUrl = "/api/subscription/";
 
+  const addSubscription = (subscription) => {
+    return getToken().then((token) =>
+      fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(subscription),
+      }).then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        }
+        throw new Error("Unauthorized");
+      })
+    );
+  };
+
     const addSubscription = (subscription) => {
       return getToken().then((token) =>
         fetch(apiUrl, {

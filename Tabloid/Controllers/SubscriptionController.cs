@@ -26,7 +26,9 @@ namespace Tabloid.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_subscriptionRepository.GetAll());
+            var currentUser = GetCurrentUserProfile();
+
+            return Ok(_subscriptionRepository.GetBySubscriberProfileId(currentUser.Id));
         }
 
         [HttpGet("{id}")]
@@ -51,7 +53,9 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(Subscription subscription)
         {
+            subscription.EndDateTime = DateTime.Now;
             _subscriptionRepository.Update(subscription);
+
             return NoContent();
         }
 
