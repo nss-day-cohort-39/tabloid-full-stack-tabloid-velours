@@ -8,11 +8,14 @@ import { CommentForm } from "../comments/CommentForm";
 import { Comment } from "../comments/Comment"
 import EditPostForm from "./EditPostForm";
 import TagManager from "../tag/TagManager";
+import { UploadImgContext } from "../../providers/UploadImgProvider";
 
 
 const PostDetails = () => {
     const { getPostById, deletePost } = useContext(PostContext);
+    const {getImgURL} = useContext(UploadImgContext)
     const [onePost, setOnePost] = useState();
+    const [img, setImg] = useState()
     const { id } = useParams();
     const [modal, setModal] = useState(false)
     const [postModal, setPostModal] = useState(false)
@@ -22,22 +25,24 @@ const PostDetails = () => {
     const toggleModal = () => setModal(!modal)
     const togglePostModal = () => setPostModal(!postModal)
     const toggleTagModal = () => setTagModal(!tagModal)
-
+    
     
     
     useEffect(() => {
         getPostById(id).then(setOnePost)
         // eslint-disable-next-line 
     }, []);
-
+    
     const refreshPost = () => {
         getPostById(id).then(setOnePost)
     }
-
+    
     if (!onePost) {
         return null;
     }
-
+    
+    const imgURL = getImgURL(onePost.imageLocation)
+    
     //edit and delete post
     const editAndDelete = () => {
         if (onePost.isCurrentUsers === true) {
@@ -70,7 +75,7 @@ const PostDetails = () => {
         <>
             <section className="postDetailsContainer">
                 <div className="imgContainer">
-                    <img className="img--postDetails" src={onePost.imageLocation} alt="" />
+                    <img className="img--postDetails" src={imgURL} alt="" />
                 </div>
                 <div className="titleContainer"><h1>{onePost.title}</h1></div>
                 <div className="authorContainer">Written by: <span className="author">{onePost.userProfile.displayName}</span></div>

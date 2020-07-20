@@ -60,6 +60,7 @@ namespace Tabloid
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
             app.UseAuthentication();

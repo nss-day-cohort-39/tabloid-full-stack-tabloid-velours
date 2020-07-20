@@ -1,19 +1,25 @@
-import React from "react"
+import React, { useContext } from "react"
 import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
   } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
+import { UploadImgContext } from "../../providers/UploadImgProvider";
 
 const Post = ({post}) => {
     const history = useHistory();
+    const {getImgURL} = useContext(UploadImgContext)
     const handleClick = () => {
         history.push(`/posts/${post.id}`);
     }
+    const imgURL = getImgURL(post.imageLocation)
+    
+    
+    
     return (
         <>
             <Card>
-                <CardImg top width="100%" src={post.imageLocation} alt="Card image cap" />
+                <CardImg top width="100%" src={imgURL} alt="Card image cap" />
                 <CardBody>
                     <CardTitle><h4>{post.title}</h4></CardTitle>
                     <CardSubtitle>Author: {post.userProfile.displayName}</CardSubtitle>
