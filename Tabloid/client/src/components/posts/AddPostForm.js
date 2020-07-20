@@ -1,31 +1,39 @@
-import React, {useRef, useContext, useEffect} from 'react';
+import React, {useRef, useContext, useEffect, useState} from 'react';
 import { PostContext } from '../../providers/PostProvider';
-import { Button, Form, FormGroup, Label, Input, Card, CardBody} from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Card, CardBody, Alert} from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import { CategoryContext } from '../../providers/CategoryProvider';
+import { UploadImgContext } from '../../providers/UploadImgProvider';
 
 const AddPostForm = () => {
     const {addPost} = useContext(PostContext)
     const { categories, getCategories } = useContext(CategoryContext)
+    const {addImg} = useContext(UploadImgContext)
+    const [selectedFile, setSelectedFile] = useState(null)
     const nonDeletedCategories = categories.filter(cat => cat.isDeleted === false)
     const title = useRef()
-    const imageLoc = useRef()
     const content = useRef()
     const pDT = useRef()
     const catId = useRef()
 
     const history = useHistory();
 
+    //image uploading methods
+    const onFileChange = (e) => {
+        setSelectedFile(e.target.files[0])
+    }
+
     useEffect(() => {
         getCategories();
         // eslint-disable-next-line 
       }, []);
 
-    const constructNewPost = () => {
+    const constructNewPost = (e) => {
+        e.preventDefault()
         const newPostObj = {
             title: title.current.value,
             content: content.current.value,
-            imageLocation: imageLoc.current.value,
+            imageLocation: selectedFile.name,
             createDateTime: new Date(),
             publishDateTime: pDT.current.value,
             isApproved: true,
@@ -34,6 +42,7 @@ const AddPostForm = () => {
         addPost(newPostObj).then(() => {
             history.push("/posts")
         })
+        addImg(selectedFile)
     }
 
     return (
@@ -43,23 +52,23 @@ const AddPostForm = () => {
                 <Card className="col-sm-12 col-lg-6">
                     <CardBody>
                         <h1>New Post</h1>
-                        <Form>
+                        <Form onSubmit={constructNewPost}>
                             <FormGroup>
                                 <Label for="newTitle">Title</Label>
-                                <Input type="text" name="Title" id="newTitle" placeholder="title" innerRef={title} />
+                                <Input required type="text" name="Title" id="newTitle" placeholder="title" innerRef={title} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="datetime">Publish Date</Label>
-                                <Input type="date" name="datetime" id="datetime" placeholder="Date" innerRef={pDT} />
+                                <Input required type="date" name="datetime" id="datetime" placeholder="Date" innerRef={pDT} />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="newImage">Image URL</Label>
-                                <Input type="text" name="Image" id="newImage" placeholder="image url" innerRef={imageLoc} />
+                                <Label for="newImage">Upload Your Image</Label>
+                                <Input required type="file" name="Image" id="newImage" placeholder="image" onChange={onFileChange} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleSelect">Category</Label>
-                                <Input required type="select" name="select" id="exampleSelect" innerRef={catId}>
-                                    <option value={0}>Select a category</option>
+                                <Input required defaultValue="" type="select" name="select" id="exampleSelect" innerRef={catId}>
+                                    <option value="" disabled>Select a category</option>
                                 {
                                     nonDeletedCategories.map(category => {
                                         return <option value={category.id}>{category.name}</option>                                       
@@ -69,12 +78,9 @@ const AddPostForm = () => {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="newContent">Content</Label>
-                                <Input type="textarea" name="Content" id="newContent" innerRef={content} />
+                                <Input required type="textarea" name="Content" id="newContent" innerRef={content} />
                             </FormGroup>
-                            <Button onClick={(e) => {
-                                e.preventDefault()
-                                constructNewPost()
-                            }}>Submit</Button>
+                            <Button>Submit</Button>
                         </Form>
                     </CardBody>
                 </Card>

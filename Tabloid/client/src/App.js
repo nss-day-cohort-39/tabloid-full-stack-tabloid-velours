@@ -8,11 +8,13 @@ import { PostProvider } from "./providers/PostProvider";
 import { TagProvider } from "./providers/TagProvider";
 import { CommentProvider } from "./providers/CommentProvider";
 import { PostTagProvider } from "./providers/PostTagProvider";
+import { UploadImgProvider } from "./providers/UploadImgProvider";
 
 function App() {
   return (
     <Router>
       <UserProfileProvider>
+        <UploadImgProvider>
         <PostProvider>
           <CommentProvider>
             <CategoryProvider>
@@ -25,6 +27,7 @@ function App() {
             </CategoryProvider>
           </CommentProvider>
         </PostProvider>
+        </UploadImgProvider>
       </UserProfileProvider>
     </Router>
   );
