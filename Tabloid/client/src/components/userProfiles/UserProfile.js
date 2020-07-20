@@ -13,14 +13,17 @@ import { UserProfileContext } from "../../providers/UserProfileProvider";
 
 
 export const UserProfile = ({ userProfile }) => {
-  const { editUserProfile } = useContext(UserProfileContext);
+  const { editUserProfile, userProfiles } = useContext(UserProfileContext);
   const userProfileType = useRef();
   const history = useHistory();
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
   const [editModal, setEditModal] = useState(false)
   const toggleEdit = () => setEditModal(!editModal)
-
+  const currentUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const numberAdmins = userProfiles.filter(up => up.userTypeId === 1 && up.isActivated === true).length
+  console.log(numberAdmins)
+  
   const handleClick = () => {
     history.push(`/userprofiles/${userProfile.id}`);
   };
@@ -57,6 +60,18 @@ export const UserProfile = ({ userProfile }) => {
     toggleEdit()
   }
 
+  const adminCheck = () => {
+    numberAdmins < 3 && userProfileType.current.value === "2" ?
+      window.confirm("At least 1 additional admin required. Please declare an alternate admin before deactiving this user.") :
+      editUserProfileType(userProfile)
+    }
+
+  const userCheck = () => {
+      currentUser.id === userProfile.id ?
+      window.confirm("You cannot adjust your own privileges. Please have another admin perform this task.") :
+      toggleEdit()
+    }
+
   return (
     <>
       {(userProfile.isActivated) && (
@@ -84,7 +99,7 @@ export const UserProfile = ({ userProfile }) => {
                 </div>
                 <div className="icon--userProfile">
                   <i
-                    onClick={() => toggleEdit()}
+                    onClick={() => userCheck()}
                     className="fa fa-pencil-square-o"
                     aria-hidden="true"
                   ></i>
@@ -98,7 +113,8 @@ export const UserProfile = ({ userProfile }) => {
                               innerRef={userProfileType}
                               required
                               autoFocus
-                              className="form-control mt-4">
+                              className="form-control mt-4"
+                              >
                                 <option value={0}>Select a User Profile Type</option>
                                 <option value={1}>Administrator</option>
                                 <option value={2}>Author</option>
@@ -111,7 +127,8 @@ export const UserProfile = ({ userProfile }) => {
                                 onClick={
                                   evt => {
                                     evt.preventDefault()
-                                    editUserProfileType(userProfile)
+                                    adminCheck()
+                                    userCheck()
                                   }}
                                 className="btn mt-4">
                                 Save
