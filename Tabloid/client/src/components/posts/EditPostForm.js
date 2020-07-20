@@ -40,7 +40,6 @@ const EditPostForm = ({onePost, toggle, refreshPost}) => {
     const editThePost = () => {
         let imgEdit = onePost.imageLocation
         if(onePost.imageLocation !== selectedFile && selectedFile !== null) {
-            debugger
             imgEdit = selectedFile.name
         }
         const newPostObj = {
