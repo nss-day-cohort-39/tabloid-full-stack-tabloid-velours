@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');
+
 .userProfileList {
     margin: 100px auto;
     width: 80%;
@@ -32,4 +34,37 @@
     text-align: center;
     margin: auto;
     width: 25%;
+}
+
+#editProfileImage {
+    margin-left: 15px;
+}
+
+#btn--backToUsers {
+    margin: 40px 0px;
+}
+
+.userHeader--image {
+    border: 1px solid #ddd;
+    border-radius: 4px;  
+    height: auto;    
+    padding: 5px;
+    width: 125px;
+}
+
+.userHeader--name {
+    font-family: 'Marck Script', cursive;
+    font-size: 60px;
+    padding-top: 8%;
+}
+
+.userProfileHeader {
+    display: flex;
+    flex: 2;
+    justify-content: space-between;
+}
+
+.userProfileDetails {
+    margin: 100px auto;
+    width: 80%;
 }

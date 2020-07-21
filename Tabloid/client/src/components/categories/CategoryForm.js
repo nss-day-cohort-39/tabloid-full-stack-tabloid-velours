@@ -18,6 +18,14 @@ export const CategoryForm = () => {
       name.current.value = ""
   }
 
+  const onKeyDown = (e) => {
+      if(e.keyCode === 13) {
+          e.preventDefault()
+          constructNewCategory()
+          handleInputChange()
+      }
+  }
+
   return (
     <>
         <section className="categoryForm ">
@@ -26,6 +34,7 @@ export const CategoryForm = () => {
                     type="text" 
                     ref={name}
                     className="form-control" 
+                    onKeyDown={onKeyDown}
                     placeholder="Enter New Category" 
                     required
                 />
@@ -41,6 +50,7 @@ export const CategoryForm = () => {
                         constructNewCategory()
                         handleInputChange()
                     }}
+                    
                     >
                     Save
                 </Button>
