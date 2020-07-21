@@ -10,8 +10,9 @@ namespace Tabloid.Models
         public int Id { get; set; }
         public int EmojiId { get; set; }
         public Emoji Emoji { get; set; }
-        //public List<PostReaction> PostReactionList { get; set; }
-        //public List<Emoji> Emojis { get; set; }
+        public List<PostReaction> PostReactionList { get; set; }
+
+
 
     }
 }

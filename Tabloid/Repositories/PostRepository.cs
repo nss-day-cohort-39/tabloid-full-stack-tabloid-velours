@@ -40,6 +40,7 @@ namespace Tabloid.Repositories
                            .ToList();
         }
 
+   
         public Post GetById(int id)
         {
             return _context.Post
