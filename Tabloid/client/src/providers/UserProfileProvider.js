@@ -119,7 +119,7 @@ export function UserProfileProvider(props) {
   };
 
   const editUserProfile = (userProfile) => {
-    getToken().then((token) =>
+    return getToken().then((token) =>
       fetch(apiUrl + `/${userProfile.id}`, {
         method: "PUT",
         headers: {
