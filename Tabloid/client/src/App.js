@@ -10,26 +10,31 @@ import { CommentProvider } from "./providers/CommentProvider";
 import { PostTagProvider } from "./providers/PostTagProvider";
 import {ReactionProvider} from "./providers/ReactionProvider";
 import { UploadImgProvider } from "./providers/UploadImgProvider";
+import { PostReactionProvider } from "./providers/PostReactionProvider";
 
 function App() {
   return (
     <Router>
       <UserProfileProvider>
         <UploadImgProvider>
+
         <PostProvider>
           <CommentProvider>
             <CategoryProvider>
               <PostTagProvider>
                 <TagProvider>
                   <ReactionProvider>
+                  <PostReactionProvider>
                   <Header />
                   <ApplicationViews />
+                  </PostReactionProvider>
                   </ReactionProvider>
                 </TagProvider>
               </PostTagProvider>
             </CategoryProvider>
           </CommentProvider>
         </PostProvider>
+
         </UploadImgProvider>
       </UserProfileProvider>
     </Router>
