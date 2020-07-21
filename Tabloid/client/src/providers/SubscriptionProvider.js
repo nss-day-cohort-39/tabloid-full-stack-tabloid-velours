@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
 export const SubscriptionContext = createContext();
@@ -9,7 +9,7 @@ export function SubscriptionProvider(props) {
 
   const apiUrl = "/api/subscription/";
 
-  const getCurrentUserSubscriptions = () => {
+  const getSubscriptions = () => {
     return getToken().then((token) =>
       fetch(apiUrl, {
         method: "GET",
@@ -37,7 +37,7 @@ export function SubscriptionProvider(props) {
             return resp.json();
           }
           throw new Error("Unauthorized");
-        })
+        }).then(getSubscriptions)
       );
     };
 
@@ -49,7 +49,7 @@ export function SubscriptionProvider(props) {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        })
+        }).then(getSubscriptions)
       );
     };
 
@@ -57,6 +57,7 @@ export function SubscriptionProvider(props) {
     <SubscriptionContext.Provider
       value={{
         subscriptions,
+        getSubscriptions,
         addSubscription,
         deleteSubscription
       }}

@@ -2,24 +2,38 @@ import React, { useContext } from "react";
 import { Button } from "reactstrap";
 import { SubscriptionContext } from "../../providers/SubscriptionProvider";
 
-export default function SubscribeButton(post) {
-  const { addSubscription } = useContext(SubscriptionContext);
-  const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
+export default function SubscribeButton({ post }) {
+  const { subscriptions, addSubscription, deleteSubscription } = useContext(
+    SubscriptionContext
+  );
 
-  function submit() {
+  function subscribe(e) {
+    e.preventDefault();
     const newSubscription = {
-      ProviderUserProfileId: post.UserProfileId,
+      ProviderUserProfileId: post.userProfileId,
     };
     addSubscription(newSubscription);
   }
-
-  // get the current user and check if post.UserProfileId = currentUserId
-  // if so, disable the subscribe button (users cannot subscribe to their own posts)
-  if (userProfile.Id !== post.UserProfileId) {
-    return (
-      <>
-        <Button onClick={submit}>Subscribe</Button>
-      </>
-    );
+  function unsubscribe(subscriptionId) {
+    deleteSubscription(subscriptionId);
   }
+  subscriptions.map((subscription) => {
+    if (
+      subscription.ProviderUserProfileId === post.userProfileId &&
+      !post.isCurrentUsers
+    ) {
+      return (
+        <>
+          <Button onClick={unsubscribe(subscription.id)}>UNSUBSCRIBE</Button>
+        </>
+      );
+    }
+  });
+  return (
+    <>
+      {!post.isCurrentUsers && (
+        <Button onClick={subscribe}>Subscribe to Author</Button>
+      )}
+    </>
+  );
 }

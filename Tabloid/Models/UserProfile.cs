@@ -39,8 +39,7 @@ namespace Tabloid.Models
         [Required]
         public int UserTypeId { get; set; }
         public UserType UserType { get; set; }
-        public Boolean IsActivated { get; set; } 
-        public List<Post> UserPosts { get; set; } 
+        public Boolean IsActivated { get; set; }
 
         public string FullName
         {
