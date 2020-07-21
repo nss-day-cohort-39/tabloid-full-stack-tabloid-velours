@@ -19,8 +19,7 @@ export default function SubscribeButton({ post }) {
   }
   subscriptions.map((subscription) => {
     if (
-      subscription.ProviderUserProfileId === post.userProfileId &&
-      !post.isCurrentUsers
+      subscription.ProviderUserProfileId === post.userProfileId
     ) {
       return (
         <>
