@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import 'font-awesome/css/font-awesome.min.css';
 
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
 };

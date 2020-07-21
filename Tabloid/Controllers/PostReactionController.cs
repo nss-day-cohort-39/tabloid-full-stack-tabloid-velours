@@ -24,11 +24,41 @@ namespace Tabloid.Controllers
             return Ok(_postReactionRepository.GetAll());
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var postReact = _postReactionRepository.GetByPostReactionId(id);
+            if (postReact != null)
+            {
+                NotFound();
+            }
+            return Ok(postReact);
+        }
+
+        [HttpGet("post/{id}")]
+        public IActionResult GetByPost(int id)
+        {
+            var postReact = _postReactionRepository.GetPostReactionByPostId(id);
+            if (postReact != null)
+            {
+                NotFound();
+            }
+            return Ok(postReact);
+        }
+
         [HttpPost]
         public IActionResult Post(PostReaction postReaction)
         {
             _postReactionRepository.Add(postReaction);
             return CreatedAtAction("Get", new { id = postReaction.Id }, postReaction);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult EditPostReaction(PostReaction pr)
+        {
+           
+            _postReactionRepository.Update(pr);
+            return Ok(pr);
         }
 
         [HttpDelete("{id}")]
@@ -37,5 +67,7 @@ namespace Tabloid.Controllers
             _postReactionRepository.Delete(id);
             return NoContent();
         }
+
+       
     }
 }
