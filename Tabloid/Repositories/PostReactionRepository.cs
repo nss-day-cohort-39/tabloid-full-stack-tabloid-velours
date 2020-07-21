@@ -20,7 +20,11 @@ namespace Tabloid.Repositories
 
         public List<PostReaction> GetAll()
         {
-            return _context.PostReaction.ToList();
+            return _context.PostReaction
+                .Include(pr => pr.Post)
+               .Include(pr => pr.Reaction)
+               .ThenInclude(pr => pr.Emoji)
+               .Include(pr => pr.UserProfile).ToList();
         }
 
         public PostReaction GetByPostReactionId(int id)
@@ -29,9 +33,29 @@ namespace Tabloid.Repositories
                .FirstOrDefault(pr => pr.Id == id);
         }
 
+        public List<PostReaction> GetPostReactionByPostId(int id)
+        {
+            return _context.PostReaction
+               .Include(pr => pr.Post)
+               .Include(pr => pr.Reaction)
+               .ThenInclude(pr => pr.Emoji)
+               .Include(pr => pr.UserProfile)
+               .OrderBy(pr=>pr.ReactionId)
+               .Where(pr => pr.PostId == id)
+               .ToList();
+
+        }
+
+
         public void Add(PostReaction pr)
         {
             _context.Add(pr);
+            _context.SaveChanges();
+        }
+
+        public void Update(PostReaction pr)
+        {
+            _context.Entry(pr).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
