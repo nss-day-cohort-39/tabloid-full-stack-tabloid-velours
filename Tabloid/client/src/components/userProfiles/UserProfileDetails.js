@@ -7,31 +7,33 @@ import moment from "moment";
 import "./UserProfile.css";
 
 export const UserProfileDetails = () => {
-  const { getUserProfileById, editUserProfile, getUserProfiles } = useContext(UserProfileContext);
+  const { getUserProfileById, editUserProfile } = useContext(UserProfileContext);
   const [oneUserProfile, setOneUserProfile] = useState();
   const { id } = useParams();
   const history = useHistory();
   const userProfileId = parseInt(id);
   const [selectedFile, setSelectedFile] = useState(null)
-
-  
-  const {getImgURL} = useContext(UploadImgContext)
+  const { getImgURL, addImg } = useContext(UploadImgContext)
   const currentUser = JSON.parse(sessionStorage.getItem("userProfile"));
-  const imgURL = getImgURL(currentUser.imageLocation)
-  console.log(imgURL)
-
-
+  
+  
   const handleClick = () => {
     history.push(`/userProfiles/`);
   };
+  
+  const refreshUser = () => {
+    getUserProfileById(userProfileId).then(setOneUserProfile);
+  }
 
   useEffect(() => {
     getUserProfileById(userProfileId).then(setOneUserProfile);
   }, []);
-
+  
   if (!oneUserProfile) {
     return null;
   }
+
+  const imgURL = getImgURL(oneUserProfile.imageLocation)
 
   const formattedDate = moment(oneUserProfile.createDateTime).format(
     "MM/DD/YYYY"
@@ -42,6 +44,7 @@ export const UserProfileDetails = () => {
   }
 
   const updateUserImage = () => {
+    addImg(selectedFile)
     editUserProfile({
       id: oneUserProfile.id,
       firebaseUserId: oneUserProfile.firebaseUserId,
@@ -54,43 +57,51 @@ export const UserProfileDetails = () => {
       userTypeId: oneUserProfile.userTypeId,
       isActivated: oneUserProfile.isActivated
     })
-    .then(getUserProfiles)
+    .then(refreshUser)
   }
 
   return (
     <>
       <div className="container">
-        <div className="userProfileList">
+        <div className="userProfileDetails">
           <section className="row justify-content-center"></section>
-          <div>
-            <h1>{oneUserProfile.fullName}</h1>
-
-            <hr />
-            <dl className="row">
-              <dt className="col-sm-4">Name :</dt>
-              <dd className="col-sm-6">{oneUserProfile.fullName}</dd>
-            </dl>
-
-
-
-
-
+          <div className="userProfileHeader">
+            <h1 className="userHeader--name">{oneUserProfile.fullName}</h1>
             <div>
-              <dd className="col-sm-6">
                 {oneUserProfile.imageLocation ? (
-                  <img alt="" src={imgURL}></img>
+                  <img alt="" className="userHeader--image" src={imgURL}></img>
                 ) : (
                     <img alt="" src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png"></img>
                   )}
-              </dd>
             </div>
-            
-
-
+          </div>
+          <hr />
+          <section>
+            <dl className="row">
+              <dt className="col-sm-4">Name :</dt>
+              <dd className="col-sm-8">{oneUserProfile.fullName}</dd>
+            </dl>
+            <dl className="row">  
+              <dt className="col-sm-4">Display Name: </dt>
+              <dd className="col-sm-8">{oneUserProfile.displayName}</dd>
+            </dl>  
+            <dl className="row">  
+              <dt className="col-sm-4">Email Address:</dt>
+              <dd className="col-sm-8">{oneUserProfile.email}</dd>
+            </dl>  
+            <dl className="row">
+              <dt className="col-sm-4">Added On :</dt>
+              <dd className="col-sm-8">{formattedDate}</dd>
+            </dl>
+            <dl className="row">
+              <dt className="col-sm-4">User Type :</dt>
+              <dd className="col-sm-8">{oneUserProfile.userType.name}</dd>
+            </dl >
               {
-                currentUser.id === oneUserProfile.id ? 
+                currentUser.id === userProfileId ? 
                   (
                   <dl className="row">
+                    <dt className="col-sm-4">Change Image :</dt>
                     <section id="editProfileImage">
                       <div><Input required type="file" name="Image" id="newImage" placeholder="image" onChange={onImageSelection} /></div>
                       <div><Button size="md" color="link" onClick={updateUserImage}>Save</Button></div>
@@ -100,32 +111,12 @@ export const UserProfileDetails = () => {
                     <div></div>
                   )
               }
-
-
-
-            <dl className="row">  
-              <dt className="col-sm-4">Display Name: </dt>
-              <dd className="col-sm-6">{oneUserProfile.displayName}</dd>
-            </dl>  
-            <dl className="row">  
-              <dt className="col-sm-4">Email Address:</dt>
-              <dd className="col-sm-6">{oneUserProfile.email}</dd>
-            </dl>  
-            <dl className="row">
-              <dt className="col-sm-4">Added On :</dt>
-              <dd className="col-sm-6">{formattedDate}</dd>
-            </dl>
-            <dl className="row">
-              <dt className="col-sm-4">User Type :</dt>
-              <dd className="col-sm-6">{oneUserProfile.userType.name}</dd>
-            </dl >
             <div id="btn--backToUsers">
-                <Button onClick={handleClick}>Back</Button>
+              <Button onClick={handleClick}>Back</Button>
             </div>
-            
-          </div>
+          </section>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
