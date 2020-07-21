@@ -33,3 +33,11 @@
     margin: auto;
     width: 25%;
 }
+
+#editProfileImage {
+    margin-left: 15px;
+}
+
+#btn--backToUsers {
+    margin: 40px 0px;
+}
