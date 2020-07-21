@@ -35,7 +35,7 @@ const PostDetails = () => {
   const togglePostModal = () => setPostModal(!postModal);
   const toggleTagModal = () => setTagModal(!tagModal);
   const { reactions, getReactions } = useContext(ReactionContext);
-  const { addPostReaction, getPRByPostId, editPR } = useContext(
+  const { addPostReaction, getPRByPostId, editPR, deletePostReaction } = useContext(
     PostReactionContext
   );
   const [postReactions, setPostReactions] = useState([]);
@@ -161,43 +161,51 @@ const PostDetails = () => {
           ))}
         </div>
         <div className="allReactionsContainer">
-        <div className="reactionContainer">
-          {reactions.map((react) => (
-            <div
-              className="reactionBubble"
-              onClick={(e) => {
-                e.preventDefault();
-                if (postReactionObject) {
-                  editPR({
-                    id: postReactionObject.id,
-                    postId: onePost.id,
-                    reactionId: react.id,
-                    userProfileId: userProfile.id,
-                  });
-                  alert("Reaction Edited");
-                } else {
-                  addPostReaction({
-                    postId: onePost.id,
-                    reactionId: react.id,
-                    userProfileId: userProfile.id,
-                  });
-                  alert("Reaction Added");
-                }
-                refreshPRs();
-              }}
-            >
-              {react.emoji.name}
-            </div>
-          ))}
-        </div>
-        <div className="postReactionContainer">
-          {emojiCounter().map((subArray) => (
-            <Badge>
-              {subArray[0]}
-              {subArray[1]}
-            </Badge>
-          ))}
-        </div>
+          <div className="reactionContainer">
+            {reactions.map((react) => (
+              <div
+                className="reactionBubble"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (postReactionObject) {
+                    editPR({
+                      id: postReactionObject.id,
+                      postId: onePost.id,
+                      reactionId: react.id,
+                      userProfileId: userProfile.id,
+                    });
+                    alert("Reaction Edited");
+                    refreshPRs();
+                  } else if (
+                    postReactionObject.reactionId === react.id
+                  ) {
+                    deletePostReaction(postReactionObject.id)
+                    alert("Reaction Removed");
+                    refreshPRs();
+                  } else {
+                    addPostReaction({
+                      postId: onePost.id,
+                      reactionId: react.id,
+                      userProfileId: userProfile.id,
+                    });
+                    alert("Reaction Added");
+                    refreshPRs();
+                  }
+                  refreshPRs();
+                }}
+              >
+                {react.emoji.name}
+              </div>
+            ))}
+          </div>
+          <div className="postReactionContainer">
+            {emojiCounter().map((subArray) => (
+              <Badge>
+                {subArray[0]}
+                {subArray[1]}
+              </Badge>
+            ))}
+          </div>
         </div>
         <Card className="text-left">
           <Button
