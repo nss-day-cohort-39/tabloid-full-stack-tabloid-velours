@@ -70,7 +70,6 @@ const PostDetails = () => {
 
     const formattedDate = moment(onePost.publishDateTime).format("MM/DD/YYYY")
     const sortedComments = onePost.commentList.sort((a, b) => new Date(b.createDateTime).getTime() - new Date(a.createDateTime).getTime())
-
     return (
         <>
             <section className="postDetailsContainer">
