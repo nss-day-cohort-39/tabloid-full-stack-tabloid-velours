@@ -41,9 +41,6 @@ namespace Tabloid.Models
         public List<Comment> CommentList { get; set; }
         public List<PostTag> PostTagList { get; set; }
 
-        public List<PostReaction> PostReactionList { get; set; }
-
-
         [NotMapped]
         public bool IsCurrentUsers { get; set; } = false;
     }

@@ -11,6 +11,7 @@ import { PostTagProvider } from "./providers/PostTagProvider";
 import { ReactionProvider } from "./providers/ReactionProvider";
 import { UploadImgProvider } from "./providers/UploadImgProvider";
 import { SubscriptionProvider } from "./providers/SubscriptionProvider";
+import { PostReactionProvider } from "./providers/PostReactionProvider";
 
 function App() {
   return (
@@ -23,10 +24,12 @@ function App() {
                 <PostTagProvider>
                   <TagProvider>
                     <ReactionProvider>
-                      <SubscriptionProvider>
-                        <Header />
-                        <ApplicationViews />
-                      </SubscriptionProvider>
+                      <PostReactionProvider>
+                        <SubscriptionProvider>
+                          <Header />
+                          <ApplicationViews />
+                        </SubscriptionProvider>
+                      </PostReactionProvider>
                     </ReactionProvider>
                   </TagProvider>
                 </PostTagProvider>

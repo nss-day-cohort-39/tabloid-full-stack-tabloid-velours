@@ -11,6 +11,7 @@ import {
   ModalHeader,
   ModalBody,
   ListGroup,
+  Badge,
 } from "reactstrap";
 import { CommentForm } from "../comments/CommentForm";
 import { Comment } from "../comments/Comment";
@@ -18,6 +19,8 @@ import EditPostForm from "./EditPostForm";
 import TagManager from "../tag/TagManager";
 import { UploadImgContext } from "../../providers/UploadImgProvider";
 import SubscribeButton from "../subscriptions/SubscribeButton";
+import { ReactionContext } from "../../providers/ReactionProvider";
+import { PostReactionContext } from "../../providers/PostReactionProvider";
 
 const PostDetails = () => {
   const { getPostById, deletePost } = useContext(PostContext);
@@ -33,9 +36,25 @@ const PostDetails = () => {
   const toggleModal = () => setModal(!modal);
   const togglePostModal = () => setPostModal(!postModal);
   const toggleTagModal = () => setTagModal(!tagModal);
+  const { reactions, getReactions } = useContext(ReactionContext);
+  const { addPostReaction, getPRByPostId, editPR } = useContext(
+    PostReactionContext
+  );
+  const [postReactions, setPostReactions] = useState([]);
+  const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
+
+  useEffect(() => {
+    getReactions();
+  }, []);
 
   useEffect(() => {
     getPostById(id).then(setOnePost);
+    // eslint-disable-next-line
+  }, []);
+
+  const postId = parseInt(id);
+  useEffect(() => {
+    getPRByPostId(postId).then(setPostReactions);
     // eslint-disable-next-line
   }, []);
 
@@ -43,11 +62,16 @@ const PostDetails = () => {
     getPostById(id).then(setOnePost);
   };
 
+  const refreshPRs = () => {
+    getPRByPostId(postId).then(setPostReactions);
+  };
+
   if (!onePost) {
     return null;
   }
 
   const imgURL = getImgURL(onePost.imageLocation);
+  // eslint-disable-next-line
 
   //edit and delete post
   const editAndDelete = () => {
@@ -86,6 +110,26 @@ const PostDetails = () => {
       new Date(b.createDateTime).getTime() -
       new Date(a.createDateTime).getTime()
   );
+  const postReactionObject = postReactions
+    .filter((pr) => pr.userProfileId === userProfile.id)
+    .find((pr) => pr.userProfileId === userProfile.id);
+
+  const emojiCounter = () => {
+    const emojiArray = postReactions.map((pr) => pr.reaction.emoji.name);
+    let emojiObject = {};
+    let emojiCountArray = [];
+    emojiArray.forEach((emoji) => {
+      if (emojiObject.hasOwnProperty(emoji)) {
+        emojiObject[emoji] = emojiObject[emoji] + 1;
+      } else {
+        emojiObject[emoji] = 1;
+      }
+    });
+    for (const [key, value] of Object.entries(emojiObject)) {
+      emojiCountArray.push([key, value]);
+    }
+    return emojiCountArray;
+  };
 
   return (
     <>
@@ -119,7 +163,45 @@ const PostDetails = () => {
             <div className="tagBox">{pT.tag.name}</div>
           ))}
         </div>
-
+        <div className="allReactionsContainer">
+        <div className="reactionContainer">
+          {reactions.map((react) => (
+            <div
+              className="reactionBubble"
+              onClick={(e) => {
+                e.preventDefault();
+                if (postReactionObject) {
+                  editPR({
+                    id: postReactionObject.id,
+                    postId: onePost.id,
+                    reactionId: react.id,
+                    userProfileId: userProfile.id,
+                  });
+                  alert("Reaction Edited");
+                } else {
+                  addPostReaction({
+                    postId: onePost.id,
+                    reactionId: react.id,
+                    userProfileId: userProfile.id,
+                  });
+                  alert("Reaction Added");
+                }
+                refreshPRs();
+              }}
+            >
+              {react.emoji.name}
+            </div>
+          ))}
+        </div>
+        <div className="postReactionContainer">
+          {emojiCounter().map((subArray) => (
+            <Badge>
+              {subArray[0]}
+              {subArray[1]}
+            </Badge>
+          ))}
+        </div>
+        </div>
         <Card className="text-left">
           <Button
             outline
