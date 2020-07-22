@@ -11,6 +11,7 @@ import {
   ModalHeader,
   ModalBody,
   ListGroup,
+  ListGroupItem,
   Badge,
 } from "reactstrap";
 import { CommentForm } from "../comments/CommentForm";
@@ -21,9 +22,11 @@ import { UploadImgContext } from "../../providers/UploadImgProvider";
 import SubscribeButton from "../subscriptions/SubscribeButton";
 import { ReactionContext } from "../../providers/ReactionProvider";
 import { PostReactionContext } from "../../providers/PostReactionProvider";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
 
 const PostDetails = () => {
   const { getPostById, deletePost } = useContext(PostContext);
+  const { isAdmin } = useContext(UserProfileContext);
   const { getImgURL } = useContext(UploadImgContext);
   const [onePost, setOnePost] = useState();
   const [img, setImg] = useState();
@@ -31,15 +34,19 @@ const PostDetails = () => {
   const [modal, setModal] = useState(false);
   const [postModal, setPostModal] = useState(false);
   const [tagModal, setTagModal] = useState(false);
+  const [isShown, setIsShown] = useState(false);
 
   const history = useHistory();
   const toggleModal = () => setModal(!modal);
   const togglePostModal = () => setPostModal(!postModal);
   const toggleTagModal = () => setTagModal(!tagModal);
   const { reactions, getReactions } = useContext(ReactionContext);
-  const { addPostReaction, getPRByPostId, editPR } = useContext(
-    PostReactionContext
-  );
+  const {
+    addPostReaction,
+    getPRByPostId,
+    editPR,
+    deletePostReaction,
+  } = useContext(PostReactionContext);
   const [postReactions, setPostReactions] = useState([]);
   const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
 
@@ -149,14 +156,16 @@ const PostDetails = () => {
         <div className="publishedDate">Published: {formattedDate}</div>
         {editAndDelete()}
         <div className="tagMngBtnContainer">
-          <Button
-            outline
-            color="info"
-            onClick={toggleTagModal}
-            style={{ marginBottom: "1rem", width: "100%" }}
-          >
-            Tag Manager
-          </Button>
+          {(isAdmin || userProfile.id === onePost.userProfile.id) && (
+            <Button
+              outline
+              color="info"
+              onClick={toggleTagModal}
+              style={{ marginBottom: "1rem", width: "100%" }}
+            >
+              Tag Manager
+            </Button>
+          )}
         </div>
         <div className="tagContainer">
           {onePost.postTagList.map((pT) => (
@@ -164,43 +173,69 @@ const PostDetails = () => {
           ))}
         </div>
         <div className="allReactionsContainer">
-        <div className="reactionContainer">
-          {reactions.map((react) => (
-            <div
-              className="reactionBubble"
-              onClick={(e) => {
-                e.preventDefault();
-                if (postReactionObject) {
-                  editPR({
-                    id: postReactionObject.id,
-                    postId: onePost.id,
-                    reactionId: react.id,
-                    userProfileId: userProfile.id,
-                  });
-                  alert("Reaction Edited");
-                } else {
-                  addPostReaction({
-                    postId: onePost.id,
-                    reactionId: react.id,
-                    userProfileId: userProfile.id,
-                  });
-                  alert("Reaction Added");
-                }
-                refreshPRs();
-              }}
-            >
-              {react.emoji.name}
-            </div>
-          ))}
-        </div>
-        <div className="postReactionContainer">
-          {emojiCounter().map((subArray) => (
-            <Badge>
-              {subArray[0]}
-              {subArray[1]}
-            </Badge>
-          ))}
-        </div>
+          <div className="reactionContainer">
+            {reactions.map((react) => (
+              <div
+                className="reactionBubble"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (
+                    postReactionObject &&
+                    postReactionObject.reactionId === react.id
+                  ) {
+                    deletePostReaction(postReactionObject.id);
+                    alert("Reaction Removed");
+                    refreshPRs();
+                  } else if (postReactionObject) {
+                    editPR({
+                      id: postReactionObject.id,
+                      postId: onePost.id,
+                      reactionId: react.id,
+                      userProfileId: userProfile.id,
+                    });
+                    alert("Reaction Edited");
+                    refreshPRs();
+                  } else {
+                    addPostReaction({
+                      postId: onePost.id,
+                      reactionId: react.id,
+                      userProfileId: userProfile.id,
+                    });
+                    alert("Reaction Added");
+                    refreshPRs();
+                  }
+                  refreshPRs();
+                }}
+              >
+                {react.emoji.name}
+              </div>
+            ))}
+          </div>
+          <div
+            className="postReactionContainer"
+            onMouseEnter={() => setIsShown(true)}
+            onMouseLeave={() => setIsShown(false)}
+          >
+            {emojiCounter().map((subArray) => (
+              <Badge pill>
+                {subArray[0]}
+                {subArray[1]}
+              </Badge>
+            ))}
+          </div>
+          {isShown &&
+            postReactions.map((pr) => (
+              <div>
+                <ListGroup className="hoverList">
+                  <ListGroupItem className="justify-content-between">
+                    {pr.reaction.emoji.name}'d by{" "}
+                    {pr.userProfileId === userProfile.id
+                      ? `You`
+                      : pr.userProfile.displayName}{" "}
+                  </ListGroupItem>
+                </ListGroup>
+              </div>
+            ))}
         </div>
         <Card className="text-left">
           <Button
