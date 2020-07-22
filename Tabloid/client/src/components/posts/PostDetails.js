@@ -233,11 +233,6 @@ const PostDetails = () => {
                 </ListGroup>
               </div>
             ))}
-          {/* <div>
-            {postReactionObject &&
-              postReactionObject.userProfileId === userProfile.id &&
-              `You ${postReactionObject.reaction.emoji.name}'d this post`}
-          </div> */}
         </div>
         <Card className="text-left">
           <Button
