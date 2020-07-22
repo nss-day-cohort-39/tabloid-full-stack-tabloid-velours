@@ -31,11 +31,12 @@ namespace Tabloid.Repositories
 
         public List<Post> GetBySubscriberProfileId(int id)
         {
+            DateTime today = DateTime.Now;
             return _context.Subscription
                .Where(s => s.SubscriberUserProfileId == id && s.EndDateTime == null)
                .SelectMany(s =>
                     _context.Post
-                        .Where(p => p.UserProfileId == s.ProviderUserProfileId)
+                        .Where(p => p.UserProfileId == s.ProviderUserProfileId && p.IsApproved == true && p.PublishDateTime <= today)
                         .Include(p => p.Category)
                         .Include(p => p.UserProfile))
                         .OrderByDescending(p => p.PublishDateTime)
