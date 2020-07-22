@@ -108,6 +108,22 @@ const PostDetails = () => {
           </ListGroup>
         </>
       );
+    } else if (isAdmin) {
+      return (
+        <>
+        <ListGroup>
+          <i
+              className="fa fa-trash-o icon--comment"
+              aria-hidden="true"
+              style={{ cursor: "pointer" }}
+              onClick={() =>
+                window.confirm("Are you sure you wish to delete this post?") &&
+                deletePost(onePost.id).then(history.push("/posts"))
+              }
+            ></i>
+        </ListGroup>
+        </>
+      )
     }
   };
 
