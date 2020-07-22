@@ -1,7 +1,29 @@
 .postDetailsContainer {
-    width: 60%;
-    margin: 50px auto;
-    background: #cefced;
+    display: flex;
+    flex: 2;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+}
+
+.titleContainer {
+    margin-bottom: 25px;
+    margin-top: 100px;
+}
+
+.allReactionsContainer {
+    padding: 25px;
+    margin-bottom: 50px;
+}
+
+.postDetails--leftContainer {
+    padding: 50px;
+    width: 50%;
+}
+
+.postDetails--rightContainer {
+    padding: 50px;
+    width: 50%;
 }
 
 .imgContainer {
@@ -11,21 +33,28 @@
 }
 
 .img--postDetails {
-    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;  
+    height: auto;    
+    padding: 5px;
     object-fit: contain;
+    width: 100%;
 }
 
 .titleContainer {
     text-align: center;
+    padding: 5px;
 }
 
 .authorContainer {
     text-align: center;
     margin-bottom: 30px;
+    padding: 5px;
+
 }
 
 .contentContainer {
-    padding: 10px
+    padding: 20px
 }
 
 .author {
@@ -34,8 +63,8 @@
 
 .publishedDate {
     font-style: italic;
-    text-align: end;
-    padding: 10px
+    padding: 10px;
+    margin-left: 20px;
 }
 
 .btn--addPost {
@@ -75,8 +104,9 @@
 }
 
 .tagMngBtnContainer {
-    text-align: center;
-    width:100%
+    /* text-align: center; */
+    display: flex;
+    margin-left: 25px;
 }
 
 .reactionContainer{
