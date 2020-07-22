@@ -111,8 +111,8 @@ const PostDetails = () => {
     } else if (isAdmin) {
       return (
         <>
-        <ListGroup>
-          <i
+          <ListGroup>
+            <i
               className="fa fa-trash-o icon--comment"
               aria-hidden="true"
               style={{ cursor: "pointer" }}
@@ -121,7 +121,7 @@ const PostDetails = () => {
                 deletePost(onePost.id).then(history.push("/posts"))
               }
             ></i>
-        </ListGroup>
+          </ListGroup>
         </>
       )
     }
@@ -156,183 +156,235 @@ const PostDetails = () => {
 
   return (
     <>
-      <section className="postDetailsContainer">
-        <div className="imgContainer">
-          <img className="img--postDetails" src={imgURL} alt="" />
-        </div>
-        <div className="titleContainer">
+      <section className="titleContainer">
+        <div>
           <h1>{onePost.title}</h1>
         </div>
         <div className="authorContainer">
           Written by:{" "}
           <span className="author">{onePost.userProfile.displayName}</span>
         </div>
+      </section>
+      <section className="postDetailsContainer">
+
+        <section className="postDetails--rightContainer">
           <div><SubscribeButton post={onePost} /></div>
-        <div className="contentContainer">{onePost.content}</div>
-        <div className="publishedDate">Published: {formattedDate}</div>
-        {editAndDelete()}
-        <div className="tagMngBtnContainer">
-          {(isAdmin || userProfile.id === onePost.userProfile.id) && (
-            <Button
-              outline
-              color="info"
-              onClick={toggleTagModal}
-              style={{ marginBottom: "50px" }}
+          <div className="contentContainer">{onePost.content}</div>
+
+
+          <div className="allReactionsContainer">
+            <div className="reactionContainer">
+              {reactions.map((react) => (
+                <div
+                  className="reactionBubble"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (
+                      postReactionObject &&
+                      postReactionObject.reactionId === react.id
+                    ) {
+                      deletePostReaction(postReactionObject.id);
+                      refreshPRs();
+                    } else if (postReactionObject) {
+                      editPR({
+                        id: postReactionObject.id,
+                        postId: onePost.id,
+                        reactionId: react.id,
+                        userProfileId: userProfile.id,
+                      });
+                      refreshPRs();
+                    } else {
+                      addPostReaction({
+                        postId: onePost.id,
+                        reactionId: react.id,
+                        userProfileId: userProfile.id,
+                      });
+                      refreshPRs();
+                    }
+                    refreshPRs();
+                  }}
+                >
+                  {react.emoji.name}
+                </div>
+              ))}
+            </div>
+            <div
+              className="postReactionContainer"
+              onMouseEnter={() => setIsShown(true)}
+              onMouseLeave={() => setIsShown(false)}
             >
-              Tag Manager
-            </Button>
-          )}
-            <Button
-            outline
-            color="secondary"
-            onClick={toggleModal}
-            style={{ marginBottom: "50px" }}
-          >
-            Add Comment
-          </Button>
-        </div>
-      
-        <div className="tagContainer">
-          {onePost.postTagList.map((pT) => (
-            <div className="tagBox">{pT.tag.name}</div>
-          ))}
-        </div>
-        <div className="allReactionsContainer">
-          <div className="reactionContainer">
-            {reactions.map((react) => (
-              <div
-                className="reactionBubble"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (
-                    postReactionObject &&
-                    postReactionObject.reactionId === react.id
-                  ) {
-                    deletePostReaction(postReactionObject.id);
-                    refreshPRs();
-                  } else if (postReactionObject) {
-                    editPR({
-                      id: postReactionObject.id,
-                      postId: onePost.id,
-                      reactionId: react.id,
-                      userProfileId: userProfile.id,
-                    });
-                    refreshPRs();
-                  } else {
-                    addPostReaction({
-                      postId: onePost.id,
-                      reactionId: react.id,
-                      userProfileId: userProfile.id,
-                    });
-                    refreshPRs();
-                  }
-                  refreshPRs();
-                }}
+              {emojiCounter().map((subArray) => (
+                <Badge pill>
+                  {subArray[0]}
+                  {subArray[1]}
+                </Badge>
+              ))}
+            </div>
+            {isShown &&
+              postReactions.map((pr) => (
+                <div>
+                  <ListGroup className="hoverList">
+                    <ListGroupItem className="justify-content-between">
+                      {pr.reaction.emoji.name}'d by{" "}
+                      {pr.userProfileId === userProfile.id
+                        ? `You`
+                        : pr.userProfile.displayName}{" "}
+                    </ListGroupItem>
+                  </ListGroup>
+                </div>
+              ))}
+
+       
+
+
+
+
+          </div>
+          <div className="tagContainer">
+              {onePost.postTagList.map((pT) => (
+                <div className="tagBox">{pT.tag.name}</div>
+              ))}
+            </div>
+            <div className="tagMngBtnContainer">
+              {(isAdmin || userProfile.id === onePost.userProfile.id) && (
+                <Button
+                  outline
+                  color="info"
+                  onClick={toggleTagModal}
+                  style={{ marginBottom: "50px" }}
+                >
+                  Tag Manager
+                </Button>
+              )}
+              <Button
+                outline
+                color="secondary"
+                onClick={toggleModal}
+                style={{ marginBottom: "50px" }}
               >
-                {react.emoji.name}
-              </div>
-            ))}
-          </div>
-          <div
-            className="postReactionContainer"
-            onMouseEnter={() => setIsShown(true)}
-            onMouseLeave={() => setIsShown(false)}
-          >
-            {emojiCounter().map((subArray) => (
-              <Badge pill>
-                {subArray[0]}
-                {subArray[1]}
-              </Badge>
-            ))}
-          </div>
-          {isShown &&
-            postReactions.map((pr) => (
-              <div>
-                <ListGroup className="hoverList">
-                  <ListGroupItem className="justify-content-between">
-                    {pr.reaction.emoji.name}'d by{" "}
-                    {pr.userProfileId === userProfile.id
-                      ? `You`
-                      : pr.userProfile.displayName}{" "}
-                  </ListGroupItem>
-                </ListGroup>
-              </div>
-            ))}
-        </div>
-        <Card className="text-left">
-          <div className="mt-10">
-            <h3 className="postsHeader">Comments</h3>
-          </div>
-          <CardBody>
-            {sortedComments.length ? (
-              sortedComments.map((comment) => (
-                <Comment
-                  refreshPost={refreshPost}
-                  key={comment.id}
-                  comment={comment}
-                />
-              ))
-            ) : (
-              <div className="alert alert-secondary mt-1" role="alert">
-                {" "}
-                No comments were found.
-              </div>
-            )}
-            <br />
-          </CardBody>
-        </Card>
-        <Modal
-          isOpen={modal}
-          modalTransition={{ timeout: 700 }}
-          backdropTransition={{ timeout: 1300 }}
-          toggle={toggleModal}
-          contentClassName="custom-modal-style-product"
-        >
-          <ModalHeader toggle={toggleModal}>
-            Add a comment to "{onePost.title}"
-          </ModalHeader>
-          <ModalBody>
-            <CommentForm
-              refreshPost={refreshPost}
-              postId={id}
-              toggle={toggleModal}
-            />
-          </ModalBody>
-        </Modal>
-        <Modal
-          isOpen={postModal}
-          modalTransition={{ timeout: 700 }}
-          backdropTransition={{ timeout: 1300 }}
-          toggle={togglePostModal}
-          contentClassName="custom-modal-style-product"
-        >
-          <ModalHeader toggle={togglePostModal}>
-            Edit "{onePost.title}"
-          </ModalHeader>
-          <ModalBody>
-            <EditPostForm
-              refreshPost={refreshPost}
-              onePost={onePost}
-              toggle={togglePostModal}
-            />
-          </ModalBody>
-        </Modal>
-        <Modal
-          isOpen={tagModal}
-          modalTransition={{ timeout: 700 }}
-          backdropTransition={{ timeout: 1300 }}
-          toggle={toggleTagModal}
-          contentClassName="custom-modal-style-product"
-        >
-          <ModalHeader toggle={toggleTagModal}>Tag Manager</ModalHeader>
-          <ModalBody>
-            <TagManager
-              refreshPost={refreshPost}
-              onePost={onePost}
+                Add Comment
+          </Button>
+            </div>
+
+            <Modal
+              isOpen={tagModal}
+              modalTransition={{ timeout: 700 }}
+              backdropTransition={{ timeout: 1300 }}
               toggle={toggleTagModal}
-            />
-          </ModalBody>
-        </Modal>
+              contentClassName="custom-modal-style-product"
+            >
+              <ModalHeader toggle={toggleTagModal}>Tag Manager</ModalHeader>
+              <ModalBody>
+                <TagManager
+                  refreshPost={refreshPost}
+                  onePost={onePost}
+                  toggle={toggleTagModal}
+                />
+              </ModalBody>
+            </Modal>
+          <div className="publishedDate">Published: {formattedDate}
+          {editAndDelete()}
+          </div>
+
+
+         
+
+
+
+        </section>
+
+
+
+
+
+        <section className="postDetails--leftContainer">
+          <div className="imgContainer">
+            <img className="img--postDetails" src={imgURL} alt="" />
+          </div>
+
+
+
+          <Card className="text-left">
+            <div className="mt-10">
+              <h3 className="postsHeader">Comments</h3>
+            </div>
+            <CardBody>
+              {sortedComments.length ? (
+                sortedComments.map((comment) => (
+                  <Comment
+                    refreshPost={refreshPost}
+                    key={comment.id}
+                    comment={comment}
+                  />
+                ))
+              ) : (
+                  <div className="alert alert-secondary mt-1" role="alert">
+                    {" "}
+                No comments were found.
+                  </div>
+                )}
+              <br />
+            </CardBody>
+          </Card>
+          <Modal
+            isOpen={modal}
+            modalTransition={{ timeout: 700 }}
+            backdropTransition={{ timeout: 1300 }}
+            toggle={toggleModal}
+            contentClassName="custom-modal-style-product"
+          >
+            <ModalHeader toggle={toggleModal}>
+              Add a comment to "{onePost.title}"
+          </ModalHeader>
+            <ModalBody>
+              <CommentForm
+                refreshPost={refreshPost}
+                postId={id}
+                toggle={toggleModal}
+              />
+            </ModalBody>
+          </Modal>
+          <Modal
+            isOpen={postModal}
+            modalTransition={{ timeout: 700 }}
+            backdropTransition={{ timeout: 1300 }}
+            toggle={togglePostModal}
+            contentClassName="custom-modal-style-product"
+          >
+            <ModalHeader toggle={togglePostModal}>
+              Edit "{onePost.title}"
+          </ModalHeader>
+            <ModalBody>
+              <EditPostForm
+                refreshPost={refreshPost}
+                onePost={onePost}
+                toggle={togglePostModal}
+              />
+            </ModalBody>
+          </Modal>
+
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </section>
     </>
   );
