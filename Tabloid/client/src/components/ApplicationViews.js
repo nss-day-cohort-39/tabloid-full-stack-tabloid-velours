@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import LoginRegister from "./LoginRegister";
 import PostList from "./posts/PostList";
@@ -48,7 +48,7 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path="/userProfiles/:id" exact>
-          {isLoggedIn && isAdmin ? <UserProfileDetails /> : <Redirect to="/welcome" />}
+          {isLoggedIn ? <UserProfileDetails /> : <Redirect to="/welcome" />}
         </Route>
 
         <Route path="/welcome">

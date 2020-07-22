@@ -2,7 +2,7 @@
 
 .userProfileList {
     margin: 100px auto;
-    width: 80%;
+    width: 60%;
 }
 
 .userProfile  {
@@ -13,8 +13,9 @@
 
 .header--userList {
     display: flex;
-    flex:2;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 80%;
+    margin-left: 95px;
 }
 
 .user--info {
@@ -49,13 +50,21 @@
     border-radius: 4px;  
     height: auto;    
     padding: 5px;
-    width: 125px;
+    width: 150px;
+}
+
+.userList--image {
+    border: 1px solid #ddd;
+    border-radius: 4px;  
+    height: auto;    
+    padding: 5px;
+    width: 75px;
 }
 
 .userHeader--name {
     font-family: 'Marck Script', cursive;
     font-size: 60px;
-    padding-top: 8%;
+    padding-top: 40px;
 }
 
 .userProfileHeader {
@@ -67,4 +76,8 @@
 .userProfileDetails {
     margin: 100px auto;
     width: 80%;
+}
+
+#menuDropdown {
+    margin-top: 1px;
 }

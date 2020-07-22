@@ -11,6 +11,7 @@ import {
 import "./UserProfile.css";
 import { useHistory } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
+import { UploadImgContext } from "../../providers/UploadImgProvider"
 
 
 export const UserProfile = ({ userProfile }) => {
@@ -24,6 +25,7 @@ export const UserProfile = ({ userProfile }) => {
   const [deactivateModal, setDeactivateModal] = useState(false)
   const toggleDeactivate = () => setDeactivateModal(!deactivateModal)
   const currentUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const { getImgURL } = useContext(UploadImgContext)
   const numberAdmins = userProfiles.filter(up => up.userTypeId === 1 && up.isActivated === true).length
   console.log(numberAdmins)
   
@@ -87,6 +89,8 @@ export const UserProfile = ({ userProfile }) => {
     toggleDeactivate()
   }
 
+  const imgURL = getImgURL(userProfile.imageLocation)
+
   return (
     <>
       {(userProfile.isActivated) && (
@@ -94,6 +98,14 @@ export const UserProfile = ({ userProfile }) => {
 
           <ListGroupItem>
             <ListGroup horizontal className="userProfile">
+
+              <div>
+                  {userProfile.imageLocation ? (
+                    <img alt="" className="userList--image" src={imgURL}></img>
+                  ) : (
+                      <img alt="" src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png"></img>
+                    )}
+              </div>
               <div className="user--info">{userProfile.fullName}</div>
               <div className="user--info">{userProfile.displayName}</div>
               <div className="user--info">{userProfile.userType.name}</div>
