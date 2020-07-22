@@ -68,6 +68,11 @@ namespace Tabloid.Repositories
         public void Delete(int id)
         {
             var post = GetById(id);
+            foreach (var postReaction in _context.PostReaction
+               .Where(pr => pr.PostId == post.Id))
+            {
+                _context.PostReaction.Remove(postReaction);
+            }
             _context.Post.Remove(post);
             _context.SaveChanges();
         }

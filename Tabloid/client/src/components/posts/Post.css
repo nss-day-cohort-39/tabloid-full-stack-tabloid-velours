@@ -100,5 +100,10 @@
     transform: scale(1.3)
 }
 
+.hoverList{
+    width: 200px;
+    font-size: small;
+}
+
 
 
