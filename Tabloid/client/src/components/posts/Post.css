@@ -2,6 +2,7 @@
     width: 60%;
     margin: 50px auto;
     background: #cefced;
+;
 }
 
 .imgContainer {
@@ -17,15 +18,18 @@
 
 .titleContainer {
     text-align: center;
+    padding: 5px;
 }
 
 .authorContainer {
     text-align: center;
     margin-bottom: 30px;
+    padding: 5px;
+
 }
 
 .contentContainer {
-    padding: 10px
+    padding: 20px
 }
 
 .author {
@@ -75,8 +79,9 @@
 }
 
 .tagMngBtnContainer {
-    text-align: center;
-    width:100%
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
 }
 
 .reactionContainer{

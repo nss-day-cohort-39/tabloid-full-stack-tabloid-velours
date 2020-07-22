@@ -161,12 +161,21 @@ const PostDetails = () => {
               outline
               color="info"
               onClick={toggleTagModal}
-              style={{ marginBottom: "1rem", width: "100%" }}
+              style={{ marginBottom: "50px" }}
             >
               Tag Manager
             </Button>
           )}
+            <Button
+            outline
+            color="secondary"
+            onClick={toggleModal}
+            style={{ marginBottom: "50px" }}
+          >
+            Add Comment
+          </Button>
         </div>
+      
         <div className="tagContainer">
           {onePost.postTagList.map((pT) => (
             <div className="tagBox">{pT.tag.name}</div>
@@ -184,7 +193,6 @@ const PostDetails = () => {
                     postReactionObject.reactionId === react.id
                   ) {
                     deletePostReaction(postReactionObject.id);
-                    alert("Reaction Removed");
                     refreshPRs();
                   } else if (postReactionObject) {
                     editPR({
@@ -193,7 +201,6 @@ const PostDetails = () => {
                       reactionId: react.id,
                       userProfileId: userProfile.id,
                     });
-                    alert("Reaction Edited");
                     refreshPRs();
                   } else {
                     addPostReaction({
@@ -201,7 +208,6 @@ const PostDetails = () => {
                       reactionId: react.id,
                       userProfileId: userProfile.id,
                     });
-                    alert("Reaction Added");
                     refreshPRs();
                   }
                   refreshPRs();
@@ -238,14 +244,6 @@ const PostDetails = () => {
             ))}
         </div>
         <Card className="text-left">
-          <Button
-            outline
-            color="secondary"
-            onClick={toggleModal}
-            style={{ marginBottom: "50px" }}
-          >
-            Add Comment
-          </Button>
           <div className="mt-10">
             <h3 className="postsHeader">Comments</h3>
           </div>
