@@ -1,4 +1,4 @@
-
+﻿
 set identity_insert [UserType] on
 insert into [UserType] ([ID], [Name]) VALUES (1, 'Admin'), (2, 'Author');
 set identity_insert [UserType] off
@@ -334,3 +334,45 @@ insert into Comment (Id, PostId, UserProfileId, Subject, Content, CreateDateTime
 insert into Comment (Id, PostId, UserProfileId, Subject, Content, CreateDateTime) values (31, 22, 8, 'Donec ut dolor.', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', '2020-06-29');
 insert into Comment (Id, PostId, UserProfileId, Subject, Content, CreateDateTime) values (32, 7, 10, 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam.', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', '2020-06-15');
 set identity_insert [Comment] off
+
+UPDATE Post
+SET ImageLocation = 'Hack.jpg'
+
+SET IDENTITY_INSERT [dbo].[Emoji] ON
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (1, N'👍🏽')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (2, N'👎🏽')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (3, N'❤')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (4, N'🔥')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (5, N'🙌🏽')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (6, N'👏🏽')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (7, N'💅🏽')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (8, N'💩')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (9, N'🙄')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (10, N'😢')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (11, N'😱')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (12, N'😉')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (13, N'😍')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (14, N'😜')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (15, N'🤬')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (16, N'🤮')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (17, N'😎')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (18, N'😊')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (19, N'🤣')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (20, N'😘')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (21, N'😁')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (22, N'😒')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (23, N'🌈')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (24, N'🏳‍🌈')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (25, N'💤')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (26, N'🍕')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (27, N'🍆')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (28, N'🍑')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (29, N'🥑')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (30, N'🍉')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (31, N'🦄')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (32, N'🚽')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (33, N'🙅🏽‍♀️')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (34, N'👌')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (35, N'💡')
+INSERT INTO [dbo].[Emoji] ([Id], [Name]) VALUES (36, N'??')
+SET IDENTITY_INSERT [dbo].[Emoji] OFF

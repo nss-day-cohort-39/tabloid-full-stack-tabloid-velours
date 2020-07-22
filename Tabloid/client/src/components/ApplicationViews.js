@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import LoginRegister from "./LoginRegister";
 import PostList from "./posts/PostList";
@@ -15,6 +15,7 @@ import { UserProfileList } from "./userProfiles/UserProfileList";
 import {UserProfileDetails} from "./userProfiles/UserProfileDetails";
 import { DeactivatedList } from "./userProfiles/DeactivatedList";
 import { ReactionList} from "./reactions/ReactionList"
+import SubscriptionList from "./subscriptions/SubscriptionList";
 
 
 export default function ApplicationViews() {
@@ -25,7 +26,7 @@ export default function ApplicationViews() {
     <main>
       <Switch>
         <Route path="/" exact>
-          {isLoggedIn ? <Hello /> : <Redirect to="/welcome" />}
+          {isLoggedIn ? <SubscriptionList /> : <Redirect to="/welcome" />}
         </Route>
         <Route path="/tags">
           {isLoggedIn ?  <TagList /> : <Redirect to="/welcome" />}
@@ -48,7 +49,7 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path="/userProfiles/:id" exact>
-          {isLoggedIn && isAdmin ? <UserProfileDetails /> : <Redirect to="/welcome" />}
+          {isLoggedIn ? <UserProfileDetails /> : <Redirect to="/welcome" />}
         </Route>
 
         <Route path="/welcome">

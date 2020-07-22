@@ -7,15 +7,19 @@ import UsersTitle from "../../images/TabloidUsers.png"
 import { useHistory } from "react-router-dom";
 
 
+
 export const UserProfileList = () => {
   const { userProfiles, getUserProfiles } = useContext(UserProfileContext);
   const history = useHistory();
   const handleLink = () => {history.push(`/userProfiles/list/deactivated`);};
 
+
   useEffect(() => {
     getUserProfiles();
     // eslint-disable-next-line
   }, []);
+
+
 
   return (
     <>
@@ -24,10 +28,10 @@ export const UserProfileList = () => {
         </div>
       <section className="userProfileList">
         <ListGroup horizontal className="header--userList">
-          <h5 className="user-info">Full Name</h5>
-          <h5 className="user-info">Display Name</h5>
-          <h5 className="user-info">User Type</h5>
-          <h5 className="user-info">Actions</h5>
+          <h5 className="header--userInfo">Full Name</h5>
+          <h5 className="header--userInfo">Display Name</h5>
+          <h5 className="header--userInfo">User Type</h5>
+          <h5 className="header--userInfo">Actions</h5>
         </ListGroup>
         <ListGroup>
           {userProfiles.map((up) => (
