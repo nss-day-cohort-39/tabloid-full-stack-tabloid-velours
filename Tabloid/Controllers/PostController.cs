@@ -34,7 +34,6 @@ namespace Tabloid.Controllers
         {
             var post = _postRepository.GetById(id);
             var currentUser = GetCurrentUserProfile();
-            post.UserProfileId = currentUser.Id;
 
             if (post.UserProfileId == currentUser.Id)
             {

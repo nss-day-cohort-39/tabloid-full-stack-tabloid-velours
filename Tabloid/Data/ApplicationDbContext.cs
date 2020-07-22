@@ -14,6 +14,8 @@ namespace Tabloid.Data
         public DbSet<Tag> Tag { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<PostTag> PostTag { get; set; }
+
+        public DbSet<Subscription> Subscription { get; set; }
         public DbSet<PostReaction> PostReaction { get; set; }
         public DbSet<Emoji> Emoji { get; set; }
         public DbSet<Reaction> Reaction { get; set; }

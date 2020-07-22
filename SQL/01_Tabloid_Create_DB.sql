@@ -36,6 +36,7 @@ CREATE TABLE [UserProfile] (
   [CreateDateTime] datetime NOT NULL,
   [ImageLocation] nvarchar(255),
   [UserTypeId] integer NOT NULL,
+  [IsActivated] bit DEFAULT 1 NOT NULL,
 
   CONSTRAINT [FK_User_UserType] FOREIGN KEY ([UserTypeId]) REFERENCES [UserType] ([Id]),
   CONSTRAINT UQ_FirebaseUserId UNIQUE(FirebaseUserId)
@@ -57,7 +58,8 @@ CREATE TABLE [Subscription] (
 
 CREATE TABLE [Category] (
   [Id] integer PRIMARY KEY IDENTITY,
-  [Name] nvarchar(50) NOT NULL
+  [Name] nvarchar(50) NOT NULL,
+  [IsDeleted] bit default 0 NOT NULL,
 )
 
 CREATE TABLE [Post] (
@@ -103,8 +105,8 @@ CREATE TABLE [PostTag] (
 
 CREATE TABLE [Reaction] (
   [Id] integer PRIMARY KEY IDENTITY,
-  [Name] nvarchar(50) NOT NULL,
-  [ImageLocation] nvarchar(255) NOT NULL
+  [EmojiId] integer NOT NULL,
+  CONSTRAINT [FK_Reaction_Emoji] FOREIGN KEY ([EmojiId]) REFERENCES [dbo].[Emoji] ([Id])
 )
 
 CREATE TABLE [PostReaction] (
@@ -117,4 +119,11 @@ CREATE TABLE [PostReaction] (
   CONSTRAINT [FK_PostReaction_Reaction] FOREIGN KEY ([ReactionId]) REFERENCES [Reaction] ([Id]),
   CONSTRAINT [FK_PostReaction_UserProfile] FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
 )
+
+CREATE TABLE [dbo].[Emoji] (
+    [Id]   INT           IDENTITY (1, 1) NOT NULL,
+    [Name] NVARCHAR (50) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+)
+
 GO

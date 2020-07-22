@@ -15,6 +15,7 @@ import { UserProfileList } from "./userProfiles/UserProfileList";
 import {UserProfileDetails} from "./userProfiles/UserProfileDetails";
 import { DeactivatedList } from "./userProfiles/DeactivatedList";
 import { ReactionList} from "./reactions/ReactionList"
+import SubscriptionList from "./subscriptions/SubscriptionList";
 
 
 export default function ApplicationViews() {
@@ -25,7 +26,7 @@ export default function ApplicationViews() {
     <main>
       <Switch>
         <Route path="/" exact>
-          {isLoggedIn ? <Hello /> : <Redirect to="/welcome" />}
+          {isLoggedIn ? <SubscriptionList /> : <Redirect to="/welcome" />}
         </Route>
         <Route path="/tags">
           {isLoggedIn ?  <TagList /> : <Redirect to="/welcome" />}

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ListGroup, Button, Modal,ModalHeader, ModalBody } from "reactstrap";
-import TagsTitle from "../../images/TabloidTags.png"
+import TagsTitle from "../../images/TabloidReactions.png"
 import AddReactionForm from "./AddReactionForm"
 import Reaction from "./Reaction"
 import { ReactionContext } from "../../providers/ReactionProvider";
