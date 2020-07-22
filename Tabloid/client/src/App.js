@@ -8,8 +8,9 @@ import { PostProvider } from "./providers/PostProvider";
 import { TagProvider } from "./providers/TagProvider";
 import { CommentProvider } from "./providers/CommentProvider";
 import { PostTagProvider } from "./providers/PostTagProvider";
-import {ReactionProvider} from "./providers/ReactionProvider";
+import { ReactionProvider } from "./providers/ReactionProvider";
 import { UploadImgProvider } from "./providers/UploadImgProvider";
+import { SubscriptionProvider } from "./providers/SubscriptionProvider";
 import { PostReactionProvider } from "./providers/PostReactionProvider";
 
 function App() {
@@ -17,24 +18,24 @@ function App() {
     <Router>
       <UserProfileProvider>
         <UploadImgProvider>
-
-        <PostProvider>
-          <CommentProvider>
-            <CategoryProvider>
-              <PostTagProvider>
-                <TagProvider>
-                  <ReactionProvider>
-                  <PostReactionProvider>
-                  <Header />
-                  <ApplicationViews />
-                  </PostReactionProvider>
-                  </ReactionProvider>
-                </TagProvider>
-              </PostTagProvider>
-            </CategoryProvider>
-          </CommentProvider>
-        </PostProvider>
-
+          <PostProvider>
+            <CommentProvider>
+              <CategoryProvider>
+                <PostTagProvider>
+                  <TagProvider>
+                    <ReactionProvider>
+                      <PostReactionProvider>
+                        <SubscriptionProvider>
+                          <Header />
+                          <ApplicationViews />
+                        </SubscriptionProvider>
+                      </PostReactionProvider>
+                    </ReactionProvider>
+                  </TagProvider>
+                </PostTagProvider>
+              </CategoryProvider>
+            </CommentProvider>
+          </PostProvider>
         </UploadImgProvider>
       </UserProfileProvider>
     </Router>

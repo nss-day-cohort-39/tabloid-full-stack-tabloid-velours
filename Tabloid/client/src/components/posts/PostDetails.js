@@ -18,6 +18,7 @@ import { Comment } from "../comments/Comment";
 import EditPostForm from "./EditPostForm";
 import TagManager from "../tag/TagManager";
 import { UploadImgContext } from "../../providers/UploadImgProvider";
+import SubscribeButton from "../subscriptions/SubscribeButton";
 import { ReactionContext } from "../../providers/ReactionProvider";
 import { PostReactionContext } from "../../providers/PostReactionProvider";
 
@@ -25,6 +26,7 @@ const PostDetails = () => {
   const { getPostById, deletePost } = useContext(PostContext);
   const { getImgURL } = useContext(UploadImgContext);
   const [onePost, setOnePost] = useState();
+  const [img, setImg] = useState();
   const { id } = useParams();
   const [modal, setModal] = useState(false);
   const [postModal, setPostModal] = useState(false);
@@ -142,6 +144,7 @@ const PostDetails = () => {
           Written by:{" "}
           <span className="author">{onePost.userProfile.displayName}</span>
         </div>
+          <div><SubscribeButton post={onePost} /></div>
         <div className="contentContainer">{onePost.content}</div>
         <div className="publishedDate">Published: {formattedDate}</div>
         {editAndDelete()}
